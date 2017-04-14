@@ -1,0 +1,17 @@
+
+
+div.section{
+font-weight:bold;
+font-size:15px;
+padding: 10px 0;
+margin-right:20px;
+width:320px;
+float:left;
+}
+
+div.section div.element{
+font-style_:italic;
+padding: 7px 0;
+font-weight:normal;
+font-size:12px;
+}

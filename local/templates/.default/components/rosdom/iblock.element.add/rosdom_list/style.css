@@ -1,0 +1,15 @@
+.data-table{
+width:100%; 
+border_: 1px dotted;
+background-color:#F7F7F7;
+}
+
+.data-table td{
+width_:30%; 
+border: 1px dotted;
+padding:5px;
+}
+
+.data-table thead{
+font-weight:bold;
+}

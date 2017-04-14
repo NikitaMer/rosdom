@@ -1,0 +1,27 @@
+a.Authlink, span.Authlink
+{
+	font-family:Tahoma;
+	font-size:12px;
+	color:#1A7CA3;
+	text-decoration:underline;
+}
+a:hover.Authlink
+{
+	font-family:Tahoma;
+	font-size:12px;
+	color:#1A7CA3;
+	text-decoration:none;
+}
+.plantext
+{
+	font-family:Tahoma;
+	font-size:12px;
+	color:#454646;
+	text-decoration:none;
+}
+
+.starrequired
+{
+color:red;
+font-weight:bold;
+}

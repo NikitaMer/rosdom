@@ -1,0 +1,559 @@
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("Фирмы и компании");
+?>
+<?
+if (!empty($_GET['SECTION_NAME'])){
+
+$db_list = CIBlockSection::GetList(Array("NAME"=>"ASC"), Array("IBLOCK_ID"=>10, "CODE" => $_GET['SECTION_NAME']), false, Array("UF_METATITLE"));
+if($ar_result = $db_list->GetNext())  {
+	if (!empty($ar_result["UF_METATITLE"])) $APPLICATION->SetPageProperty("title", $ar_result["UF_METATITLE"]); 
+	
+	
+}
+}
+?>
+
+<h1><?$APPLICATION->ShowTitle(false);?></h1>
+<section class="last-posts w-tabs equipments-tabs"> 
+  <div id="section-tabs" class="b-tabs"> <nav> 
+      <ul> 
+		<li id="tabs-about"<?if (!isset($_REQUEST['SECTION_NAME'])):?> style="display: none;"<?elseif($_COOKIE['sections-tabs'] == 'tabs-about' || empty($_COOKIE['sections-tabs'])):?> class="active"<?endif;?>><a href="#" >О разделе</a></li>
+        <li style="display: none;" id="tabs-companies"<?if(($_COOKIE['sections-tabs'] == 'tabs-companies') or (!isset($_REQUEST['SECTION_NAME']))):?> class="active"<?endif;?>><a href="#" >Компании</a></li>
+       
+        <li style="display: none;" id="tabs-articles"<?if(($_COOKIE['sections-tabs'] == 'tabs-articles') and (isset($_REQUEST['SECTION_NAME']))):?> class="active"<?endif;?>><a href="#" >Статьи</a></li>
+       
+        <li style="display: none;" id="tabs-photo"<?if(($_COOKIE['sections-tabs'] == 'tabs-photo') and (isset($_REQUEST['SECTION_NAME']))):?> class="active"<?endif;?>><a href="#" >Фото</a></li>
+       
+        <li style="display: none;" id="tabs-video"<?if(($_COOKIE['sections-tabs'] == 'tabs-video') and (isset($_REQUEST['SECTION_NAME']))):?> class="active"<?endif;?>><a href="#" >Видео</a></li>
+       </ul>
+     </nav> </div>
+ 
+  <div class="b-descriptions"> 
+	<div id="tabs-about-container" class="secdes description<?if(($_COOKIE['sections-tabs'] == 'tabs-about' || empty($_COOKIE['sections-tabs'])) AND (isset($_REQUEST['SECTION_NAME']))):?> visible<?endif;?>"> 
+		<div id="about-section-description">
+				
+        </div>
+	</div>
+    <div class="secdes description<?if(($_COOKIE['sections-tabs'] == 'tabs-companies') OR (!isset($_REQUEST['SECTION_NAME']))):?> visible<?endif;?>"> 
+	<form action="#" class="form-choise-city"> 
+	<!--label for="">Выберете город:</label> 
+	<select id="select-choice-city"> <option>Москва</option> <option>Санкт-Петербург</option> </select--> 
+	
+	<?
+	if ((isset($_COOKIE['selected-city'])) and ($_COOKIE['selected-city'] != 0)){
+		global $companiesFilter;
+		
+		/*$companiesFilter = Array("PROPERTY_CITY"=>$_COOKIE['selected-city']);*/
+		$companiesFilter["PROPERTY_CITY"] = $_COOKIE['selected-city'];
+		
+		//$companiesFilter = array("PROPERTIES" => array("CITY" => Array("ID"=>$_COOKIE['selected-city'])));
+		
+	};
+	$letters = Array ( 
+	Array ("letter" => "A", "lang" => "en"),
+	Array ("letter" => "B", "lang" => "en"),
+	Array ("letter" => "C", "lang" => "en"),
+	Array ("letter" => "D", "lang" => "en"),
+	Array ("letter" => "E", "lang" => "en"),
+	Array ("letter" => "F", "lang" => "en"),
+	Array ("letter" => "G", "lang" => "en"),
+	Array ("letter" => "H", "lang" => "en"),
+	Array ("letter" => "I", "lang" => "en"),
+	Array ("letter" => "J", "lang" => "en"),
+	Array ("letter" => "K", "lang" => "en"),
+	Array ("letter" => "L", "lang" => "en"),
+	Array ("letter" => "M", "lang" => "en"),
+	Array ("letter" => "N", "lang" => "en"),
+	Array ("letter" => "O", "lang" => "en"),
+	Array ("letter" => "P", "lang" => "en"),
+	Array ("letter" => "Q", "lang" => "en"),
+	Array ("letter" => "R", "lang" => "en"),
+	Array ("letter" => "S", "lang" => "en"),
+	Array ("letter" => "T", "lang" => "en"),
+	Array ("letter" => "U", "lang" => "en"),
+	Array ("letter" => "V", "lang" => "en"),
+	Array ("letter" => "W", "lang" => "en"),
+	Array ("letter" => "X", "lang" => "en"),
+	Array ("letter" => "Y", "lang" => "en"),
+	Array ("letter" => "Z", "lang" => "en"),
+	Array ("letter" => "А", "lang" => "ru"),
+	Array ("letter" => "Б", "lang" => "ru"),
+	Array ("letter" => "В", "lang" => "ru"),
+	Array ("letter" => "Г", "lang" => "ru"),
+	Array ("letter" => "Д", "lang" => "ru"),
+	Array ("letter" => "Е", "lang" => "ru"),
+	Array ("letter" => "Ж", "lang" => "ru"),
+	Array ("letter" => "З", "lang" => "ru"),
+	Array ("letter" => "И", "lang" => "ru"),
+	Array ("letter" => "К", "lang" => "ru"),
+	Array ("letter" => "Л", "lang" => "ru"),
+	Array ("letter" => "М", "lang" => "ru"),
+	Array ("letter" => "Н", "lang" => "ru"),
+	Array ("letter" => "О", "lang" => "ru"),
+	Array ("letter" => "П", "lang" => "ru"),
+	Array ("letter" => "Р", "lang" => "ru"),
+	Array ("letter" => "С", "lang" => "ru"),
+	Array ("letter" => "Т", "lang" => "ru"),
+	Array ("letter" => "У", "lang" => "ru"),
+	Array ("letter" => "Ф", "lang" => "ru"),
+	Array ("letter" => "Х", "lang" => "ru"),
+	Array ("letter" => "Ц", "lang" => "ru"),
+	Array ("letter" => "Ч", "lang" => "ru"),
+	Array ("letter" => "Ш", "lang" => "ru"),
+	Array ("letter" => "Щ", "lang" => "ru"),
+	Array ("letter" => "Э", "lang" => "ru"),
+	Array ("letter" => "Ю", "lang" => "ru"),
+	Array ("letter" => "Я", "lang" => "ru"),
+	Array ("letter" => "1", "lang" => "num"),
+	Array ("letter" => "2", "lang" => "num"),
+	Array ("letter" => "3", "lang" => "num"),
+	Array ("letter" => "4", "lang" => "num"),
+	Array ("letter" => "5", "lang" => "num"),
+	Array ("letter" => "6", "lang" => "num"),
+	Array ("letter" => "7", "lang" => "num"),
+	Array ("letter" => "8", "lang" => "num"),
+	Array ("letter" => "9", "lang" => "num"),
+	Array ("letter" => "0", "lang" => "num")
+	);
+	//echo $_REQUEST['letter'].'<br>';
+	if (isset($_REQUEST['letter'])) $selected_letter = $_REQUEST['letter'];
+		else $selected_letter = -1;
+	//echo 'letter - '.$selected_letter;
+	if (!isset($_REQUEST['SECTION_NAME'])) {
+	
+		foreach ($letters as $key=>$val){
+			$arFilter = Array(
+			   "IBLOCK_ID"=>10, 
+			   "NAME"=>$val['letter'].'%'
+			   );
+			if ((isset($_COOKIE['selected-city'])) and ($_COOKIE['selected-city'] != 0)) $arFilter["PROPERTY_CITY"] = $_COOKIE['selected-city'];
+			$res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter);
+			//echo $val['letter'].' ';
+			if($res->GetNext()) $letters[$key]['elements'] = true;
+				else $letters[$key]['elements'] = false;
+			//echo '<br>';
+			
+		};
+		
+		echo '<br />';
+		foreach ($letters as $key=>$val){
+		if ($val['lang'] == 'ru') 
+			if (!$val['elements']) echo '<font style="color: #ddd;">'.$val['letter'].'</font> ';
+			elseif ($selected_letter != $key) echo '<a href="/firms/?letter='.$key.'">'.$val['letter'].'</a> ';
+				else echo '<b>'.$val['letter'].'</b> ';
+		};	
+		echo '<br />';
+		foreach ($letters as $key=>$val){
+		if ($val['lang'] == 'en') 
+			if (!$val['elements']) echo '<font style="color: #ddd;">'.$val['letter'].'</font> ';
+			elseif ($selected_letter != $key) echo '<a href="/firms/?letter='.$key.'">'.$val['letter'].'</a> ';
+				else echo '<b>'.$val['letter'].'</b> ';
+		};
+		echo '<br />';
+		foreach ($letters as $key=>$val){
+		if ($val['lang'] == 'num') 
+			if (!$val['elements']) echo '<font style="color: #ddd;">'.$val['letter'].'</font> ';
+			elseif ($selected_letter != $key) echo '<a href="/firms/?letter='.$key.'">'.$val['letter'].'</a> ';
+				else echo '<b>'.$val['letter'].'</b> ';
+		};
+	
+	};
+	$sort['field'] = 'name';
+	$sort['order'] = 'asc';
+	$displaypager = 'Y';
+	$notmain = true;
+	$firmsPerPage = 30;
+	if ((isset($_REQUEST['letter'])) AND (!isset($_REQUEST['SECTION_NAME']))){
+	$firmsPerPage = 9999;
+	$companiesFilter['NAME']=($letters[$_REQUEST['letter']]['letter']).'%';
+	}
+		elseif (!isset($_REQUEST['SECTION_NAME'])){
+			$firmsPerPage = 30;
+			$sort['field'] = 'ACTIVE_FROM';
+			$sort['order'] = 'DESC';
+			$displaypager = 'N';
+			$notmain = false;
+		}
+	
+		
+	?>
+				<?$APPLICATION->IncludeComponent("bitrix:catalog.section", "companies_tab", array(
+	"IBLOCK_TYPE" => "firms",
+	"IBLOCK_ID" => "10",
+	"SECTION_ID" => $_REQUEST["SECTION_ID"],
+	"SECTION_CODE" => $_REQUEST["SECTION_NAME"],
+	"SECTION_USER_FIELDS" => array(
+		0 => "",
+		1 => "",
+	),
+	"ELEMENT_SORT_FIELD" => $sort['field'],
+	"ELEMENT_SORT_ORDER" => $sort['order'],
+	"FILTER_NAME" => "companiesFilter",
+	"INCLUDE_SUBSECTIONS" => "N",
+	"SHOW_ALL_WO_SECTION" => "Y",
+	"PAGE_ELEMENT_COUNT" => $firmsPerPage,
+	"LINE_ELEMENT_COUNT" => "3",
+	"PROPERTY_CODE" => array(
+		0 => "PHONE",
+		1 => "",
+	),
+	"SECTION_URL" => "",
+	"DETAIL_URL" => "/firms/firm#ID#/",
+	"BASKET_URL" => "/personal/basket.php",
+	"ACTION_VARIABLE" => "action",
+	"PRODUCT_ID_VARIABLE" => "id",
+	"PRODUCT_QUANTITY_VARIABLE" => "quantity",
+	"PRODUCT_PROPS_VARIABLE" => "prop",
+	"SECTION_ID_VARIABLE" => "SECTION_ID",
+	"AJAX_MODE" => "Y",
+	"AJAX_OPTION_SHADOW" => "Y",
+	"AJAX_OPTION_JUMP" => "N",
+	"AJAX_OPTION_STYLE" => "Y",
+	"AJAX_OPTION_HISTORY" => "N",
+	"CACHE_TYPE" => "A",
+	"CACHE_TIME" => "36000000",
+	"CACHE_GROUPS" => "Y",
+	"META_KEYWORDS" => "-",
+	"META_DESCRIPTION" => "-",
+	"BROWSER_TITLE" => "-",
+	"ADD_SECTIONS_CHAIN" => "Y",
+	"DISPLAY_COMPARE" => "N",
+	"SET_TITLE" => "Y",
+	"SET_STATUS_404" => "N",
+	"CACHE_FILTER" => "N",
+	"PRICE_CODE" => array(
+	),
+	"USE_PRICE_COUNT" => "N",
+	"SHOW_PRICE_COUNT" => "1",
+	"PRICE_VAT_INCLUDE" => "Y",
+	"PRODUCT_PROPERTIES" => array(
+	),
+	"USE_PRODUCT_QUANTITY" => "N",
+	"DISPLAY_TOP_PAGER" => "N",
+	"DISPLAY_BOTTOM_PAGER" => $displaypager,
+	"PAGER_TITLE" => "Компании",
+	"PAGER_SHOW_ALWAYS" => "N",
+	"PAGER_TEMPLATE" => "orange",
+	"PAGER_DESC_NUMBERING" => "N",
+	"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+	"PAGER_SHOW_ALL" => "N",
+	"AJAX_OPTION_ADDITIONAL" => ""
+	),
+	false
+);?> 
+
+
+      <?if($notmain):?><div class="b-photogalery"> <a href="/firms/" >Перейти в общий раздел</a> &gt; </div><?endif;?>
+     </div>
+   
+    <div class="secdes description<?if(($_COOKIE['sections-tabs'] == 'tabs-articles') AND (isset($_REQUEST['SECTION_NAME']))):?> visible<?endif;?>"> <?
+global $ArticleFilter;
+$ArticleFilter = array("PROPERTY_SECTION"=>"$current_firms_section");?>  <?$APPLICATION->IncludeComponent("bitrix:news.list", "articles_section", array(
+	"IBLOCK_TYPE" => "articles",
+	"IBLOCK_ID" => "9",
+	"NEWS_COUNT" => "20",
+	"SORT_BY1" => "ACTIVE_FROM",
+	"SORT_ORDER1" => "DESC",
+	"SORT_BY2" => "SORT",
+	"SORT_ORDER2" => "ASC",
+	"FILTER_NAME" => "ArticleFilter",
+	"FIELD_CODE" => array(
+		0 => "",
+		1 => "",
+	),
+	"PROPERTY_CODE" => array(
+		0 => "",
+		1 => "",
+	),
+	"CHECK_DATES" => "Y",
+	"DETAIL_URL" => "",
+	"AJAX_MODE" => "N",
+	"AJAX_OPTION_SHADOW" => "Y",
+	"AJAX_OPTION_JUMP" => "N",
+	"AJAX_OPTION_STYLE" => "Y",
+	"AJAX_OPTION_HISTORY" => "N",
+	"CACHE_TYPE" => "A",
+	"CACHE_TIME" => "36000000",
+	"CACHE_FILTER" => "N",
+	"CACHE_GROUPS" => "Y",
+	"PREVIEW_TRUNCATE_LEN" => "",
+	"ACTIVE_DATE_FORMAT" => "d.m.Y",
+	"SET_TITLE" => "N",
+	"SET_STATUS_404" => "N",
+	"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+	"ADD_SECTIONS_CHAIN" => "N",
+	"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+	"PARENT_SECTION" => "",
+	"PARENT_SECTION_CODE" => "",
+	"DISPLAY_TOP_PAGER" => "N",
+	"DISPLAY_BOTTOM_PAGER" => "Y",
+	"PAGER_TITLE" => "Новости",
+	"PAGER_SHOW_ALWAYS" => "N",
+	"PAGER_TEMPLATE" => "",
+	"PAGER_DESC_NUMBERING" => "N",
+	"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+	"PAGER_SHOW_ALL" => "N",
+	"DISPLAY_DATE" => "Y",
+	"DISPLAY_NAME" => "Y",
+	"DISPLAY_PICTURE" => "Y",
+	"DISPLAY_PREVIEW_TEXT" => "Y",
+	"AJAX_OPTION_ADDITIONAL" => ""
+	),
+	false
+);?> </div>
+   
+    <div class="secdes description<?if(($_COOKIE['sections-tabs'] == 'tabs-photo') AND (isset($_REQUEST['SECTION_NAME']))):?> visible<?endif;?>">  <?
+
+$sql_section = CIBlockSection::GetList(Array(), Array('IBLOCK_ID'=>'11', "UF_PHOTO_SECTION"=>"$current_firms_section;"), false, Array('UF_PHOTO_SECTION')); 
+global $photoFilter;
+
+while ($result_section = $sql_section->GetNext()) 
+{ 
+
+   $tmpFilter[] = $result_section["ID"];
+   
+}
+
+if (count($tmpFilter) > 1) $photoFilter['SECTION_ID'] = $tmpFilter;
+	elseif (count($tmpFilter) == 1) $photoFilter['SECTION_ID'] = $tmpFilter[0];
+		else $photoFilter['SECTION_ID'] = 0;
+/*echo '<pre>';
+print_r($photoFilter);
+echo '</pre>';*/
+?>
+<?
+if (count($tmpFilter) > 0) {
+?>
+<script>
+$(function (){
+	$('#tabs-photo').show();
+});
+</script>
+<?
+};
+
+if (($_COOKIE['sections-tabs'] == 'tabs-photo') AND (count($tmpFilter) == 0)) {
+?>
+<script>
+	$('.secdes').removeClass('visible');
+	$('#tabs-about').addClass('active');
+	$('#tabs-about-container').addClass('visible');
+</script>
+<?
+};
+?>
+
+<div class="w-figure">
+<?
+
+foreach ($photoFilter["SECTION_ID"] as $sid){
+	//echo $sid;
+	$db_list = CIBlockSection::GetList(Array("NAME"=>"ASC"), Array("IBLOCK_ID"=>"11", "ID"=>$sid));
+		unset($arResult["ITEMS"]);
+		while($ar_result = $db_list->GetNext())
+		  {
+			$arResult["ITEMS"][] = $ar_result;
+					
+		  };?>
+	<?foreach($arResult["ITEMS"] as $arItem):?>
+	 <figure>
+		<?/*echo '<pre>'; print_r($arItem); echo '</pre>';*/?>
+		<?if(!empty($arItem["PICTURE"])):?>
+			   <?
+			   $rsFile = CFile::GetByID($arItem["PICTURE"]);
+			   $arFile = $rsFile->Fetch();
+			   ?>
+			   <a href="/photo/<?=$arItem["ID"]?>/"><img class="preview_picture" border="0" src="/upload/<?echo $arFile["SUBDIR"];?>/<?echo $arFile["FILE_NAME"]?>"  alt="<?=$arItem["NAME"]?>" title="<?=$arItem["NAME"]?>" style="float:left" /></a>
+			   
+		<?endif;?>
+		
+		<figcaption><!--a href="<?echo $arItem["DETAIL_PAGE_URL"]?>"--><?echo $arItem["NAME"]?><!--/a--></figcaption>
+	
+	 </figure>
+	<?endforeach;?><?
+}
+
+?>
+</div>
+<?
+
+?><?/*$APPLICATION->IncludeComponent("bitrix:news.list", "photo_companies", Array(
+	"IBLOCK_TYPE" => "photos",	// Тип информационного блока (используется только для проверки)
+	"IBLOCK_ID" => "11",	// Код информационного блока
+	"NEWS_COUNT" => "8",	// Количество новостей на странице
+	"SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+	"SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+	"SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+	"SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+	"FILTER_NAME" => "photoFilter",	// Фильтр
+	"FIELD_CODE" => array(	// Поля
+		0 => "DETAIL_PICTURE",
+		1 => "",
+	),
+	"PROPERTY_CODE" => array(	// Свойства
+		0 => "",
+		1 => "",
+	),
+	"CHECK_DATES" => "Y",	// Показывать только активные на данный момент элементы
+	"DETAIL_URL" => "/photo/detail.php?SECTION_ID=#SECTION_ID#&ELEMENT_ID=#ID#",	// URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+	"AJAX_MODE" => "Y",	// Включить режим AJAX
+	"AJAX_OPTION_SHADOW" => "N",	// Включить затенение
+	"AJAX_OPTION_JUMP" => "N",	// Включить прокрутку к началу компонента
+	"AJAX_OPTION_STYLE" => "Y",	// Включить подгрузку стилей
+	"AJAX_OPTION_HISTORY" => "N",	// Включить эмуляцию навигации браузера
+	"CACHE_TYPE" => "A",	// Тип кеширования
+	"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+	"CACHE_FILTER" => "N",	// Кешировать при установленном фильтре
+	"CACHE_GROUPS" => "Y",	// Учитывать права доступа
+	"PREVIEW_TRUNCATE_LEN" => "",	// Максимальная длина анонса для вывода (только для типа текст)
+	"ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+	"SET_TITLE" => "N",	// Устанавливать заголовок страницы
+	"SET_STATUS_404" => "N",	// Устанавливать статус 404, если не найдены элемент или раздел
+	"INCLUDE_IBLOCK_INTO_CHAIN" => "N",	// Включать инфоблок в цепочку навигации
+	"ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+	"HIDE_LINK_WHEN_NO_DETAIL" => "N",	// Скрывать ссылку, если нет детального описания
+	"PARENT_SECTION" => "",	// ID раздела
+	"PARENT_SECTION_CODE" => "",	// Код раздела
+	"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
+	"DISPLAY_BOTTOM_PAGER" => "Y",	// Выводить под списком
+	"PAGER_TITLE" => "Фотографии",	// Название категорий
+	"PAGER_SHOW_ALWAYS" => "N",	// Выводить всегда
+	"PAGER_TEMPLATE" => "",	// Название шаблона
+	"PAGER_DESC_NUMBERING" => "N",	// Использовать обратную навигацию
+	"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",	// Время кеширования страниц для обратной навигации
+	"PAGER_SHOW_ALL" => "N",	// Показывать ссылку "Все"
+	"DISPLAY_DATE" => "Y",	// Выводить дату элемента
+	"DISPLAY_NAME" => "Y",	// Выводить название элемента
+	"DISPLAY_PICTURE" => "Y",	// Выводить изображение для анонса
+	"DISPLAY_PREVIEW_TEXT" => "Y",	// Выводить текст анонса
+	"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
+	),
+	false
+);*/?> 	</div>
+   
+    <div class="secdes description<?if(($_COOKIE['sections-tabs'] == 'tabs-video') AND (isset($_REQUEST['SECTION_NAME']))):?> visible<?endif;?>"><?
+global $VideoFilter;
+$VideoFilter = array("PROPERTY_SECTION"=>"$current_firms_section");?>  <?$APPLICATION->IncludeComponent("bitrix:news.list", "video_companies", Array(
+	"IBLOCK_TYPE" => "video",	// Тип информационного блока (используется только для проверки)
+	"IBLOCK_ID" => "13",	// Код информационного блока
+	"NEWS_COUNT" => "20",	// Количество новостей на странице
+	"SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+	"SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+	"SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+	"SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+	"FILTER_NAME" => "VideoFilter",	// Фильтр
+	"FIELD_CODE" => array(	// Поля
+		0 => "",
+		1 => "",
+	),
+	"PROPERTY_CODE" => array(	// Свойства
+		0 => "",
+		1 => "",
+		2 => "",
+	),
+	"CHECK_DATES" => "Y",	// Показывать только активные на данный момент элементы
+	"DETAIL_URL" => "/video/detail.php?ELEMENT_ID=#ID#",	// URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+	"AJAX_MODE" => "N",	// Включить режим AJAX
+	"AJAX_OPTION_SHADOW" => "Y",	// Включить затенение
+	"AJAX_OPTION_JUMP" => "N",	// Включить прокрутку к началу компонента
+	"AJAX_OPTION_STYLE" => "Y",	// Включить подгрузку стилей
+	"AJAX_OPTION_HISTORY" => "N",	// Включить эмуляцию навигации браузера
+	"CACHE_TYPE" => "A",	// Тип кеширования
+	"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+	"CACHE_FILTER" => "N",	// Кешировать при установленном фильтре
+	"CACHE_GROUPS" => "Y",	// Учитывать права доступа
+	"PREVIEW_TRUNCATE_LEN" => "",	// Максимальная длина анонса для вывода (только для типа текст)
+	"ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+	"SET_TITLE" => "N",	// Устанавливать заголовок страницы
+	"SET_STATUS_404" => "N",	// Устанавливать статус 404, если не найдены элемент или раздел
+	"INCLUDE_IBLOCK_INTO_CHAIN" => "N",	// Включать инфоблок в цепочку навигации
+	"ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+	"HIDE_LINK_WHEN_NO_DETAIL" => "N",	// Скрывать ссылку, если нет детального описания
+	"PARENT_SECTION" => "",	// ID раздела
+	"PARENT_SECTION_CODE" => "",	// Код раздела
+	"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
+	"DISPLAY_BOTTOM_PAGER" => "Y",	// Выводить под списком
+	"PAGER_TITLE" => "Видео",	// Название категорий
+	"PAGER_SHOW_ALWAYS" => "N",	// Выводить всегда
+	"PAGER_TEMPLATE" => "",	// Название шаблона
+	"PAGER_DESC_NUMBERING" => "N",	// Использовать обратную навигацию
+	"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",	// Время кеширования страниц для обратной навигации
+	"PAGER_SHOW_ALL" => "N",	// Показывать ссылку "Все"
+	"DISPLAY_DATE" => "Y",	// Выводить дату элемента
+	"DISPLAY_NAME" => "Y",	// Выводить название элемента
+	"DISPLAY_PICTURE" => "Y",	// Выводить изображение для анонса
+	"DISPLAY_PREVIEW_TEXT" => "Y",	// Выводить текст анонса
+	"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
+	),
+	false
+);?></div>
+   </div>
+ </section>
+ <?if(isset($_REQUEST['SECTION_NAME'])):?>
+<section class="about-section">
+			<?//echo $current_section_id;
+
+			$db_list = CIBlockSection::GetList(Array("NAME"=>"ASC"), Array("IBLOCK_ID"=>10, "ID" => $current_section_id), false, Array("UF_DESCRIPTION", "UF_KEYWORDS"));
+			while($ar_result = $db_list->GetNext())  {
+				//echo '<pre>'.print_r($ar_result).'</pre>';
+				if (!empty($ar_result["UF_DESCRIPTION"])) $APPLICATION->SetPageProperty("description", $ar_result["UF_DESCRIPTION"]); 
+				if (!empty($ar_result["UF_KEYWORDS"])) $APPLICATION->SetPageProperty("keywords", $ar_result["UF_KEYWORDS"]); 
+			}
+
+			
+			?>
+            <!--div id="about-section-description">
+				<?if(!empty($current_section_description)):?><h2>О разделе:</h2>
+				<?echo $current_section_description?>
+				<?endif;?>
+            </div-->
+			
+			<?
+				global $menutree_parent;
+				/*echo '<pre>';
+				print_r($menutree_parent);
+				echo '</pre>';*/
+				$cpu_link = '/';
+				for ($i = 1; $i <= count($menutree_parent); $i++) {if ($i < 4) $cpu_link .= $menutree_parent[$i]['CODE'].'/';}
+				//echo $cpu_link;
+				
+			$db_list = CIBlockSection::GetList(Array("SORT"=>"ASC", "NAME"=>"ASC"), Array("IBLOCK_ID"=>"10", "SECTION_ID"=>$current_section_id), false, Array("UF_DESCSHORT"));
+			while($ar_result = $db_list->GetNext())
+			  {
+				//echo $ar_result['ID'].' '.$ar_result['NAME'].': '.$ar_result['CODE'].'<br>';
+				
+				?>
+			<div class="b-subsection">
+               <h2><a href="<?echo $cpu_link.$ar_result["CODE"].'/'?>"><?echo $ar_result["NAME"]?></a></h2>
+               <figure>
+			   <?if(!empty($ar_result["PICTURE"])):?>
+			   <?
+			   $rsFile = CFile::GetByID($ar_result["PICTURE"]);
+			   $arFile = $rsFile->Fetch();
+			   ?>
+			   <a href="<?echo $cpu_link.$ar_result["CODE"].'/'?>"><img src="/upload/<?echo $arFile["SUBDIR"];?>/<?echo $arFile["FILE_NAME"]?>" alt="<?echo $ar_result["NAME"]?>" title="<?echo $ar_result["NAME"]?>" /></a>
+			   <?endif;?>
+			   
+                  <figcaption>
+					<?
+					if (!empty($ar_result['UF_DESCSHORT'])) echo '<p>'.$ar_result['UF_DESCSHORT'].'</p>';
+					else echo $ar_result['DESCRIPTION'];?>
+                     <p class="more"><a href="<?echo $cpu_link.$ar_result["CODE"].'/'?>">Перейте к разделу</a></p>
+
+                  </figcaption>   
+               </figure>
+            </div>
+			   <?
+			  };
+			?>
+			
+			
+			
+			
+			
+
+                  
+</section>
+
+<?endif;?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

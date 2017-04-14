@@ -1,0 +1,28 @@
+<?php
+/* @var $this ProjectsController */
+/* @var $model Projects */
+
+$this->breadcrumbs=array(
+	'Projects'=>array('index'),
+	$model->name=>array('view','id'=>$model->id),
+	'Update',
+);
+
+$this->menu=array(
+	array('label'=>'List Projects', 'url'=>array('index')),
+	array('label'=>'Create Projects', 'url'=>array('create')),
+	array('label'=>'View Projects', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Manage Projects', 'url'=>array('admin')),
+	array('label'=>'Upload Base', 'url'=>array('upload')),
+);
+?>
+
+<h1>Update Projects <?php echo $model->id; ?></h1>
+
+<?php echo CHtml::image(
+	'http://www.rosdom.ru/projects/'.CHtml::encode(strtolower($model->id)).'/p-sm.jpg', 
+	'123',
+	array('width'=>200, 'height'=>150)
+); ?>
+
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>

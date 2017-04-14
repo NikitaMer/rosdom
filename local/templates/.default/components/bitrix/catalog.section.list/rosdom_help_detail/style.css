@@ -1,0 +1,31 @@
+div.elements {
+font-size:13px;
+overflow: hidden;
+}
+
+p.sect {
+font:normal 16px Arial;
+margin:15px 0 0 0;
+
+}
+
+div.elements .head{
+border-bottom: dotted 1px;
+float:left;
+color: #0479BD;
+padding-top:7px;
+}
+
+div.elements .head:hover{
+cursor:pointer;
+color: #a70404;
+}
+
+div.text {
+padding: 7px 0;
+font-weight:normal;
+font-size:12px;
+width:600px;
+display:none;
+}
+

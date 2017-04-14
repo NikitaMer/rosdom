@@ -1,0 +1,18 @@
+
+.popular_projects h2 {
+	font: normal 18px Arial,sans-serif;
+	text-align:justify;
+}
+.popular_projects .block {
+	display:inline-block;
+	text-align:left;	
+	width:30%;
+	margin-left:25px;
+}
+.popular_projects .block:first-of-type {
+	margin-left:0px;
+}
+.popular_projects .title {
+	font-weight:bold;
+	font-size:16px;
+}

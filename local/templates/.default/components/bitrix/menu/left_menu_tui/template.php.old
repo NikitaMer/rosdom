@@ -1,0 +1,89 @@
+<?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+
+<? 	
+	echo "<pre>";
+	print_r($arResult);
+//	print_r($_REQUEST);
+	echo "</pre>";
+
+
+//$arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM");
+//$arFilter = Array("ID"=>$_REQUEST["ELEMENT_CODE"], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+//$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+//while($ob = $res->GetNextElement())
+//{
+//  $arFields = $ob->GetFields();
+//	echo "<pre>";  print_r($arFields);	echo "</pre>";
+//}
+?>
+
+
+<?if (!empty($arResult)):?>
+
+<div class="b-widget b-widget__submenu">
+            <h2>Подразделы:</h2>
+            <div class="description-submenu">
+
+<ul class="left-menu">
+
+<?
+$previousLevel = 0;
+foreach($arResult as $arItem):?>
+
+<?
+global $APPLICATION;
+$CurDir = $APPLICATION->GetCurDir();
+//echo $CurDir."---".$arItem["LINK"];
+if ($arItem["SELECTED"] == 1 && !($arItem["LINK"] == $CurDir) && !empty($arItem["PARAMS"]["UF_MENUTITLE"]))
+$APPLICATION->AddChainItem($arItem["PARAMS"]["UF_MENUTITLE"], $arItem["LINK"]);
+
+if ($arItem["DEPTH_LEVEL"] == 1 && $arItem["SELECTED"] == 1) $show=1; 
+elseif ($arItem["DEPTH_LEVEL"] == 1 && !$arItem["SELECTED"] == 1) $show=0;?>
+
+	<?if ($previousLevel && $arItem["DEPTH_LEVEL"] < $previousLevel):?>
+		<?=str_repeat("</ul></li>", ($previousLevel - $arItem["DEPTH_LEVEL"]));?>
+	<?endif?>
+
+	<?if ($arItem["IS_PARENT"]):?>
+
+		<?if ($arItem["DEPTH_LEVEL"] == 1):?>
+			<li><a href="<?=$arItem["LINK"]?>" class="<?if ($arItem["SELECTED"]):?>root-item-selected<?else:?>root-item<?endif?>"><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a>
+				<ul class="root-item">
+		<?else:?>
+			<?if($show):?> <li><a href="<?=$arItem["LINK"]?>" class="parent<?if ($arItem["SELECTED"]):?> item-selected<?endif?>"><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a>
+				<ul> <?endif?>
+		<?endif?>
+
+	<?  else:?>
+
+		<?if ($arItem["PERMISSION"] > "D"):?>
+
+			<?if ($arItem["DEPTH_LEVEL"] == 1):?>
+				<li><a href="<?=$arItem["LINK"]?>" class="<?if ($arItem["SELECTED"]):?>root-item-selected<?else:?>root-item<?endif?>"><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a></li>
+			<?else:?>
+				<?if($show):?><li><a href="<?=$arItem["LINK"]?>" <?if ($arItem["SELECTED"]):?> class="item-selected"<?endif?>><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a></li> <?endif?>
+			<?endif?>
+
+		<?else:?>
+
+			<?if ($arItem["DEPTH_LEVEL"] == 1):?>
+				<?=$show?><li><a href="" class="<?if ($arItem["SELECTED"]):?>root-item-selected<?else:?>root-item<?endif?>" title="<?=GetMessage("MENU_ITEM_ACCESS_DENIED")?>"><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a></li>
+			<?else:?>
+				<?if($show):?><li><a href="" class="denied" title="<?=GetMessage("MENU_ITEM_ACCESS_DENIED")?>"><?=$arItem["PARAMS"]["UF_MENUTITLE"];?></a></li><?endif?>
+			<?endif?>
+
+		<?endif ?>
+
+	<?endif?>
+
+	<?$previousLevel = $arItem["DEPTH_LEVEL"];?>
+<?endforeach?>
+
+<?if ($previousLevel > 1)://close last item tags?>
+	<?=str_repeat("</ul></li>", ($previousLevel-1) );?>
+<?endif 
+?>
+
+</ul>
+<div>
+<?endif?>

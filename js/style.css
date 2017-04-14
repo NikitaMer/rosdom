@@ -1,0 +1,72 @@
+@charset "utf-8";
+/******************************************************
+	FRAMEWORK THE BASIC
+******************************************************/
+* {margin:0; padding:0; outline:0;}
+em{ font-style: italic; }
+strong { font-weight: bold; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; }
+td { vertical-align: top;}
+ol li {list-style-position:inside; list-style-type:decimal;}
+caption, th { text-align: left; }
+q:before, q:after { content: ''; }
+abbr, acronym { font-variant: normal; }
+sup {vertical-align: text-top; }
+sub {vertical-align: text-bottom; }
+label {cursor: pointer; }
+input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; }
+legend { color: #000; }
+label {margin:0 0 0 3px;}
+img {border: 0px;}
+li{ list-style:none;}
+/***  FOR ALL  ***/
+a {text-decoration:none; color:#666666;}
+a:hover {text-decoration:underline;}
+.cb {clear:both !important; height:0 !important; margin:0 !important; padding:0 !important; overflow:hidden !important; line-height:0 !important; font-size:0 !important;}
+/******************************************************
+	TEMPLATE
+******************************************************/
+html, body {
+	width:                    100%;
+	padding:                  0;
+	margin:                   0;
+	font:                     12px Arial, Helvetica, sans-serif;
+	color:                    #333;
+	height:                   100%;
+	text-align:               center;
+}
+#wrap{
+	width:764px;
+	margin:60px auto 0 auto;
+	text-align:left;
+	padding-bottom:40px;
+	position:relative;
+
+}
+#view{
+    float: left;
+    margin-right: 20px;
+    overflow: hidden;
+    width: 573px;
+	background: url("../img/ajax-loader.gif") no-repeat scroll 270px 170px;
+}
+#thumb{
+    float: left;
+    overflow: hidden;
+    width: 171px;
+}
+#thumb img {
+    margin: 0 15px 15px 0;
+}
+#thumb .last {
+    margin-right: 0;
+}
+.active-thumb{ border:5px solid #ee2154; height:45px; width:65px;}
+
+#nav{height:30px; width:90px; position:absolute; bottom:0; left:241px;}
+#last, #next{display:block; height:30px; width:30px;}
+#last{float:left;background:url(../img/last-no.png) left center no-repeat;} 
+#next{float:right;background:url(../img/next.png) right center no-repeat;cursor:pointer;}
+
+.last-act{background:url(../img/last.png) left center no-repeat !important; cursor:pointer !important;}
+.next-no{background:url(../img/next-no.png) right center no-repeat !important; cursor:default !important;}

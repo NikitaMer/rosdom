@@ -1,0 +1,21 @@
+.data-table {
+background-color:#eeeeee;
+width:100%;
+border-collapse:collapse;
+}
+.data-table th{
+border: 0px;
+padding:5px;
+font-weight:bold;
+align:left;
+text-align:left;
+}
+.data-table td{
+border-top_: 1px solid grey;
+padding:5px;
+}
+
+
+.data-table td .starrequired {
+font-weight:bold;
+color:red;}

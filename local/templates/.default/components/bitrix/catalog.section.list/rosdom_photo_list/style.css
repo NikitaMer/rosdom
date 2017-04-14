@@ -1,0 +1,21 @@
+/* PHOTO LIST*/
+.photo-items-list {
+_display: block;
+overflow:hidden; 
+_position: relative;
+}
+.photo-items-list .photo-items-el{
+float: left; 
+padding: 0 35px 0px 0;
+}
+
+/*.photo-item-cont .photo-item-inner{display: block; overflow:hidden; position: relative;}
+.photo-item-cont .photo-item-inner img{position: absolute; border: none;}
+*/
+.photo-items-list .bxph-warn-icon{
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin-top: -15px; 
+margin-left: -15px;
+}

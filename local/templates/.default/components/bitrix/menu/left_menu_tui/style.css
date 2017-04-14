@@ -1,0 +1,64 @@
+/* Left menu*/
+ul.left-menu
+{
+	list-style_:none;
+	margin: 0 0 0 20px;
+	padding:0;
+	margin-bottom_:8px;
+	position: relative; /*IE bug*/
+}
+
+ul.left-menu li
+{
+	padding: 3px 0px 3px 3px;
+	background_:#F5F5F5 url(images/left_menu_bg.gif) top repeat-x;
+
+}
+
+ul.left-menu li a
+{
+	font-size:100%;
+	color:#0479BD;
+	font-weight_:bold;
+	text-decoration:none;
+}
+
+ul.left-menu li a:visited
+{
+	color:#0479BD;
+}
+
+ul.left-menu li a:hover
+{
+	color:#0479BD;
+}
+
+
+ul.left-menu li a.selected:link, 
+ul.left-menu li a.selected:visited, 
+ul.left-menu li a.selected:active, 
+{
+	color:#0479BD;
+}
+
+ul.left-menu li a:hover
+{
+	color:#A70404;
+}
+
+
+.left-root-item-selected, .left-root-item-selected a 
+{
+font-weight:bold;
+padding-bottom_:10px;
+margin:3px 0 3px 0;
+}
+
+.item-selected, .item-selected a
+{
+color:#3e3e3e !important;
+padding-bottom_:10px;
+margin:3px 0 3px 0;
+font-weight:bold;
+}
+

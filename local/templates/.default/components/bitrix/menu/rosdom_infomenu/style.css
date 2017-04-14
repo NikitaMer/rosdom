@@ -1,0 +1,53 @@
+ul.infomenu
+{
+	list-style_:none;
+	margin:0; padding:0;
+	margin:8px 0 0 0;
+	position: relative; 
+}
+
+ul.infomenu li
+{
+	margin: 0 28px 0 0px;
+	float:left;
+	padding-bottom_:3px;
+	background_:#F5F5F5 url(images/left_menu_bg.gif) top repeat-x;
+}
+
+ul.infomenu li:hover
+{
+	border-color:red;
+	border-style: none none solid none;
+	border-width: 2px;
+}
+
+ul.infomenu li a
+{
+	font-size:15px;
+	color:#3e3e3e;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+ul.infomenu li a:visited
+{
+	color3e3e3e:#BC262C;
+}
+
+ul.infomenu li a:hover
+{
+	color:red;
+	text-decoration:none;
+}
+
+
+
+ul.infomenu li a.selected:link, 
+ul.infomenu li a.selected:visited, 
+ul.infomenu li a.selected:active, 
+ul.infomenu li a.selected:hover
+{
+	color:red;
+	font-weight:bold;
+}
+

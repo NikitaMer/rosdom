@@ -1,0 +1,20 @@
+/* Left menu*/
+ul.left-menu{
+	list-style_:none;
+	padding:0;
+	position: relative; /*IE bug*/
+}
+ul.left-menu li, ul.left-menu li a{
+	padding: 3px 0px 3px 0px;
+	list-style:disc;
+}
+
+ul.left-menu li.root-selected, ul.left-menu li.root-selected a { font-weight:bold; color:#3e3e3e;}
+
+ul.left-menu li.root-selected .item, ul.left-menu li.root-selected .item a {font-weight:normal; color:#0479bd;}
+
+ul.left-menu li.root-selected .parent, ul.left-menu li.root-selected .parent a {font-weight:normal;  list-style:circle; color:#0479bd;}
+
+ul.left-menu li.root-selected .parent-selected, ul.left-menu li.root-selected .parent-selected a {font-weight:bold; list-style:circle;  color:#3e3e3e; }
+
+ul.left-menu li.root-selected .parent-selected .item, ul.left-menu li.root-selected .parent-selected .item a {font-weight:normal; list-style:circle;  color:#0479bd; }

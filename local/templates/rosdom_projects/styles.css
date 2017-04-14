@@ -1,0 +1,72 @@
+.hint1{
+  z-index:999;
+}
+
+/*  ползунки   */
+#wormPl, #wormPr{
+	width:90%;
+	margin-left: 5px;
+}
+#contentWormPlFrom, #contentWormPlTo, #contentWormPrFrom, #contentWormPrTo {
+	margin-left:5px;
+	font-size: 10px;
+}
+
+.hiddentable {
+	visibility: hidden;
+	position:absolute;
+}
+.hiddentable.active {
+	visibility: visible;
+	position:relative;
+}
+#search table input[type=text] {
+  width: 160px;
+}
+#search table {
+  width: 240px;
+}
+
+.popular_projects .title {
+  font: bold 15px Arial,sans-serif;
+  color: #0479bd;
+  /*border-bottom: 1px dashed;*/
+}
+.bx_catalog_tile_ul{
+    float: left;
+}
+.bx_pagination_section_one span.bx_pg_text{
+    display: none;
+}
+.bx_pagination_bottom span.bx_wsnw{
+    display: none;
+}
+.bx_pagination_bottom .bx_pagination_page ul li{
+    font-size: 0;
+    margin: 0 2px;
+}
+.bx_pagination_bottom .bx_pagination_page ul li a{
+    font-size: 16px;
+
+}
+.bx_pagination_bottom .bx_pagination_page ul li a:hover {
+    color: #a70404;
+}
+.bx_pagination_bottom .bx_pagination_page ul li.bx_active{
+    font-size: 16px;
+    border: 1px solid #ff6900;
+    color: #fff;
+    background: #ff6900;
+}
+@media (min-width: 992px){
+    .col-md-9 {
+        width: 100%;
+        float: right;
+        right: 0;
+    }
+}
+@media (min-width: 992px){
+    .col-md-push-9 {
+        left: 0;
+    }
+}

@@ -1,0 +1,299 @@
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("Регистрация. Представительство фабрики CEHA в Москве и Санкт Петербурге");
+?>
+<style>
+a.regLink
+{
+	color:#f16600;
+	font-size:16px;
+	text-decoration:underline;
+}
+input.text
+{
+	width:300px;
+	margin-bottom:6px;
+}
+input.submit_but
+{
+	background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #F16600;
+    cursor: pointer;
+    height: 17px;
+    padding-left: 0;
+    text-decoration: underline;
+}
+</style>
+
+<?
+global $USER;
+CModule::IncludeModule('main');
+CModule::IncludeModule('iblock');
+
+$err = array();
+
+$register_stat = false;
+
+$city = isset($_REQUEST['city']) ? strip_tags($_REQUEST['city']) : '';
+$companyName = isset($_REQUEST['companyName']) ? strip_tags($_REQUEST['companyName']) : '';
+$adres = isset($_REQUEST['adres']) ? strip_tags($_REQUEST['adres']) : '';
+$activity = isset($_REQUEST['activity']) ? strip_tags($_REQUEST['activity']) : '';
+$name = isset($_REQUEST['name']) ? strip_tags($_REQUEST['name']) : '';
+$lastName = isset($_REQUEST['lastName']) ? strip_tags($_REQUEST['lastName']) : '';
+$position = isset($_REQUEST['position']) ? strip_tags($_REQUEST['position']) : '';
+$www = isset($_REQUEST['www']) ? strip_tags($_REQUEST['www']) : '';
+$phone = isset($_REQUEST['phone']) ? strip_tags($_REQUEST['phone']) : '';
+$email = isset($_REQUEST['email']) ? strip_tags($_REQUEST['email']) : '';
+$exp = isset($_REQUEST['exp']) ? strip_tags($_REQUEST['exp']) : '';
+$sklad = isset($_REQUEST['sklad']) ? strip_tags($_REQUEST['sklad']) : '';
+$zal = isset($_REQUEST['zal']) ? strip_tags($_REQUEST['zal']) : '';
+$concurents = isset($_REQUEST['concurents']) ? strip_tags($_REQUEST['concurents']) : '';
+$moreCompany = isset($_REQUEST['moreCompany']) ? strip_tags($_REQUEST['moreCompany']) : '';
+$source = isset($_REQUEST['source']) ? strip_tags($_REQUEST['source']) : '';
+$interest = isset($_REQUEST['interest']) ? strip_tags($_REQUEST['interest']) : '';
+$endtype = $_REQUEST['type'];
+
+switch($_REQUEST['type'])
+{
+	case 'client':
+		$userGroup=4;
+		break;
+	case 'dealer':
+		$userGroup=3;
+		break;
+}
+
+?>
+
+<div style="width:100%; height:auto;">
+    <div style="width:620px; margin-top:21px; height:auto; float_:right;">
+    	<h4 style="text-transform:none; font-weight:bold; padding:0 0 13px 0;">Регистрация <?if($userGroup==3) echo 'дилера'; elseif($userGroup==4) echo 'посетителя';?></h4>
+
+
+<?if($_SERVER['REQUEST_METHOD'] == 'POST'){?>
+	<?if ($_REQUEST['pass']!='forgot'){
+	
+			if($_REQUEST['type'] == 'client' && (empty($companyName) || empty($city) || empty($name) || empty($lastName) || empty($phone) || empty($email))) $err[] = 'Все поля должны быть заполнены';
+			if($_REQUEST['type'] == 'dealer' && (empty($companyName) || empty($city) || empty($adres) || empty($name) || empty($activity) || empty($www) || empty($exp) || empty($zal) || empty($interest) || empty($source) ||  empty($lastName) || empty($position) || empty($phone) || empty($email))) $err[] = 'Все обязательные поля должны быть заполнены';
+			
+			if(!check_email($email)) $err[] = 'Не верный адрес e-mail';
+				
+			
+			include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/classes/general/captcha.php");
+			$cpt = new CCaptcha();
+			if (!$cpt->CheckCode($_POST['captcha_word'], $_POST['captcha_sid'])) $err[] = 'Неверно введен код с картинки';
+			if(count($err) == 0)
+			{
+					$password=gPass(8);
+					$i=0;
+					$filter = Array("GROUPS_ID" => Array($_POST['uGroup']));
+					$rsUsers = CUser::GetList(($by="id"), ($order="asc"), $filter); // выбираем пользователей
+					$is_filtered = $rsUsers->is_filtered; // отфильтрована ли выборка ?
+					while($ar_res = $rsUsers->GetNext()):
+						$arUser = $ar_res;
+						$i++;
+					endwhile;
+					
+					$i = $arUser['ID'] + 1;
+					
+					while(strlen($i)<3) { $i='0'.$i;}
+					
+					if($_POST['uGroup']==4):
+						$login='p'.$i;
+						$skidkoGroupId=1486;
+					elseif($_POST['uGroup']==3):
+						$login='d'.$i;
+						$skidkoGroupId=1475;
+					endif;
+					
+					$user = new CUser;
+				/*	$fUser=$user->GetByLogin($login);
+					if ($fUser->Fetch())
+					{	
+						LocalRedirect($_POST['backUrl'].'&err=Пользователь с таким именем уже существует.');
+					}
+				*/	$_POST['uGroup']==3?$active='N':$active='Y';
+					$_POST['uGroup']==3?$premod='Ваш аккаунт будет активен после проверки менеджером.':$premod=' ';
+					$arFields = Array(
+					  "NAME"              => $_POST['name'],
+					  "LAST_NAME"         => $_POST['lastName'],
+					  "EMAIL"             => $_POST['email'],
+					  "LOGIN"             => $login,
+					  "LID"               => "ce",
+					  "ACTIVE"            => $active,
+					  "GROUP_ID"          => array($_POST['uGroup']),
+					  "PASSWORD"          => $password,
+					  "CONFIRM_PASSWORD"  => $password,
+					  "WORK_COMPANY"	  => $_POST['companyName'],
+					  "WORK_POSITION"	  => $_POST['position'],
+					  "WORK_STREET"	      => $_POST['adres'],
+					  "WORK_CITY"	      => $_POST['city'],
+					  "WORK_NOTES"	      => $_POST['moreCompany'],
+					  "WORK_PHONE"	      => $_POST['phone'],
+					  "WORK_WWW"	      => $_POST['www'],
+					  "UF_SOURCE"	 	  => $_POST['source'],
+					  "UF_WORK_KONKURENT" => $_POST['concurents'],
+					  "UF_WORK_INTERESTS" => $_POST['interest'],
+					  "UF_WORK_ZAL"	      => $_POST['zal'],
+					  "UF_WORK_SKLAD_VALUE"=> $_POST['sklad'],
+					  "UF_WORK_EXP"	      => $_POST['exp'],
+					  "UF_WORK_ACTIVITI"  => $_POST['activity'],
+					  "UF_PASS"           => $password,
+					  "PREMOD"			  => $premod
+					);
+					$ID = $user->Add($arFields);
+					if (intval($ID) > 0)
+					{
+						echo "Вы успешно зарегистрировались!";
+						
+						$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"USERS"));
+						while($ar_props = $db_props->Fetch())
+						{
+							$usersIn[]=$ar_props['VALUE'];
+						}
+						$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"PERCENT"));
+						while($ar_props = $db_props->Fetch())
+						{
+							$percentIn[]=$ar_props['VALUE'];
+						}
+						$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"DECOR"));
+						while($ar_props = $db_props->Fetch())
+						{
+							$decorIn[]=$ar_props['VALUE'];
+						}
+							//p($pr); exit();
+						$usersIn[]=$ID;
+						$el = new CIBlockElement;
+						$PROP = array();
+						$PROP[38] = $usersIn;  
+						$PROP[40] = $percentIn;
+						$PROP[39] = $decorIn;
+						$arLoadProductArray = Array(
+						  "MODIFIED_BY"    => 1, // элемент изменен админом
+						  "IBLOCK_SECTION" => false,          // элемент лежит в корне раздела
+						  "PROPERTY_VALUES"=> $PROP,
+						  "ACTIVE"         => "Y",            // активен
+						  );
+						$PRODUCT_ID = $skidkoGroupId;  
+						$res = $el->Update($PRODUCT_ID, $arLoadProductArray);
+						
+						$_REQUEST['type'] = '';
+						
+						$event = new CEvent;
+						$arEventFields=$arFields;
+						if($_POST['uGroup']==4):
+							$event->SendImmediate("NEW_USER", SITE_ID, $arEventFields);
+						elseif($_POST['uGroup']==3):
+							$event->SendImmediate("NEW_DEALER", SITE_ID, $arEventFields);
+						endif;
+						//$event->SendImmediate("NEW_USER", SITE_ID, $arEventFields);
+					}
+					else
+					{	
+						$err[]=$user->LAST_ERROR;
+					}
+			}
+	?>
+			<?if(count($err) == 0)
+			{?>
+				<?if ($endtype == 'client'):?>
+					<p>
+					Спасибо за регистрацию!<br/>
+					Логин и пароль для входа в систему высланы Вам на указанный адрес электронной почты
+					</p>
+					<a href="/" title="На главную"> &lt;- на главную </a></div>
+				<?else:?>
+					<p>
+					Спасибо за регистрацию на сайте Ceha!<br/>
+					Письмо с запросом на регистрацию отравлено менеджеру, который свяжется с Вами в ближайшее время.
+					</p>
+					<a href="/" title="На главную"> &lt;- на главную </a></div>
+				<?endif?>
+					<?
+					$register_stat = true;
+			}
+			?>
+	<?
+	}
+}
+
+
+
+
+
+
+if ($USER->IsAuthorized()){
+LocalRedirect('/personal/profile/');
+}
+
+if(strlen($_REQUEST['type'])>0 || count($err) > 0)
+{?>
+
+
+
+	
+        <span>Заполните поля.</span><br/>
+        <? if (!empty($err)):?>
+        <span style="color:#F00; font-weight:bold;">
+        <?foreach ($err as $sErr)
+        {
+        	echo $sErr.'<br>';
+        }?>
+        </span><br/>
+        <? endif;?>
+        <br/>
+        <form action="/personal/registration/" method="post">
+        	<input class="text" type="hidden" name="backUrl" value="<?=$_SERVER['REQUEST_URI']?>">
+            <input class="text" type="hidden" name="uGroup" value="<?=$userGroup?>">
+            <input type="hidden" name="type" value="<?=$_REQUEST['type']?>">
+            <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                <tr><td width="320">Наименование компании<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$companyName?>" name="companyName"/></td></tr>
+                <tr><td width="320">Город<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$city?>" name="city"/></td></tr>
+                <tr><td width="320">Адрес<? if ($userGroup==3):?><span style="color:#FF0000">*</span><?endif?></td><td><input class="text" type="text" value="<?=$adres?>" name="adres"/></td></tr>
+                <? if ($userGroup==3):?>
+                <tr><td width="320">Основное направление деятельности<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$activity?>" name="activity"/></td></tr>
+                <? endif;?>
+                <tr><td width="320">Имя<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$name?>" name="name"/></td></tr>
+                <tr><td width="320">Фамилия<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$lastName?>" name="lastName"/></td></tr>
+                <tr><td width="320">Должность<? if ($userGroup==3):?><span style="color:#FF0000">*</span><?endif?></td><td><input class="text" type="text" value="<?=$position?>" name="position"/></td></tr>
+                <? if ($userGroup==3):?>
+                <tr><td width="320">Сайт<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$www?>" name="www"/></td></tr>
+                <? endif;?>
+                <tr><td width="320">Телефон<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$phone?>" name="phone"/></td></tr>
+                <tr><td width="320">E-mail<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$email?>" name="email"/></td></tr>
+                <? if ($userGroup==3):?>
+                <tr><td width="320">Опыт продаж металлической мебели<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$exp?>" name="exp"/></td></tr>
+                <tr><td width="320">Наличие и площадь склада</td><td><input class="text" type="text" value="<?=$sklad?>" name="sklad"/></td></tr>
+                <tr><td width="320">Наличие и площадь выставочного зала<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$zal?>" name="zal"/></td></tr>
+                <tr><td width="320">Какая продукция Вас заинтересовала?<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$interest?>" name="interest"/></td></tr>
+                <tr><td width="320">С кем из поставщиков металлической мебели Вы сотрудничаете?</td><td><input class="text" type="text" value="<?=$concurents?>" name="concurents"/></td></tr>
+                <tr><td width="320">Дополнительная информация о компании</td><td><input class="text" type="text" value="<?=$moreCompany?>" name="moreCompany"/></td></tr>
+                <? endif;?>
+                <tr><td width="320">Источник информации о сайте CEHA<span style="color:#FF0000">*</span></td><td><input class="text" type="text" value="<?=$source?>" name="source"/></td></tr>
+                <?
+                CModule::IncludeModule('main');
+                include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/classes/general/captcha.php");
+                $cpt = new CCaptcha();
+                $cpt->SetCode();
+                ?>
+                <tr><td width="320"></td><td><input class="text" type="hidden" name="captcha_sid" value="<?= $cpt->GetSID() ?>"><img src="/bitrix/tools/captcha.php?captcha_sid=<?= $cpt->GetSID() ?>" alt="CAPTCHA" /></td></tr>
+                <tr><td width="320">Введите слово с картинки<span style="color:#FF0000">*</span></td><td><input class="text" type="text" size="10" name="captcha_word"></td></tr>
+                <tr><td><br><input class="submit_but" type="button"  name="back" value="<- Вернуться" onclick="window.location='/personal/registration/'"/></td><td><br><input class="submit_but" type="submit" name="submit" value="Зарегистрироваться ->"></td></tr>
+            </table>
+        </form>
+    <p><br><span style="color:#FF0000">*</span> отмечены поля, обязательные для заполнения</p>
+<?
+}elseif(!$register_stat){
+?>
+        	<span>Пожалуйста, заполните одну из анкет (для клиента или для дилера), чтобы зарегистрироваться на нашем сайте. Мы ценим Ваше время и предлагаем для зарегистрированных пользователей индивидуальную систему скидок, сервис онлайн-заказа нашей продукции на сайте, возможность участия в специальных акциях и много других приятных и удобных инструментов. Ваш персональный менеджер всегда готов оказать необходимую помощь на всех этапах нашей совместной работы.</span><br/><br/>
+        	<div style="width:100%; height:52px; padding-top:33px; background:#f6f6f6; text-align:center;">
+        		<a class="regLink" href="/personal/registration/?type=client">Я хочу стать клиентом</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="regLink" href="/personal/registration/?type=dealer">Я хочу стать дилером</a>
+           	</div>
+<?
+}
+?>
+	</div>
+    <div class="clear"></div>
+</div>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

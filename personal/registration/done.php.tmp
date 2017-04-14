@@ -1,0 +1,224 @@
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("Вы успешно зарегистрированны!");
+?><?
+if ($_REQUEST['pass']!='forgot'){?>
+
+
+<div style="width:340px; margin-top:21px; height:auto; float:left;">
+    	<a href="/order_catalog/"><h4 style="text-transform:none; font-weight:bold; padding:0 0 13px 0;">Заказать каталог</h4></a>
+    	<img src="/i/catalog2.png" alt=""/>
+    </div>
+    <div style="width:620px; margin-top:21px; height:auto; float:right;">
+    	<h4 style="text-transform:none; font-weight:bold; padding:0 0 13px 0;">Регистрация <?=$_POST['uGroup']==3?'дилера':'посетителя'?></h4>
+
+<?
+CModule::IncludeModule('main');
+CModule::IncludeModule('iblock');
+
+include_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/classes/general/captcha.php");
+$cpt = new CCaptcha();
+
+
+if ( $cpt->CheckCode($_POST['captcha_word'], $_POST['captcha_sid']) ) 
+{
+	$password=gPass(8);
+	$i=0;
+	$filter = Array
+	(
+		"GROUPS_ID" => Array($_POST['uGroup'])
+	);
+	$rsUsers = CUser::GetList(($by="id"), ($order="asc"), $filter); // выбираем пользователей
+	$is_filtered = $rsUsers->is_filtered; // отфильтрована ли выборка ?
+	while($rsUsers->GetNext()):
+		$i++;
+	endwhile;
+	
+	while(strlen($i)<3) { $i='0'.$i;}
+	
+	if($_POST['uGroup']==4):
+		$login='p'.$i;
+		$skidkoGroupId=1486;
+	elseif($_POST['uGroup']==3):
+		$login='d'.$i;
+		$skidkoGroupId=1475;
+	endif;
+	$user = new CUser;
+/*	$fUser=$user->GetByLogin($login);
+	if ($fUser->Fetch())
+	{	
+		LocalRedirect($_POST['backUrl'].'?&err=Пользователь с таким именем уже существует.');
+	}
+*/	$_POST['uGroup']==3?$active='N':$active='Y';
+	$_POST['uGroup']==3?$premod='Ваш аккаунт будет активен после проверки менеджером.':$premod=' ';
+	$arFields = Array(
+	  "NAME"              => $_POST['name'],
+	  "LAST_NAME"         => $_POST['lastName'],
+	  "EMAIL"             => $_POST['email'],
+	  "LOGIN"             => $login,
+	  "LID"               => "ce",
+	  "ACTIVE"            => $active,
+	  "GROUP_ID"          => array($_POST['uGroup']),
+	  "PASSWORD"          => $password,
+	  "CONFIRM_PASSWORD"  => $password,
+	  "WORK_COMPANY"	  => $_POST['companyName'],
+	  "WORK_POSITION"	  => $_POST['position'],
+	  "WORK_STREET"	      => $_POST['adres'],
+	  "WORK_CITY"	      => $_POST['city'],
+	  "WORK_NOTES"	      => $_POST['moreCompany'],
+	  "WORK_PHONE"	      => $_POST['phone'],
+	  "WORK_WWW"	      => $_POST['www'],
+	  "UF_SOURCE"	 	  => $_POST['source'],
+	  "UF_WORK_KONKURENT" => $_POST['concurents'],
+	  "UF_WORK_INTERESTS" => $_POST['interest'],
+	  "UF_WORK_ZAL"	      => $_POST['zal'],
+	  "UF_WORK_SKLAD_VALUE"=> $_POST['sklad'],
+	  "UF_WORK_EXP"	      => $_POST['exp'],
+	  "UF_WORK_ACTIVITI"  => $_POST['activity'],
+	  "UF_PASS"           => $password,
+	  "PREMOD"			  => $premod
+	);
+	$ID = $user->Add($arFields);
+	if (intval($ID) > 0)
+	{
+		echo "Вы успешно зарегистрировались!";
+		
+		$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"USERS"));
+		while($ar_props = $db_props->Fetch())
+		{
+			$usersIn[]=$ar_props['VALUE'];
+		}
+		$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"PERCENT"));
+		while($ar_props = $db_props->Fetch())
+		{
+			$percentIn[]=$ar_props['VALUE'];
+		}
+		$db_props = CIBlockElement::GetProperty(14, $skidkoGroupId, array("sort" => "asc"), Array("CODE"=>"DECOR"));
+		while($ar_props = $db_props->Fetch())
+		{
+			$decorIn[]=$ar_props['VALUE'];
+		}
+			//p($pr); exit();
+		$usersIn[]=$ID;
+		$el = new CIBlockElement;
+		$PROP = array();
+		$PROP[38] = $usersIn;  
+		$PROP[40] = $percentIn;
+		$PROP[39] = $decorIn;
+		$arLoadProductArray = Array(
+		  "MODIFIED_BY"    => 1, // элемент изменен админом
+		  "IBLOCK_SECTION" => false,          // элемент лежит в корне раздела
+		  "PROPERTY_VALUES"=> $PROP,
+		  "ACTIVE"         => "Y",            // активен
+		  );
+		$PRODUCT_ID = $skidkoGroupId;  
+		$res = $el->Update($PRODUCT_ID, $arLoadProductArray);
+		
+		
+		$event = new CEvent;
+		$arEventFields=$arFields;
+		if($_POST['uGroup']==4):
+			$event->SendImmediate("NEW_USER", SITE_ID, $arEventFields);
+		elseif($_POST['uGroup']==3):
+			$event->SendImmediate("NEW_DEALER", SITE_ID, $arEventFields);
+		endif;
+		//$event->SendImmediate("NEW_USER", SITE_ID, $arEventFields);
+	}
+	else
+	{	
+		echo $user->LAST_ERROR;
+//		LocalRedirect($_POST['backUrl'].'?&err='.$user->LAST_ERROR.'');
+	}
+} 
+else 
+{
+// LocalRedirect($_POST['backUrl'].'&err=Неверно введен код с картинки!');
+}
+?>
+
+
+<p>
+Спасибо за регистрацию!
+Логин и пароль для входа в систему высланы Вам на указанный адрес электронной почты
+</p>
+<a href="/" title="На главную"> &lt;- на главную </a>
+</div>
+    <div class="clear"></div>
+</div>
+
+<? }else{?>
+
+
+<div style="width:340px; margin-top:21px; height:auto; float:left;">
+    	<h4 style="text-transform:none; font-weight:bold; padding:0 0 13px 0;">Заказать каталог</h4>
+    	<img src="/i/catalog2.png" alt=""/>
+    </div>
+    <div style="width:620px; margin-top:21px; height:auto; float:right;">
+    	<h4 style="text-transform:none; font-weight:bold; padding:0 0 13px 0;">Восстановление пароля</h4>
+
+<?
+CModule::IncludeModule('main');
+//	if(empty($_POST['email'])) LocalRedirect('/personal/registration/forgot_pass.php?err=Укажите e-mail');
+	
+	$filter = Array
+	(
+		"EMAIL"               => $_POST['email'],
+		"GROUPS_ID"           => Array(4,3)
+	);
+	$rsUsers = CUser::GetList(($by="id"), ($order="asc"), $filter); // выбираем пользователей
+	$is_filtered = $rsUsers->is_filtered; // отфильтрована ли выборка ?
+	if($rsUsers->NavNext(true, "f_")):
+		$ID = $f_ID;
+		$LOGIN = $f_LOGIN;
+		$NAME = $f_NAME;
+		$LAST_NAME = $f_LAST_NAME;
+	else:
+//		LocalRedirect('/personal/registration/forgot_pass.php?err=Пользователь с указанным Вами адресом электронной почты не зарегистрирован на нашем сайте. Пожалуйста, введите еще раз адрес электронной почты или обратитесь за помощью к персональному менеджеру.');
+	endif;
+	
+	
+	$password=gPass(8);
+	
+	$user = new CUser;
+	$arFields = Array(
+	  "LID"               => "ce",
+	  "ACTIVE"            => "Y",
+	  "PASSWORD"          => $password,
+	  "CONFIRM_PASSWORD"  => $password,
+	  "UF_PASS"          => $password
+	);
+	
+	if ($user->Update($ID, $arFields))
+	{
+		echo "Пароль успешно выслан.";
+		$event = new CEvent;
+		$arEventFields=$arFields;
+		$arEventFields['LOGIN']=$LOGIN;
+		$arEventFields['USER_ID']=$ID;
+		$arEventFields['NAME']=$NAME;
+		$arEventFields['LAST_NAME']=$LAST_NAME;
+		$arEventFields['EMAIL']=$_POST['email'];
+		$event->SendImmediate("FOGOT_PASS", SITE_ID, $arEventFields);
+		
+	}
+	else
+	{	
+		echo $user->LAST_ERROR;
+//		LocalRedirect('/personal/registration/forgot_pass.php?err='.$user->LAST_ERROR.'');
+	}
+?>
+
+
+<p>
+</p>
+<a href="/" title="На главную"> &lt;- на главную </a>
+</div>
+    <div class="clear"></div>
+</div>
+
+
+<? }?>
+<?
+
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
