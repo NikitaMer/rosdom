@@ -1,4 +1,4 @@
-<?
+<?   /*
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 ?>
@@ -15,7 +15,7 @@ function getSectionss($iblock_id, $root_link, $section_id = 0) {
 	$arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id);
 
 
-	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
 	while($ar_result = $db_list->GetNext()){
 		$linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
@@ -50,7 +50,7 @@ function getArticlesSections($iblock_id, $root_link, $section_id = 0) {
 	$arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id, "ACTIVE" => "Y");
 
 
-	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
 	while($ar_result = $db_list->GetNext()){
 		$linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
@@ -65,7 +65,7 @@ function getArticlesSections($iblock_id, $root_link, $section_id = 0) {
 
 function getArticles($iblock_id, $root_link, $section_id = 0){
 	global $linkz;
-	
+
 	$arSelect = Array("ID");
 	$arFilter = Array("IBLOCK_ID"=>$iblock_id, "ACTIVE"=>"Y", "SECTION_ID" => $section_id);
 	$res = CIBlockElement::GetList(Array('ID' => 'ASC'), $arFilter, false, false, $arSelect);
@@ -84,7 +84,7 @@ function getFaqSections($iblock_id, $root_link, $section_id = 0) {
 	$arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id, "ACTIVE" => "Y");
 
 
-	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
 	while($ar_result = $db_list->GetNext()){
 		$linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
@@ -99,7 +99,7 @@ function getFaqSections($iblock_id, $root_link, $section_id = 0) {
 
 function getFaq($iblock_id, $root_link, $section_id = 0){
 	global $linkz;
-	
+
 	$arSelect = Array("ID");
 	$arFilter = Array("IBLOCK_ID"=>$iblock_id, "ACTIVE"=>"Y", "SECTION_ID" => $section_id);
 	$res = CIBlockElement::GetList(Array('ID' => 'ASC'), $arFilter, false, false, $arSelect);
@@ -134,7 +134,7 @@ function getCPUSections($iblock_id, $root_link, $section_id = 0, $inc = 0) {
 	$arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id, "ACTIVE" => "Y");
 
 	if (!$inc) $root = $root_link;
-	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+	$db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
 	while($ar_result = $db_list->GetNext()){
 		$linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
@@ -182,9 +182,7 @@ $blocks = Array (
 	Array ("iblock_id" => 10, "root_link" =>'/material', "section_id" =>92),
 	Array ("iblock_id" => 10, "root_link" =>'/equipment', "section_id" =>91),
 	Array ("iblock_id" => 10, "root_link" =>'/machinery', "section_id" =>94),
-	Array ("iblock_id" => 10, "root_link" =>'/service', "section_id" =>95)/*,
-	Array ("iblock_id" => 9, "root_link" =>'/articles', "section_id" =>0),
-	Array ("iblock_id" => 14, "root_link" =>'/faq', "section_id" =>0)*/
+	Array ("iblock_id" => 10, "root_link" =>'/service', "section_id" =>95)
 );
 
 foreach ($blocks as $val){
@@ -241,15 +239,16 @@ foreach ($linkz as $link) {
 }
 $data .= '</urlset>';
 
-$fp = fopen("../sitemap.xml", "w"); // Открываем файл в режиме записи 
+$fp = fopen("../sitemap.xml", "w"); // Открываем файл в режиме записи
 $test = fwrite($fp, $data); // Запись в файл
 //if ($test) echo 'Данные в файл успешно занесены.';
 //else echo 'Ошибка при записи в файл.';
 //echo "..";
 
 fclose($fp); //Закрытие файла
+*/
 ?>
 
- 
- 
+
+
 <?//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

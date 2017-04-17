@@ -1,7 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Title");
-?><?
+?>
+<meta http-equiv="cache-control" content="no-cache">
+<?
 
 $root_url = 'http://www.rosdom.ru';
 $linkz = array();
@@ -201,29 +203,9 @@ getArticlesSections(9, '/articles', 0);
 $linkz[] = '/faq/';
 getFaqSections(14, '/faq', 0);
 
-//журналы
-$linkz[] = '/magazines/';
-getMagazines();
-
-//образование
-$linkz[] = '/education/';
-getCPUSections(17, '/education', 0);
-
 //Проекты
 $linkz[] = '/projects/';
 getCPUSections(IBLOCK_ID_PROJECT, '/projects', 0);
-
-//рынки
-$linkz[] = '/markets/';
-getCPUSections(20, '/markets', 0);
-
-//выставки
-$linkz[] = '/exhibitions/';
-getExhibitions();
-
-//недвижимость
-$linkz[] = '/realty/';
-getCPUSections(19, '/realty', 0);
 
 $ar_xml = 0;
 $data = '<?xml version="1.0" encoding="UTF-8"?>

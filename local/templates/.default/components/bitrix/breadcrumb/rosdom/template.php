@@ -40,15 +40,17 @@ for($index = 0, $itemSize = count($arResult); $index < $itemSize; $index++)
     }
 //echo $index."_".$itemSize."<br>";
 
-if($url[1] == "documents"){
-    if($index-1 == $itemSize && $arResult[$index]["LINK"] != $dir && $arResult[$index]["LINK"] && $index != 0){
-        if($index > 0)    $strReturn .= '<li><span>&nbsp;/&nbsp;</span></li>';
-        $strReturn .= '<li><a href="'.$arResult[$index]["LINK"].'" title="'.$title.'">'.$title.'</a></li>';
-    }
-} else {
-    if($index+1 == $itemSize && $arResult[$index]["LINK"] != $dir && $arResult[$index]["LINK"] && $index != 0){
-        if($index > 0)    $strReturn .= '<li><span>&nbsp;/&nbsp;</span></li>';
-        $strReturn .= '<li><a href="'.$arResult[$index]["LINK"].'" title="'.$title.'">'.$title.'</a></li>';
+if(ERROR_404 != 'Y') {
+    if($url[1] == "documents"){
+        if($index-1 == $itemSize && $arResult[$index]["LINK"] != $dir && $arResult[$index]["LINK"] && $index != 0){
+            if($index > 0)    $strReturn .= '<li><span>&nbsp;/&nbsp;</span></li>';
+            $strReturn .= '<li><a href="'.$arResult[$index]["LINK"].'" title="'.$title.'">'.$title.'</a></li>';
+        }
+    } else {
+        if($index+1 == $itemSize && $arResult[$index]["LINK"] != $dir && $arResult[$index]["LINK"] && $index != 0){
+            if($index > 0)    $strReturn .= '<li><span>&nbsp;/&nbsp;</span></li>';
+            $strReturn .= '<li><a href="'.$arResult[$index]["LINK"].'" title="'.$title.'">'.$title.'</a></li>';
+        }
     }
 }
 
