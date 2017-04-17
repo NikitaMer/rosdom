@@ -44,7 +44,7 @@ print_r($arrFilter); */
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
 		"ELEMENT_CODE" => $_REQUEST["ELEMENT_CODE"],
-		"ELEMENT_ID" => $_REQUEST["ELEMENT_CODE"],
+		"ELEMENT_ID" => "",
 		"FIELD_CODE" => array(
 			0 => "ID",
 			1 => "CODE",

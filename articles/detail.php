@@ -15,8 +15,8 @@ $APPLICATION->SetTitle("сантехника h1");
 		"AJAX_MODE" => "N",
 		"IBLOCK_TYPE" => "articles",
 		"IBLOCK_ID" => "9",
-		"ELEMENT_ID" => $_REQUEST["ELEMENT_CODE"],
-		"ELEMENT_CODE" => "",
+		"ELEMENT_ID" => "",
+		"ELEMENT_CODE" => $_REQUEST["ELEMENT_CODE"],
 		"CHECK_DATES" => "Y",
 		"FIELD_CODE" => array(
 			0 => "TAGS",

@@ -197,7 +197,7 @@
 
     if(file_exists('local/php_interface/include/function_parser.php')){
         include('local/php_interface/include/function_parser.php');
-    }
+    } 
     if(file_exists('local/php_interface/include/function_parser_manually.php')){
         include('local/php_interface/include/function_parser_manually.php');
     }
