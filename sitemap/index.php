@@ -53,13 +53,13 @@ function getArticlesSections($iblock_id, $root_link, $section_id = 0) {
 function getArticles($iblock_id, $root_link, $section_id = 0){
     global $linkz;
 
-    $arSelect = Array("ID");
+    $arSelect = Array("ID", "CODE");
     $arFilter = Array("IBLOCK_ID"=>$iblock_id, "ACTIVE"=>"Y", "SECTION_ID" => $section_id);
     $res = CIBlockElement::GetList(Array('ID' => 'ASC'), $arFilter, false, false, $arSelect);
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/articles/article'.$arFields['ID'].'/';
+      $linkz[] = '/articles/article'.$arFields['CODE'].'/';
     }
 }
 
@@ -71,10 +71,12 @@ function getFaqSections($iblock_id, $root_link, $section_id = 0) {
     $arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id, "ACTIVE" => "Y");
 
 
-    $db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+    $db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
     while($ar_result = $db_list->GetNext()){
-        $linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
+        $code = ($ar_result["CODE"])? $ar_result["CODE"].'/':'';
+        $linkz[] = $root_link.'/'.$code;
+
         getFaq($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
         if (($ar_result["RIGHT_MARGIN"] - $ar_result["LEFT_MARGIN"]) > 1){
             getFaqSections($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
@@ -84,11 +86,11 @@ function getFaqSections($iblock_id, $root_link, $section_id = 0) {
 
 };
 
-function getFirms($iblock_id, $root_link, $section_id = 0){
+/*function getFirms($iblock_id, $root_link, $section_id = 0){
     unset($arFilter);
     $arFilter = Array("IBLOCK_ID" => $iblock_id, "SECTION_ID" => $section_id, "ACTIVE" => "Y");
 
-    $db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
+    $db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false);
 
     while($ar_result = $db_list->GetNext()){
          $linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
@@ -98,22 +100,22 @@ function getFirms($iblock_id, $root_link, $section_id = 0){
         };
     };
 
-};
+};  */
 
 function getFaq($iblock_id, $root_link, $section_id = 0){
     global $linkz;
 
-    $arSelect = Array("ID");
+    $arSelect = Array("ID", "CODE");
     $arFilter = Array("IBLOCK_ID"=>$iblock_id, "ACTIVE"=>"Y", "SECTION_ID" => $section_id);
     $res = CIBlockElement::GetList(Array('ID' => 'ASC'), $arFilter, false, false, $arSelect);
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/faq/faq'.$arFields['ID'].'/';
+      $linkz[] = '/faq/faq'.$arFields['CODE'].'/';
     }
 }
 
-function getMagazines(){
+/*function getMagazines(){
     global $linkz;
     global $root_url;
 
@@ -126,7 +128,7 @@ function getMagazines(){
       $linkz[] = '/magazines/'.$arFields['CODE'].'/';
     }
 
-};
+};   */
 
 function getCPUSections($iblock_id, $root_link, $section_id = 0) {
     global $linkz;
@@ -139,14 +141,13 @@ function getCPUSections($iblock_id, $root_link, $section_id = 0) {
     $db_list = CIBlockSection::GetList(Array("LEFT_MARGIN"=>"ASC"), $arFilter, false/*, Array("UF_DATE")*/);
 
     while($ar_result = $db_list->GetNext()){
-        $linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
-        getCPUElements($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
+        $linkz[] = $ar_result["SECTION_PAGE_URL"];
+        getCPUElements($iblock_id, $ar_result["SECTION_PAGE_URL"], $ar_result["ID"]);
         if (($ar_result["RIGHT_MARGIN"] - $ar_result["LEFT_MARGIN"]) > 1){
-            getCPUSections($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
+            getCPUSections($iblock_id, $ar_result["SECTION_PAGE_URL"], $ar_result["ID"]);
         };
 
     };
-
 };
 
 function getCPUElements($iblock_id, $root_link, $section_id = 0){
@@ -162,7 +163,7 @@ function getCPUElements($iblock_id, $root_link, $section_id = 0){
     }
 }
 
-function getExhibitions(){
+/*function getExhibitions(){
     global $linkz;
     global $root_url;
 
@@ -175,7 +176,7 @@ function getExhibitions(){
       $linkz[] = '/exhibitions/'.$arFields['CODE'].'/';
     }
 
-};
+};       */
 
 $linkz[] = '/';
 
@@ -196,15 +197,15 @@ foreach ($blocks as $val){
 };
 
 //статьи
-$linkz[] = '/articles/';
+$linkz[] = '/articles';
 getArticlesSections(9, '/articles', 0);
 
 //faq
-$linkz[] = '/faq/';
+$linkz[] = '/faq';
 getFaqSections(14, '/faq', 0);
 
 //Проекты
-$linkz[] = '/projects/';
+$linkz[] = '/projects';
 getCPUSections(IBLOCK_ID_PROJECT, '/projects', 0);
 
 $ar_xml = 0;
@@ -213,7 +214,14 @@ $data = '<?xml version="1.0" encoding="UTF-8"?>
 foreach ($linkz as $link) {
     $priority = explode('/', $link);
 
-     if($priority[1] == ''){
+    if(count($priority) <= 3){
+     $data .=
+        '<url>
+            <loc>'.$root_url.$link.'/</loc>
+            <priority>0.5</priority>
+        </url>';
+        $ar_xml += 1;
+    } else if($priority[1] == ''){
         $data .=
         '<url>
             <loc>'.$root_url.$link.'</loc>
@@ -227,7 +235,7 @@ foreach ($linkz as $link) {
             if(mb_strlen($mass) >= 9){
                 $data .=
                 '<url>
-                    <loc>'.$root_url.'/'.$priority[1].'/'.$mass.'/'.'</loc>
+                    <loc>'.$root_url.$link.'</loc>
                     <priority>0.9</priority>
                 </url>';
             } else {
