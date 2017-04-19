@@ -193,11 +193,18 @@
 
     }
     // Редирект URL на нижний регистр
-    function LowerCase(){
-        if ($_SERVER['SCRIPT_URI'] != strtolower($_SERVER['SCRIPT_URI'])) {
-             $url = strtolower($_SERVER['SCRIPT_URI']);
-             $req = strstr($_SERVER['REQUEST_URI'], '?');        
-             $new_url = $url.$req;
+    function LowerCase(){ 
+        if(strpos($_SERVER['REQUEST_URI'], '?')){
+             $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
+             $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
+             $req = strstr($_SERVER['REQUEST_URI'], '?');
+             $new_url = $url_without_req_min.$req; 
+        }else{
+             $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
+             $url_without_req = $_SERVER['REQUEST_URI'];
+             $new_url = $url_without_req_min;
+        }         
+        if ($url_without_req != $url_without_req_min) {             
              LocalRedirect($new_url, true, "301 Moved permanently");       
         }    
     }  
