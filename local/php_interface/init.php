@@ -6,6 +6,7 @@
     //error_reporting(E_ALL);
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
     AddEventHandler("main", "OnEpilog", "fixCatalogDuplication");
+    AddEventHandler("main", "OnEpilog", "LowerCase");
     class MyClass
     {
         // ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В·ГѓЖ’Г‚ВђГѓвЂљГ‚ВґГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚Вј ГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Гўв‚¬?ГѓВўГўв‚¬ЕЎГ‚В¬ГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г‚ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Г‚ВђГѓвЂљГ‚Вє ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г‚В№ГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЏ "OnBeforeIBlockElementAdd"
@@ -191,7 +192,14 @@
         }
 
     }
-
+    // Редирект URL на нижний регистр
+    function LowerCase(){
+        if ( $_SERVER['REQUEST_URI'] != strtolower( $_SERVER['REQUEST_URI']) ) {
+            header('Location: http://'.$_SERVER['HTTP_HOST'] . 
+            strtolower($_SERVER['REQUEST_URI']), true, 301);
+            exit();
+        }    
+    }  
 
 
 
