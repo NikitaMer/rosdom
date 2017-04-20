@@ -26,4 +26,5 @@ $MESS["DIMENSIONS"] = "Габариты: ";
 $MESS["MATERIAL"] = "Материал: ";
 $MESS["PRICE"] = "Цена: ";
 $MESS["HOUSE_PROJECT"] = "Проект дома № ";
+$MESS["BUY"] = "КУПИТЬ";
 ?>
