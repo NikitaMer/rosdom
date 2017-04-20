@@ -176,9 +176,9 @@
                     <p class="info">
                         <noindex><?=GetMessage("TOTAL_AREA")?><b><?=$arItem['PROPERTIES']['OB_PL']['VALUE']?> Л<sup>2</sup></b><br>
                         <?=GetMessage("DIMENSIONS")?><b><?=$arItem['PROPERTIES']['V_GAB']['VALUE']?> x <?=$arItem['PROPERTIES']['H_GAB']['VALUE']?></b><br>
-                        <?=GetMessage("MATERIAL")?></noindex><b><a href="/project/<?=$section["CODE"]?>/"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b><br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
+                        <?=GetMessage("MATERIAL")?></noindex><b><a href="/projects/<?=$section["CODE"]?>/"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b><br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
-                        <a href="/order/?nproj=<?=$arItem['CODE']?>" style=" padding:3px 5px; text-decoration:none; background:#aaa; color:white;">йсохрэ</a>
+                        <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
                         </noindex>
                     </p>
                 </div>

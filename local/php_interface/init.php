@@ -193,13 +193,13 @@
 
     }
     // Редирект URL на нижний регистр
-    function LowerCase(){ 
-        if(strpos($_SERVER['REQUEST_URI'], '?')){
+    function LowerCase() { 
+        if (strpos($_SERVER['REQUEST_URI'], '?')) {
              $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
              $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
              $req = strstr($_SERVER['REQUEST_URI'], '?');
              $new_url = $url_without_req_min.$req; 
-        }else{
+        }else {
              $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
              $url_without_req = $_SERVER['REQUEST_URI'];
              $new_url = $url_without_req_min;
