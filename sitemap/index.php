@@ -217,7 +217,7 @@ foreach ($linkz as $link) {
     if(count($priority) <= 3){
      $data .=
         '<url>
-            <loc>'.$root_url.$link.'/</loc>
+            <loc>'.$root_url.preg_replace("#/$#", "", $link).'/</loc>
             <priority>0.5</priority>
         </url>';
         $ar_xml += 1;
@@ -228,11 +228,11 @@ foreach ($linkz as $link) {
             <priority>1.0</priority>
         </url>';
         $ar_xml += 1;
-    } else if(count($priority) >= 3 && $priority[1] == 'projects'){
+    } else if(count($priority) > 3 && $priority[1] == 'projects'){
         array_pop($priority);
         $mass = array_pop($priority);
         if(!in_array($mass, $ar_items)){
-            if(mb_strlen($mass) >= 9){
+            if(mb_strlen($mass) > 9){
                 $data .=
                 '<url>
                     <loc>'.$root_url.$link.'</loc>

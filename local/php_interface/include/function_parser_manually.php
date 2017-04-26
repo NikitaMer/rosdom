@@ -76,7 +76,7 @@ function AddingParceAddManually() {
         }
         if($item_parser["plan_4"]){
             $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
-        }
+        } 
        if($section_heading == 'K' ) {  // раздел кирпич
             $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
        } else if($section_heading == 'P' ) { // раздел пенобетон

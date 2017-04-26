@@ -228,12 +228,12 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <?$APPLICATION->IncludeComponent("bitrix:main.include", "", array(
 	"AREA_FILE_SHOW" => "file",
-	"PATH" => "/about/error_on_site.php",
-	"EDIT_TEMPLATE" => "standard.php"
+		"PATH" => "/about/error_on_site.php",
+		"EDIT_TEMPLATE" => "standard.php"
 	),
 	false,
 	array(
-	"ACTIVE_COMPONENT" => "Y"
+	"ACTIVE_COMPONENT" => "N"
 	)
 );?>
       </aside>
