@@ -10,7 +10,7 @@
     class MyClass
     {
         function OnBeforeIBlockElementAddHandler(&$arFields)
-        { 
+        {
             $name = $arFields["NAME"];
             $arParams = array("replace_space"=>"-","replace_other"=>"-");
             $trans = Cutil::translit($name,"ru",$arParams);
@@ -21,7 +21,7 @@
                 if($res = $db->GetNext()) $i++;
             } while($res);
             $arFields["CODE"] = $find;
-            
+
             if($arFields["IBLOCK_ID"] == 14) $arFields["PREVIEW_TEXT"]=$arFields["NAME"];
 
             include($_SERVER["DOCUMENT_ROOT"]."/sitemap/index_i.php");
@@ -192,46 +192,44 @@
 
     }
     // Редирект URL на нижний регистр
-    function LowerCase() { 
+    function LowerCase() {
         if (strpos($_SERVER['REQUEST_URI'], '?')) {
              $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
              $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
              $req = strstr($_SERVER['REQUEST_URI'], '?');
-             $new_url = $url_without_req_min.$req; 
+             $new_url = $url_without_req_min.$req;
         }else {
              $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
              $url_without_req = $_SERVER['REQUEST_URI'];
              $new_url = $url_without_req_min;
-        }         
-        if ($url_without_req != $url_without_req_min) {             
-             LocalRedirect($new_url, true, "301 Moved permanently");       
-        }    
-    }  
-
-
-
-    if(file_exists('local/php_interface/include/function_parser.php')){
-        include('local/php_interface/include/function_parser.php');
-    } 
-    if(file_exists('local/php_interface/include/function_parser_manually.php')){
-        include('local/php_interface/include/function_parser_manually.php');
+        }
+        if ($url_without_req != $url_without_req_min) {
+             LocalRedirect($new_url, true, "301 Moved permanently");
+        }
     }
 
 
 
+    if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php')){
+        include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php');
+    }
+    if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser_manually.php')){
+        include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser_manually.php');
+    }
 
-    //Подключение парсера в админке 
+
+    //Подключение парсера в админке
     AddEventHandler("main", "OnBuildGlobalMenu", "AlexMenus");
     function AlexMenus(&$adminMenu, &$moduleMenu){
     $moduleMenu[] = array(
-    "parent_menu" => "global_menu_services", 
-    "sort"        => 1000,                    
-    "url"         => "/bitrix/admin/mobile/parser.php?lang=".LANG,  
-    "text"        => 'Запуск парсера',       
-    "title"       => 'Парсер каталога проектов', 
-    "icon"        => "form_menu_icon", 
-    "page_icon"   => "form_page_icon", 
-    "items_id"    => "menu",  
-    "items"       => array()          
+        "parent_menu" => "global_menu_services",
+        "sort"        => 1000,
+        "url"         => "/bitrix/admin/mobile/parser.php?lang=".LANG,
+        "text"        => 'Запуск парсера',
+        "title"       => 'Парсер каталога проектов',
+        "icon"        => "form_menu_icon",
+        "page_icon"   => "form_page_icon",
+        "items_id"    => "menu",
+        "items"       => array()
     );
-    }  
+    }

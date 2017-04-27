@@ -4,18 +4,17 @@ function AddingParceAddManually() {
     $simple  = simplexml_load_file("http://www.catalog-domov.ru/xml/rosdom.xml");
     $vars = array();
     $i = 0;
-
     foreach ($simple->project as $name => $value) {
-        $vars[$i++] = get_object_vars($value);   // преобразуем объект в массив
+        $vars[] = get_object_vars($value);   // преобразуем объект в массив
+        $i++;
     }
-
     global $USER;
     CModule::IncludeModule('iblock');
     $arSelect = Array("ID", "IBLOCK_ID", "PROPERTY_UNLOADED_THROUGH_PARSER", "NAME", "PROPERTY_IMG_HASH", "PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE");
     $arFilter = Array("IBLOCK_ID" => IBLOCK_ID_PROJECT);
 
     $ar_item_name = array();
-    $ar_element = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+    $ar_element = CIBlockElement::GetList(Array("DATE_UPDATE" => "ASC"), $arFilter, false, Array(), $arSelect);
     while ($element_wrap = $ar_element->GetNext()) {
         if($element_wrap["PROPERTY_UNLOADED_THROUGH_PARSER_VALUE"] == 'Y'){
             $ar_item_name[$element_wrap["NAME"]][] = $element_wrap["ID"];
@@ -24,7 +23,10 @@ function AddingParceAddManually() {
         }
     }
 
-   foreach($vars as $key => $item_parser) {
+   foreach($vars as $key => $item_parser){
+   //for($x=2500;$x<$i;$x++){ $item_parser = $vars[$x];
+
+
 
       // перекодируем свойства через функцию utf8win1251
       if(!$ar_item_name[$item_parser["prj_name"]]) {
@@ -62,21 +64,28 @@ function AddingParceAddManually() {
         } else if($element_room[8] = 1) {
             $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
         }
-
-        $PROP["PLINTH"] = ($newfile_perspectiva_plan_0)? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
-        $PROP["ATTIC"] = ($newfile_perspectiva_plan_m)? Array("VALUE" => ATTIC): ''; // Наличие мансарды
-        if($item_parser["plan_1"] && !$item_parser["plan_2"] && !$item_parser["plan_3"] && !$item_parser["plan_4"]){
+        $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
+        $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
+        // Определяем количество этажей
+        $floor = 0;
+        if($item_parser["plan_0"]) $floor++;
+        if($item_parser["plan_1"]) $floor++;
+        if($item_parser["plan_2"]) $floor++;
+        if($item_parser["plan_3"]) $floor++;
+        if($item_parser["plan_4"]) $floor++;
+        if($item_parser["plan_m"]) $floor++;
+        if($floor == 1){
             $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
         }
-        if($item_parser["plan_2"] && $item_parser["plan_1"] && !$item_parser["plan_3"] && !$item_parser["plan_4"]){
+        if($floor == 2){
             $PROP["FLOORS"] = Array("VALUE" => FLOORS_2); // этажность
         }
-        if($item_parser["plan_3"] && $item_parser["plan_2"] && $item_parser["plan_1"] && !$item_parser["plan_4"]){
+        if($floor == 3){
             $PROP["FLOORS"] = Array("VALUE" => FLOORS_3); // этажность
         }
-        if($item_parser["plan_4"]){
+        if($floor == 4){
             $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
-        } 
+        }
        if($section_heading == 'K' ) {  // раздел кирпич
             $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
        } else if($section_heading == 'P' ) { // раздел пенобетон
@@ -88,24 +97,26 @@ function AddingParceAddManually() {
        } else if($section_heading == 'M' ) {  // раздел каркас
             $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
        }
+
+
         $PROP["NUMBER_CARS"] = $element_room[9];  // Количество машин в гараже
         $PROP["IMG_HASH"] = $item_parser["img_hash"];   // контрольная сумма по картинкам проекта
         $key_word = 0;
         $materials = array();
-        $temp_material = utf8win1251($item_parser["materials"]);        
-        $word_materials = str_split($temp_material);    
-        foreach ($word_materials as $key=>$word){  
+        $temp_material = utf8win1251($item_parser["materials"]);
+        $word_materials = str_split($temp_material);
+        foreach ($word_materials as $key=>$word){
             $materials[$key_word] = $materials[$key_word].$word;
             // В $item_parser["materials"] не отображается тег <br/>
-            // Разбиение строки на подстроки, как в XML файле, с помощью кода символа Юникод.                 
-            if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=224 && ord($word_materials[$key])<=255) || (ord($word_materials[$key])==34 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || ord($word_materials[$key])==10 || (ord($word_materials[$key])==32 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==41 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==46 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=97 && ord($word_materials[$key])<=122)){                    
-                if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==34 && ord($word_materials[$key-1])==32) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==32 && ord($word_materials[$key-1])>=224 && ord($word_materials[$key-1])<=255)|| (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && (ord($word_materials[$key-1])==150 || ord($word_materials[$key-1])==45 || ord($word_materials[$key-1])==151))){}else{    
+            // Разбиение строки на подстроки, как в XML файле, с помощью кода символа Юникод.
+            if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=224 && ord($word_materials[$key])<=255) || (ord($word_materials[$key])==34 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || ord($word_materials[$key])==10 || (ord($word_materials[$key])==32 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==41 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==46 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=97 && ord($word_materials[$key])<=122)){
+                if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==34 && ord($word_materials[$key-1])==32) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==32 && ord($word_materials[$key-1])>=224 && ord($word_materials[$key-1])<=255)|| (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && (ord($word_materials[$key-1])==150 || ord($word_materials[$key-1])==45 || ord($word_materials[$key-1])==151))){}else{
                 $key_word++;
-                }                         
-            }         
-        }                                                                                          
+                }
+            }
+        }
         foreach($materials as $key=>$material){
-            $PROP["MATERIALS"][$key] =  $material;  // свойство "строительные материалы"    
+            $PROP["MATERIALS"][$key] =  $material;  // свойство "строительные материалы"
         }
         $PROP["V_GAB"] = $item_parser["v_gab"];  // свойство "габарит дома 1"
         $PROP["H_GAB"] = $item_parser["h_gab"];        // свойство "габарит дома 2"
@@ -188,16 +199,16 @@ function AddingParceAddManually() {
                   $section_id[] = PROJECTS_MONOLITHIS_400;   // Проекты каркасных домов 400 квадратных метров
                }
            }
-           if($item_parser["plan_1"] && !$item_parser["plan_2"] && !$item_parser["plan_3"] && !$item_parser["plan_4"]){
+           if($floor == 1){
                 $section_id[] = PROJECTS_OF_SINGLE_STOREY;   // Проекты одноэтажных домов
            }
-           if($item_parser["plan_2"] && $item_parser["plan_1"] && !$item_parser["plan_3"] && !$item_parser["plan_4"]){
+           if($floor == 2){
                 $section_id[] = DRAFT_TWO_STOREY;  // Проекты двухэтажных домов
            }
-           if($item_parser["plan_3"] && $item_parser["plan_2"] && $item_parser["plan_1"] && !$item_parser["plan_4"]){
+           if($floor == 3){
                 $section_id[] = PROJECTS_STOREY; // Проекты трехэтажных домов
            }
-           if($item_parser["plan_4"]){
+           if($floor == 4){
                 $section_id[] = DRAFT_FOUR_STOREY;   // Проекты четырехэтажных домов
            }
            if($item_parser["plan_0"]){
@@ -350,9 +361,6 @@ function AddingParceAddManually() {
                     CPrice::Add($ar_fields_offer_price);
                 }
             }
-        $parser_load[] = $PRODUCT_ID;
-
-
       } else if($ar_item_name[$item_parser["prj_name"]]){  // при наличие товара в инфоблоке обновляем кго свойства
 
           // update
@@ -684,7 +692,8 @@ function AddingParceAddManually() {
                 } else {
                     CPrice::Add($ar_fields_offer_price);
                 }
-            }      
+            }
+            arshow($x);
       } else {
 
             $ELEMENT_ID = $ar_item_name[$item_parser["prj_name"]][0];
@@ -695,7 +704,6 @@ function AddingParceAddManually() {
 
             // Установим новое значение для данного свойства данного элемента
             CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, false, array($PROPERTY_CODE => $PROPERTY_VALUE));
-            $parser_load[] = $ELEMENT_ID;
       }
     }
     if(count($parser_load) > 50){

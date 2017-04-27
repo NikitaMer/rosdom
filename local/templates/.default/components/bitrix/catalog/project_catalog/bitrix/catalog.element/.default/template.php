@@ -1205,8 +1205,8 @@ $ELEMENT_META_TITLE =  strip_tags(html_entity_decode($IPROPERTY['ELEMENT_META_TI
 <?if($arResult["PROPERTIES"]["PROJECT_OPTIONS"]["VALUE"]){?>
     <h2><?=GetMessage("PROJ_OPT")?></h2>
     <div class="bx_catalog_list_home col3 bx_catalog_item"> <?//Количество элементов в строке можно менять, поменяв col3 на col1 или col2?>
-    <?$dbResultProj = CIBlockElement::GetList(array(),Array("ID"=>$arResult["PROPERTIES"]["PROJECT_OPTIONS"]["VALUE"], "ACTIVE"=>"Y"),false,false,Array("ID", "NAME", "PREVIEW_PICTURE"));
-    while($arResultProj = $dbResultProj->Fetch()){
+    <?$dbResultProj = CIBlockElement::GetList(array(),Array("ID"=>$arResult["PROPERTIES"]["PROJECT_OPTIONS"]["VALUE"], "ACTIVE"=>"Y"),false,false,Array("ID", "NAME", "PREVIEW_PICTURE", "DETAIL_PAGE_URL"));
+    while($arResultProj = $dbResultProj->GetNext()){
         $pic = CFile::GetFileArray($arResultProj['PREVIEW_PICTURE']);    
         $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues($arParams["IBLOCK_ID"],$arResultProj["ID"]);
         $IPROPERTY = $ipropValues->getValues();
@@ -1256,10 +1256,10 @@ while ($ar_res = $price->Fetch()) {
 <b><?=html_entity_decode($IPROPERTY['ELEMENT_META_DESCRIPTION'])?></b>
 <br>  
 <br>  
-<?if($arResult["PROPERTIES"]["SERIES_PROJECTS"]){?>
+<?if($arResult["PROPERTIES"]["SERIES_PROJECTS"]["VALUE"]){?>
     <h2><?=GetMessage("PROJ_SER")?></h2>
     <div class="bx_catalog_list_home col3 bx_catalog_item">
-    <?$dbResultProj = CIBlockElement::GetList(array("id"=>"desc"),Array("IBLOCK_ID"=>$arParams["IBLOCK_ID"],"ID"=>array(16246,16955,16855)),false,false,Array("ID", "NAME", "PREVIEW_PICTURE"));
+    <?$dbResultProj = CIBlockElement::GetList(array("id"=>"desc"), Array("IBLOCK_ID"=>$arParams["IBLOCK_ID"], "ID" => $arResult["PROPERTIES"]["SERIES_PROJECTS"]["VALUE"]), false, false, Array("ID", "NAME", "PREVIEW_PICTURE", "DETAIL_PAGE_URL"));
     while($arResultProj = $dbResultProj->GetNext()){
         $pic = CFile::GetFileArray($arResultProj['PREVIEW_PICTURE']);    
         $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues($arParams["IBLOCK_ID"],$arResultProj["ID"]);
