@@ -2,6 +2,10 @@
     define('MENU_TEXT', 'Различные тексты');
     define('MENU_FILE', 'Файлы');
     define('IBLOCK_ID_PROJECT', 37);
+    
+    if(file_exists('local/php_interface/include/.config.php')){
+        include('local/php_interface/include/.config.php');
+    }
 
     //error_reporting(E_ALL);
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
@@ -71,9 +75,7 @@
         }
     }
 
-    if(file_exists('local/php_interface/include/.config.php')){
-        include('local/php_interface/include/.config.php');
-    }
+    
 
 
     function arshow($array, $adminCheck = false){
@@ -213,10 +215,7 @@
     if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php')){
         include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php');
     }
-    if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser_manually.php')){
-        include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser_manually.php');
-    }
-
+    
 
     //Подключение парсера в админке
     AddEventHandler("main", "OnBuildGlobalMenu", "AlexMenus");

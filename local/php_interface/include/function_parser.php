@@ -1,126 +1,137 @@
-<?function AddPicture($image_url) {
-        //сохраняем файл и получаем его путь на сервере
-        $piture = explode('/', $image_url);
-        $picture_last = array();
-        $picture_penult = array();
-        if(!empty($piture) && exif_imagetype($image_url) != false) {
-            $file_perspectiva_big = $image_url;
-            $picture_last = array_pop($piture);
-            $picture_penult = array_pop($piture);
-            if($picture_penult && $picture_last){
-                $newfile = $_SERVER["DOCUMENT_ROOT"] . '/upload/iblock/photo/' . $picture_penult.$picture_last;
-            }
-            if(!CFile::MakeFileArray($newfile)){
-                $file_get = file_put_contents($newfile, file_get_contents($file_perspectiva_big));
-            }
-        }
-        else{
-            $newfile = false;
-        }
-        return $newfile;
+<?   
+
+    if(file_exists('local/php_interface/include/parser_config.php')){
+        include('local/php_interface/include/parser_config.php');
     }
-    
+
     function UpdatePicture($image_url) {
+
+        if (empty($image_url)) {
+            return false;
+        }
+
         //сохраняем файл и получаем его путь на сервере
         $piture = explode('/', $image_url);
         $picture_last = array();
         $picture_penult = array();
-        $file_perspectiva_big = $image_url;
+
         $picture_last = array_pop($piture);
         $picture_penult = array_pop($piture);
         if(exif_imagetype($image_url) != false) {
+
             if($picture_penult && $picture_last){
-                $newfile = $_SERVER["DOCUMENT_ROOT"] . '/upload/iblock/photo/' . $picture_penult.$picture_last;
+                $newfile = $_SERVER["DOCUMENT_ROOT"] . '/upload/iblock/photo/' . $picture_penult . $picture_last;
             }
+
             if(!CFile::MakeFileArray($newfile)) {
-                $file_get = file_put_contents($newfile, file_get_contents($file_perspectiva_big));
+                $file_get = file_put_contents($newfile, file_get_contents($image_url));
             }
-        }else{
+
+        } else {
             $newfile = false;
         }
+
         return $newfile;
     }
-    
+
     function my_log($string) {  // записываем логи в файл
         $log_file_name = $_SERVER['DOCUMENT_ROOT']."/log_parser/my_log";
         $now = date("Y-m-d H:i:s");
-        file_put_contents($log_file_name.'_'.date("d-m-Y").'.log', $now." ".$string."\r\n", FILE_APPEND);
+        file_put_contents($log_file_name.'_'.date("d-m-Y").'.log', $now . " " . $string . "\r\n", FILE_APPEND);
     }
 
-    function AddingParceAdd($manually = false) {
 
-        $simple  = simplexml_load_file("http://www.catalog-domov.ru/xml/rosdom.xml");
+    /**
+    * put your comment there...
+    * 
+    * @param boolean $manually - флаг ручного запуска. По умолчанию - false.
+    * @return mixed
+    */
+    function AddingParceAdd($manually = false) {    
+    
+        arshow(date("H:i:s"));           
+
+        $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
+        //$file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
+
+        $simple  = simplexml_load_file($file_path);
         $vars = array();
         $i = 0;
         foreach ($simple->project as $name => $value) {
             $vars[] = get_object_vars($value);   // преобразуем объект в массив
             $i++;
         }
-        global $USER;
+        
+        arshow(count($vars));           
+       
         CModule::IncludeModule('iblock');
+        
         $arSelect = Array("ID", "IBLOCK_ID", "PROPERTY_UNLOADED_THROUGH_PARSER", "NAME", "PROPERTY_IMG_HASH", "PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE");
         $arFilter = Array("IBLOCK_ID" => IBLOCK_ID_PROJECT);
 
+        //выбираем текущие проекты из каталога
         $ar_item_name = array();
         $ar_element = CIBlockElement::GetList(Array("TIMESTAMP_X" => "ASC"), $arFilter, false, Array(), $arSelect);
         while ($element_wrap = $ar_element->GetNext()) {
             if($element_wrap["PROPERTY_UNLOADED_THROUGH_PARSER_VALUE"] == 'Y'){
-                $ar_item_name[$element_wrap["NAME"]][] = $element_wrap["ID"];
-                $ar_item_name[$element_wrap["NAME"]][] = $element_wrap["PROPERTY_IMG_HASH_VALUE"];
-                $ar_item_name[$element_wrap["NAME"]][] = $element_wrap["PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["ID"] = $element_wrap["ID"];
+                $ar_item_name[$element_wrap["NAME"]]["IMG_HASH"] = $element_wrap["PROPERTY_IMG_HASH_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["TMP_UNAVAILABLE"] = $element_wrap["PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE_VALUE"];
             }
-        }
+        }    
         
+
         foreach($vars as $key => $item_parser){
-            //for($x=2500;$x<$i;$x++){ $item_parser = $vars[$x];        
 
-
-            // перекодируем свойства через функцию utf8win1251
+            //если проекта нет в каталоге на сайте, то добавляем его
             if(!$ar_item_name[$item_parser["prj_name"]]) {
-
+                
                 $PROP = array();
                 $section_heading = substr($item_parser["prj_name"], -1);
 
-                $newfile_perspectiva_big = AddPicture($item_parser["perspectiva_big"]);
-                $newfile_perspectiva_small = AddPicture($item_parser["perspectiva_small"]);
+                $newfile_perspectiva_big = UpdatePicture($item_parser["perspectiva_big"]);
+                $newfile_perspectiva_small = UpdatePicture($item_parser["perspectiva_small"]);
 
-                $newfile_perspectiva_plan_0 = AddPicture($item_parser["plan_0"]);
-                $newfile_perspectiva_plan_1 = AddPicture($item_parser["plan_1"]);
-                $newfile_perspectiva_plan_2 = AddPicture($item_parser["plan_2"]);
-                $newfile_perspectiva_plan_3 = AddPicture($item_parser["plan_3"]);
-                $newfile_perspectiva_plan_4 = AddPicture($item_parser["plan_4"]);
-                $newfile_perspectiva_plan_m = AddPicture($item_parser["plan_m"]);
+                $newfile_perspectiva_plan_0 = UpdatePicture($item_parser["plan_0"]);
+                $newfile_perspectiva_plan_1 = UpdatePicture($item_parser["plan_1"]);
+                $newfile_perspectiva_plan_2 = UpdatePicture($item_parser["plan_2"]);
+                $newfile_perspectiva_plan_3 = UpdatePicture($item_parser["plan_3"]);
+                $newfile_perspectiva_plan_4 = UpdatePicture($item_parser["plan_4"]);
+                $newfile_perspectiva_plan_m = UpdatePicture($item_parser["plan_m"]);
 
-                $newfile_perspectiva_fasad_front = AddPicture($item_parser["fasad_front"]);
-                $newfile_perspectiva_fasad_left = AddPicture($item_parser["fasad_left"]);
-                $newfile_perspectiva_fasad_right = AddPicture($item_parser["fasad_right"]);
-                $newfile_perspectiva_fasad_behind = AddPicture($item_parser["fasad_behind"]);
+                $newfile_perspectiva_fasad_front = UpdatePicture($item_parser["fasad_front"]);
+                $newfile_perspectiva_fasad_left = UpdatePicture($item_parser["fasad_left"]);
+                $newfile_perspectiva_fasad_right = UpdatePicture($item_parser["fasad_right"]);
+                $newfile_perspectiva_fasad_behind = UpdatePicture($item_parser["fasad_behind"]);
 
                 $element_room = str_split($item_parser["rooms"], 1);  // разбиваем свойство по символам для дальнейшего распредениея
 
                 $PROP["NUMBER_OF_BEDROOMS"] = $element_room[0];  //  Число спален
                 $PROP["NUMBER_OF_LIVING"] = $element_room[1];   // Число жилых комнат, переоборудуемых под спальни, кроме гостиных
                 $PROP["NUMBER_OF_BATH"] = $element_room[2];    // Число с/у, ванн
-                $PROP["PRESENCE"] = ($element_room[3] = 1)? Array("VALUE" => PRESENCE_ID): ''; // Наличие сауны
-                $PROP["POOL"] = ($element_room[4] = 1)? Array("VALUE" => POOL_ID): '';  // Наличие бассейна
-                $PROP["BILLIARD"] = ($element_room[5] = 1)? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
-                $PROP["COMPLEX"] = ($element_room[6] = 1)? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса
-                $PROP["PRESENCE_WINTER"] = ($element_room[7] = 1)? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
-                if($element_room[8] = 2) {          // Наличие и тип гаража
+                $PROP["PRESENCE"] = ($element_room[3] = 1) ? Array("VALUE" => PRESENCE_ID): ''; // Наличие сауны
+                $PROP["POOL"] = ($element_room[4] = 1) ? Array("VALUE" => POOL_ID): '';  // Наличие бассейна
+                $PROP["BILLIARD"] = ($element_room[5] = 1) ? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
+                $PROP["COMPLEX"] = ($element_room[6] = 1) ? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса                         
+                $PROP["PRESENCE_WINTER"] = ($element_room[7] = 1) ? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
+
+                if ($element_room[8] == 2) {          // Наличие и тип гаража
                     $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_ONE);
-                } else if($element_room[8] = 1) {
+                } else if ($element_room[8] == 1) {
                     $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
                 }
+
                 $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
                 $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
                 // Определяем количество этажей
                 $floor = 0;
-                if($item_parser["plan_0"]) $floor++;
-                if($item_parser["plan_1"]) $floor++;
-                if($item_parser["plan_2"]) $floor++;
-                if($item_parser["plan_3"]) $floor++;
-                if($item_parser["plan_4"]) $floor++;
-                if($item_parser["plan_m"]) $floor++;
+                if ($item_parser["plan_0"]) $floor++;
+                if ($item_parser["plan_1"]) $floor++;
+                if ($item_parser["plan_2"]) $floor++;
+                if ($item_parser["plan_3"]) $floor++;
+                if ($item_parser["plan_4"]) $floor++;
+                if ($item_parser["plan_m"]) $floor++;
+
                 if($floor == 1){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
                 }
@@ -133,6 +144,7 @@
                 if($floor == 4){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
                 }   
+
                 if($section_heading == 'K' ) {  // раздел кирпич
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
                 } else if($section_heading == 'P' ) { // раздел пенобетон
@@ -156,8 +168,8 @@
                     $materials[$key_word] = $materials[$key_word].$word;
                     // В $item_parser["materials"] не отображается тег <br/>
                     // Разбиение строки на подстроки, как в XML файле, с помощью кода символа Юникод.
-                    if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=224 && ord($word_materials[$key])<=255) || (ord($word_materials[$key])==34 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || ord($word_materials[$key])==10 || (ord($word_materials[$key])==32 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==41 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key])==46 && ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])>=97 && ord($word_materials[$key])<=122)){
-                        if((ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==34 && ord($word_materials[$key-1])==32) || (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && ord($word_materials[$key])==32 && ord($word_materials[$key-1])>=224 && ord($word_materials[$key-1])<=255)|| (ord($word_materials[$key+1])>=192 && ord($word_materials[$key+1])<=223 && (ord($word_materials[$key-1])==150 || ord($word_materials[$key-1])==45 || ord($word_materials[$key-1])==151))){}else{
+                    if((ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223 && ord($word_materials[$key]) >= 224 && ord($word_materials[$key]) <= 255) || (ord($word_materials[$key]) == 34 && ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223) || ord($word_materials[$key]) == 10 || (ord($word_materials[$key]) == 32 && ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223) || (ord($word_materials[$key]) == 41 && ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223) || (ord($word_materials[$key]) == 46 && ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223) || (ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223 && ord($word_materials[$key]) >= 97 && ord($word_materials[$key]) <= 122)){
+                        if((ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223 && ord($word_materials[$key]) == 34 && ord($word_materials[$key-1]) == 32) || (ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223 && ord($word_materials[$key]) == 32 && ord($word_materials[$key-1]) >= 224 && ord($word_materials[$key-1]) <= 255)|| (ord($word_materials[$key+1]) >= 192 && ord($word_materials[$key+1]) <= 223 && (ord($word_materials[$key-1]) == 150 || ord($word_materials[$key-1]) == 45 || ord($word_materials[$key-1]) == 151))){}else{
                             $key_word++;
                         }
                     }
@@ -170,8 +182,8 @@
                 $PROP["OB_PL"] = $item_parser["ob_pl"];        // свойство "общая площадь"
                 $PROP["JIL_PL"] = $item_parser["jil_pl"];        // свойство "жилая площадь"
                 $PROP["UNLOADED_THROUGH_PARSER"] = 'Y';        // свойство "Товар выгружен через парсер"
-                
-                
+
+
                 if ($newfile_perspectiva_plan_0) {
                     $PROP["PLAN_0"] = CFile::MakeFileArray($newfile_perspectiva_plan_0);
                 }
@@ -213,7 +225,8 @@
                     "use_google" => "false", // отключаем использование google
                 );
                 // генерируем символьный код товара
-                $xml_name = Cutil::translit($item_parser["prj_name"], "ru", $arParams);
+                //$xml_name = Cutil::translit($item_parser["prj_name"], "ru", $arParams);
+                $xml_name = strtolower($item_parser["prj_name"]);
 
                 $section_id = array(); // распределение товаров по разделам
                 if($section_heading == 'P' ) { // раздел пенобетон
@@ -267,6 +280,7 @@
                         $section_id[] = PROJECTS_MONOLITHIS_400;   // Проекты каркасных домов 400 квадратных метров
                     }
                 }
+                
                 if($floor == 1){
                     $section_id[] = PROJECTS_OF_SINGLE_STOREY;   // Проекты одноэтажных домов
                 }
@@ -363,84 +377,83 @@
                 if($item_parser["labels"] == '[177]'){
                     $section_id[] = OTHER_BUILDINGS; // Прочие здания
                 }
-                $el_add = new CIBlockElement;
-                $arLoadProductArray = array();
-
-                if(!empty($section_id)){
-                    $arLoadProductArray = Array(
-                        "IBLOCK_SECTION" => $section_id,          // элемент лежит в корне раздела
-                        "CODE"           => $xml_name,
-                        "IBLOCK_ID"      => IBLOCK_ID_PROJECT,
-                        "NAME"           => $item_parser["prj_name"],   // название свойства
-                        "ACTIVE"         => "Y",
-                        "PROPERTY_VALUES"=> $PROP,          // активен
-
-                    );      
-                } else {
-                    $arLoadProductArray = Array(
-                        "IBLOCK_SECTION" => false,          // элемент лежит в корне раздела
-                        "CODE"           => $xml_name,
-                        "IBLOCK_ID"      => IBLOCK_ID_PROJECT,
-                        "NAME"           => $item_parser["prj_name"],   // название свойства
-                        "ACTIVE"         => "Y",
-                        "PROPERTY_VALUES"=> $PROP,          // активен                           
-                    );
-                    
-                    if ($newfile_perspectiva_big) {
-                        $arLoadProductArray["DETAIL_PICTURE"] = CFile::MakeFileArray($newfile_perspectiva_big); // добавляем url картинки
-                    }
-                    if ($newfile_perspectiva_small) {
-                        $arLoadProductArray["PREVIEW_PICTURE"] = CFile::MakeFileArray($newfile_perspectiva_small); // добавляем url картинки
-                    }
-                }
                 
+                $el_add = new CIBlockElement;
+
+                $project_section = false;
+                
+                if(!empty($section_id)){ 
+                    $project_section = $section_id;    
+                }      
+                
+                $arLoadProductArray = Array(
+                    "IBLOCK_SECTION" => $project_section, 
+                    "CODE"           => $xml_name,
+                    "IBLOCK_ID"      => IBLOCK_ID_PROJECT,
+                    "NAME"           => $item_parser["prj_name"],   
+                    "ACTIVE"         => "Y",
+                    "PROPERTY_VALUES"=> $PROP, 
+
+                );           
+
+                if ($newfile_perspectiva_big) {
+                    $arLoadProductArray["DETAIL_PICTURE"] = CFile::MakeFileArray($newfile_perspectiva_big); // добавляем url картинки
+                }
+                if ($newfile_perspectiva_small) {
+                    $arLoadProductArray["PREVIEW_PICTURE"] = CFile::MakeFileArray($newfile_perspectiva_small); // добавляем url картинки
+                }
+
                 $PRODUCT_ID = $el_add->Add($arLoadProductArray);
+                
                 if($PRODUCT_ID) {        // запись в логи
-                    my_log("Создан новый товар ".$item_parser["prj_name"]." c ID №".$PRODUCT_ID);
+                    my_log("Создан новый товар ".$item_parser["prj_name"]." c ID №".$PRODUCT_ID);         
+
+                    $ar_item_name[$item_parser["prj_name"]] = $PRODUCT_ID;
+
+                    //добавляем параметры товара
+                    $arCatFields = array(
+                        "ID" => $PRODUCT_ID,
+                        "QUANTITY" => 1,
+                    );
+
+                    $product_cat = CCatalogProduct::Add($arCatFields);
+
+                    //добавляем цены
+                    $ar_price_type = array(); // массив типов цен и самих цен
+                    $ar_price_type = array(
+                        PRICE_OF_DEVELOPER_KIT => $item_parser["price0"],
+                        PRICE_OF_COMPLETE_SET => $item_parser["price1"],
+                        PRICE_FOR_ARCHITECTURAL  => $item_parser["price2"],
+                        PRICE_OF_AN_ADDITIONAL  => $item_parser["price3"],
+                        PRICE_OF_THE_PASSPORT  => $item_parser["price4"],
+                    );     
+
+                    foreach($ar_price_type as $key_type => $price) {
+
+                        $ar_fields_offer_price = array(
+                            "PRODUCT_ID"=> $PRODUCT_ID,
+                            "CATALOG_GROUP_ID" => $key_type,
+                            "PRICE"=> $price,
+                            "CURRENCY"=> "RUB",
+                        );  
+
+                        CPrice::Add($ar_fields_offer_price);         
+                    }
+
                 } else {
                     my_log("Ошибка: ".$el_add->LAST_ERROR);
                 }
 
-                $ar_item_name[$item_parser["prj_name"]] = $PRODUCT_ID;
 
-                $arCatFields = array(
-                    "ID" => $PRODUCT_ID,
-                    "VAT_INCLUDED" => "Y", //НДС входит в стоимость
-                    "QUANTITY" => 1,
-                    "WEIGHT" => 100,
-                );
-                $product_cat = CCatalogProduct::Add($arCatFields);
 
-                $ar_price_type = array(); // массив типов цен и самих цен
-                $ar_price_type = array(
-                    PRICE_OF_DEVELOPER_KIT => $item_parser["price0"],
-                    PRICE_OF_COMPLETE_SET => $item_parser["price1"],
-                    PRICE_FOR_ARCHITECTURAL  => $item_parser["price2"],
-                    PRICE_OF_AN_ADDITIONAL  => $item_parser["price3"],
-                    PRICE_OF_THE_PASSPORT  => $item_parser["price4"],
-                );
-                foreach($ar_price_type as $key_type => $preice) {
-
-                    $ar_fields_offer_price = array(
-                        "PRODUCT_ID"=> $PRODUCT_ID,
-                        "CATALOG_GROUP_ID" => $key_type,
-                        "PRICE"=> $preice,
-                        "CURRENCY"=> "RUB",
-                    );
-                    $ar_offer_price = CPrice::GetList(array(), array("PRODUCT_ID"  => $PRODUCT_ID, "CATALOG_GROUP_ID" => $key_type));
-                    if ( $price_offer = $ar_offer_price->Fetch() ) {
-                        CPrice::Update( $price_offer["ID"], $ar_fields_offer_price );
-                    } else {
-                        CPrice::Add($ar_fields_offer_price);
-                    }
-                }
-            } else if($ar_item_name[$item_parser["prj_name"]]){  // при наличие товара в инфоблоке обновляем кго свойства
-
+            } else if ($ar_item_name[$item_parser["prj_name"]]) {// при наличие товара в инфоблоке обновляем его
+                                                       
                 // update
                 $PROP = array();
                 $section_heading = substr($item_parser["prj_name"], -1);
 
-                if($ar_item_name[$item_parser["prj_name"]][1] != $item_parser["img_hash"]) {
+                //если хеш картинок из файла не соответствует хешу картинок в инфоблоке, то нужно загрузить новые картинки
+                if($ar_item_name[$item_parser["prj_name"]]["IMG_HASH"] != $item_parser["img_hash"]) {
 
                     $newfile_perspectiva_big = UpdatePicture($item_parser["perspectiva_big"]);
                     $newfile_perspectiva_small = UpdatePicture($item_parser["perspectiva_small"]);
@@ -457,22 +470,8 @@
                     $newfile_perspectiva_fasad_right = UpdatePicture($item_parser["fasad_right"]);
                     $newfile_perspectiva_fasad_behind = UpdatePicture($item_parser["fasad_behind"]);
 
-                } else { /*
-                    $newfile_perspectiva_big = AddPicture($item_parser["perspectiva_big"]);
-                    $newfile_perspectiva_small = AddPicture($item_parser["perspectiva_small"]);
+                } 
 
-                    $newfile_perspectiva_plan_0 = AddPicture($item_parser["plan_0"]);
-                    $newfile_perspectiva_plan_1 = AddPicture($item_parser["plan_1"]);
-                    $newfile_perspectiva_plan_2 = AddPicture($item_parser["plan_2"]);
-                    $newfile_perspectiva_plan_3 = AddPicture($item_parser["plan_3"]);
-                    $newfile_perspectiva_plan_4 = AddPicture($item_parser["plan_4"]);
-                    $newfile_perspectiva_plan_m = AddPicture($item_parser["plan_m"]);
-
-                    $newfile_perspectiva_fasad_front = AddPicture($item_parser["fasad_front"]);
-                    $newfile_perspectiva_fasad_left = AddPicture($item_parser["fasad_left"]);
-                    $newfile_perspectiva_fasad_right = AddPicture($item_parser["fasad_right"]);
-                    $newfile_perspectiva_fasad_behind = AddPicture($item_parser["fasad_behind"]);   */
-                }
                 $el_uodate = new CIBlockElement;
 
                 $element_room = str_split($item_parser["rooms"], 1);  // разбиваем свойство по символам для дальнейшего распредениея
@@ -501,19 +500,35 @@
                 if($item_parser["plan_3"]) $floor++;
                 if($item_parser["plan_4"]) $floor++;
                 if($item_parser["plan_m"]) $floor++;
+
+                $ar_floors = array(
+                    1 => FLOORS_1,
+                    2 => FLOORS_2,
+                    3 => FLOORS_3,
+                    4 => FLOORS_4
+                );
+
+
+                $PROP["FLOORS"] = $ar_floors[$floor];
+
+
                 if($floor == 1){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
                 }
+
                 if($floor == 2){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_2); // этажность
                 }
+
                 if($floor == 3){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_3); // этажность
                 }
+
                 if($floor == 4){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
                 }
-                if($section_heading == 'K' ) {  // раздел кирпич
+
+                if ($section_heading == 'K' ) {  // раздел кирпич
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
                 } else if($section_heading == 'P' ) { // раздел пенобетон
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
@@ -730,14 +745,9 @@
                 if($item_parser["labels"] == '[177]'){
                     $section_id[] = OTHER_BUILDINGS; // Прочие здания
                 }
-                $arLoadProductArray = array();
 
                 $arLoadProductArray = Array(
-                    "MODIFIED_BY"    => $USER->GetID(), // элемент изменен текущим пользователем
                     "IBLOCK_SECTION" => $section_id,          // элемент лежит в корне раздела
-                    "IBLOCK_ID"      => IBLOCK_ID_PROJECT,
-                    "ACTIVE"         => "Y",            // активен
-
                 );
 
                 if ($newfile_perspectiva_big) {
@@ -746,26 +756,27 @@
 
                 if ($newfile_perspectiva_small) {
                     $arLoadProductArray["PREVIEW_PICTURE"] = CFile::MakeFileArray($newfile_perspectiva_small); // добавляем url картинки
-                }
-
-
-                $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]][0], $arLoadProductArray);
+                }                     
+               
+                arshow($PROP);
+               
+                $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
 
                 foreach($PROP as $code_prop=>$value_prop){
-                    if($value_prop){
-                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]][0],IBLOCK_ID_PROJECT,array($code_prop => $value_prop)); // обновляем свойства
-                    }else{
-                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]][0],IBLOCK_ID_PROJECT,array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
+                    if ($value_prop) {
+                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => $value_prop)); // обновляем свойства
+                    } else {
+                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
                     }
                 }
 
                 if(!$update_id) {        // запись в логи
-                    my_log("Ошибка при измененеии в проекте ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]][0].": ".$el_uodate->LAST_ERROR);
+                    my_log("Ошибка при измененеии в проекте ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
                 } else {
-                    my_log("Изменен прпект ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]][0]);
+                    my_log("Изменен прпект ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
                 }
                 $arCatFields = array(
-                    "ID" => $ar_item_name[$item_parser["prj_name"]][0],
+                    "ID" => $ar_item_name[$item_parser["prj_name"]]["ID"],
                     "VAT_INCLUDED" => "Y", //НДС входит в стоимость
                     "QUANTITY" => 1,
                     "WEIGHT" => 100,
@@ -782,34 +793,38 @@
                 );
                 foreach($ar_price_type as $key_type => $preice) {
                     $ar_fields_offer_price = array(
-                        "PRODUCT_ID"=> $ar_item_name[$item_parser["prj_name"]][0],
+                        "PRODUCT_ID"=> $ar_item_name[$item_parser["prj_name"]]["ID"],
                         "CATALOG_GROUP_ID" => $key_type,
                         "PRICE"=> $preice,
                         "CURRENCY"=> "RUB",
                     );
-                    $ar_offer_price = CPrice::GetList(array(), array("PRODUCT_ID"  => $ar_item_name[$item_parser["prj_name"]][0], "CATALOG_GROUP_ID" => $key_type));
+                    $ar_offer_price = CPrice::GetList(array(), array("PRODUCT_ID"  => $ar_item_name[$item_parser["prj_name"]]["ID"], "CATALOG_GROUP_ID" => $key_type));
                     if ( $price_offer = $ar_offer_price->Fetch() ) {
                         CPrice::Update( $price_offer["ID"], $ar_fields_offer_price );
                     } else {
                         CPrice::Add($ar_fields_offer_price);
                     }
                 }
-                arshow($x);
             } else {
 
-                $ELEMENT_ID = $ar_item_name[$item_parser["prj_name"]][0];
+                $ELEMENT_ID = $ar_item_name[$item_parser["prj_name"]]["ID"];
                 $PROPERTY_CODE = "PROJECT_TEMPORARILY_UNAVAILABLE";  // код свойства
                 $PROPERTY_VALUE = "Y";  // значение свойства
                 // запись  в логи
-                my_log("Проект был деактивирован ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]][0]);
+                my_log("Проект был деактивирован ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
 
                 // Установим новое значение для данного свойства данного элемента
                 CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, false, array($PROPERTY_CODE => $PROPERTY_VALUE));
             }
         }
+        
+        arshow(date("H:i:s"));
+
+        //если парсер запускается не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
             return "AddingParceAdd();";
         } else {
+            //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
         }
     }
