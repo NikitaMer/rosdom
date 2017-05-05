@@ -1,0 +1,412 @@
+﻿<xml>
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-093-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-093-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-093-1d/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-093-1d/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-093-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-093-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-093-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-093-1d/z-sm.gif</fasad_behind>
+		<img_hash>5a31e98c12bbb7c3c141f038c78cf72c</img_hash>
+		<prj_name>A-093-1D</prj_name>
+		<date>2005-10-13</date>
+		<labels></labels>
+		
+		<materials>Фундаменты - буронабивные сваи с монолитным ростверком<br />Наружные стены - оцилиндрованное бревно<br />Перекрытия - деревянные<br />Кровля -  металлочерепица</materials>
+		<rooms>2020000000</rooms>
+		<v_gab>8249</v_gab>
+		<h_gab>10020</h_gab>
+		<ob_pl>93</ob_pl>
+		<jil_pl>25</jil_pl>
+		<price1>18000</price1>
+		<price2>14400</price2>
+		<price3>1800</price3>
+		<price4>1800</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-098-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-098-1k/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-098-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-098-1k/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-098-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-098-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-098-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-098-1k/z-sm.gif</fasad_behind>
+		<img_hash>aec99e5d83a1c3fa6e629bdc7f3f1bbd</img_hash>
+		<prj_name>A-098-1K</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – ленточные сборные<br />Наружные стены – кирпич<br />Перекрытия – ж/б плиты<br />Кровля – чердачная<br />Покрытие – кровельная сталь<br />Наружная отделка - лицевой кирпич<br />Цоколь - кирпич</materials>
+		<rooms>2120000000</rooms>
+		<v_gab>8300</v_gab>
+		<h_gab>9400</h_gab>
+		<ob_pl>97.7</ob_pl>
+		<price1>18750</price1>
+		<price3>1875</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-098-1p/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-098-1p/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-098-1p/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-098-1p/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-098-1p/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-098-1p/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-098-1p/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-098-1p/z-sm.gif</fasad_behind>
+		<img_hash>5662485ce4577c966f5a4f69368b6d99</img_hash>
+		<prj_name>A-098-1P</prj_name>
+		<date>2004-10-14</date>
+		<labels></labels>
+		<materials>Фундаменты – ленточные сборные<br />Наружные стены – ячеистые бетонные блоки<br />Перекрытия – ж/б плиты<br />Кровля – чердачная<br />Покрытие – металлочерепица<br />Наружная отделка - лицевой кирпич<br />Цоколь - кирпич</materials>
+		<rooms>212000000000</rooms>
+		<v_gab>8300</v_gab>
+		<h_gab>9400</h_gab>
+		<ob_pl>97.7</ob_pl>
+		<price1>18750</price1>
+		<price3>1875</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-109-1p/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-109-1p/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-109-1p/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-109-1p/2.gif</plan_2>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-109-1p/z-sm.gif</fasad_behind>
+		<img_hash>7eef62b4dc98ed2139eaa3d6cdeab4f2</img_hash>
+		<prj_name>A-109-1P</prj_name>
+		<date>2004-11-04</date>
+		<labels></labels>
+		<materials>Фундаменты – сборный ж/б<br />Наружные стены – пеноблок с обкладкой кирпичом<br />Перекрытия – монолитный ж/б<br />Кровля – металлочерепица</materials>
+		<rooms>3020000000</rooms>
+		<v_gab>8860</v_gab>
+		<h_gab>9300</h_gab>
+		<ob_pl>265</ob_pl>
+		<jil_pl>93</jil_pl>
+		<price1>18000</price1>
+		<price2>14400</price2>
+		<price3>1800</price3>
+		<price4>1800</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-120-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-120-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-120-1d/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-120-1d/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-120-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-120-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-120-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-120-1d/z-sm.gif</fasad_behind>
+		<img_hash>9fcb6216476fe1b66897466e498a8554</img_hash>
+		<prj_name>A-120-1D</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – ж/б монолитный подвал<br />Наружные стены – оцилиндрованное бревно, d=240 мм<br />Перекрытия – деревянные<br />Кровля – металлочерепица</materials>
+		<rooms>3020000000</rooms>
+		<v_gab>10000</v_gab>
+		<h_gab>9250</h_gab>
+		<ob_pl>120</ob_pl>
+		<jil_pl>63</jil_pl>
+		<price1>18000</price1>
+		<price2>14400</price2>
+		<price3>1800</price3>
+		<price4>1800</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-122-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-122-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-122-1d/1.gif</plan_1>
+		<plan_m>http://www.deltaplans.ru/projects/a-122-1d/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-122-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-122-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-122-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-122-1d/z-sm.gif</fasad_behind>
+		<img_hash>71c4ad8fda3009972400f213e71a670f</img_hash>
+		<prj_name>A-122-1D</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – мелкозаглубленные<br />Наружные стены – оцилиндрованное бревно<br />Перекрытия – по деревянным балкам<br />Покрытие кровли - гофрированый металлический лист</materials>
+		<rooms>3010000000</rooms>
+		<v_gab>14300</v_gab>
+		<h_gab>8500</h_gab>
+		<ob_pl>122.2</ob_pl>
+		<jil_pl>62.6</jil_pl>
+		<price1>27500</price1>
+		<price3>3000</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-123-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-123-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-123-1d/1.gif</plan_1>
+		<plan_m>http://www.deltaplans.ru/projects/a-123-1d/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-123-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-123-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-123-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-123-1d/z-sm.gif</fasad_behind>
+		<img_hash>7efa159dec54c9eec7e4ae252bc50e66</img_hash>
+		<prj_name>A-123-1D</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – буронабивные сваи с монолитным ростверком<br />Наружные стены – оцилиндрованное бревно 220 мм.<br />Перекрытия – деревянные<br />Кровля – металлочерепица<br />
+</materials>
+		<rooms>3120000000</rooms>
+		<v_gab>11760</v_gab>
+		<h_gab>10800</h_gab>
+		<ob_pl>214</ob_pl>
+		<jil_pl>102</jil_pl>
+		<price1>22000</price1>
+		<price2>17600</price2>
+		<price3>2200</price3>
+		<price4>2200</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-126-1p/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-126-1p/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-126-1p/1.gif</plan_1>
+		<plan_m>http://www.deltaplans.ru/projects/a-126-1p/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-126-1p/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-126-1p/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-126-1p/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-126-1p/z-sm.gif</fasad_behind>
+		<img_hash>c7915ec71eeef11b7c5f00edbcef5d30</img_hash>
+		<prj_name>A-126-1P</prj_name>
+		<labels>[63]</labels>
+		<materials>Фундаменты – ленточный, монолитный ж/б<br />Наружные стены – газосиликатный блок с обкладкой кирпичом<br />Перекрытия – монолитный ж/б<br />Кровля – металлочерепица</materials>
+		<rooms>3020000000</rooms>
+		<v_gab>15750</v_gab>
+		<h_gab>6200</h_gab>
+		<ob_pl>127</ob_pl>
+		<jil_pl>69</jil_pl>
+		<price1>20000</price1>
+		<price2>16000</price2>
+		<price3>2000</price3>
+		<price4>2000</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-140-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-140-1k/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-140-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-140-1k/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-140-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-140-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-140-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-140-1k/z-sm.gif</fasad_behind>
+		<img_hash>884da6600d1a7902254c77f6905d9184</img_hash>
+		<prj_name>A-140-1K</prj_name>
+		<labels></labels>		
+		<materials>Фундаменты – ленточные сборные<br />Наружные стены – кирпич<br />Перекрытия – железобетонные панели<br />Кровля – чердачная<br />Покрытие – металлочерепица, кровельный лист<br />Наружная отделка – штукатурка<br />Цоколь - лицевой кирпич
+</materials>
+
+		<rooms>3021000011</rooms>
+		<v_gab>13040</v_gab>
+		<h_gab>9300</h_gab>
+		<ob_pl>139.5</ob_pl>
+		<price1>27500</price1>
+		<price3>3000</price3>
+		<var1>A-192-1K</var1>
+		<var_des1>Аналогичный вариант большей площади</var_des1>
+		<var2>A-275-1K</var2>
+		<var_des2>Вариант проекта с цокольным этажом.</var_des2>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-148-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-148-1k/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-148-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-148-1k/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-148-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-148-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-148-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-148-1k/z-sm.gif</fasad_behind>
+		<img_hash>4c1905ce0d4783f1c870cf02c9e43b7a</img_hash>
+		<prj_name>A-148-1K</prj_name>
+		<date>2005-10-14</date>
+		<labels></labels>
+		<materials>Фундаменты – монолитный ж/б<br />Наружные стены – кирпич<br />Перекрытия – сборные ж/б плиты<br />Кровля – металлочерепица</materials>
+		<rooms>3020000000</rooms>
+		<v_gab>13480</v_gab>
+		<h_gab>10660</h_gab>
+		<ob_pl>148</ob_pl>
+		<jil_pl>76</jil_pl>
+		<price1>22000</price1>
+		<price2>17600</price2>
+		<price3>2200</price3>
+		<price4>2200</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-155-1m/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-155-1m/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-155-1m/1.gif</plan_1>
+		<plan_m>http://www.deltaplans.ru/projects/a-155-1m/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-155-1m/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-155-1m/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-155-1m/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-155-1m/z-sm.gif</fasad_behind>
+		<img_hash>9a9bd259176e7afa940b8481a53ee743</img_hash>
+		<prj_name>A-155-1M</prj_name>
+		<date>2006-11-16</date>
+		<labels>[63]</labels>
+		<materials>Фундаменты - ленточный, монолитный ж/б<br />Наружные стены – газосиликатный блок со штукатуркой<br />Перекрытия – монолитные ж/б<br />Покрытие кровли – металлочерепица</materials>
+		<rooms>4020000000</rooms>
+		<v_gab>9240</v_gab>
+		<h_gab>16650</h_gab>
+		<ob_pl>155</ob_pl>
+		<jil_pl>83</jil_pl>
+		<price1>20000</price1>
+		<price2>16000</price2>
+		<price3>2000</price3>
+		<price4>2000</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-168-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-168-1k/p.jpg</perspectiva_big>
+		<plan_0>http://www.deltaplans.ru/projects/a-168-1k/0.gif</plan_0>
+		<plan_1>http://www.deltaplans.ru/projects/a-168-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-168-1k/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-168-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-168-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-168-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-168-1k/z-sm.gif</fasad_behind>
+		<img_hash>0d6f052c045844df0df7f1a135f7b934</img_hash>
+		<prj_name>A-168-1K</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – ленточные ж/б сборные<br />Наружные стены – кирпич<br />Перекрытия – ж/б плиты<br />Кровля – чердачная<br />Покрытие – металлочерепица, кровельный лист<br />Наружная отделка – штукатурка</materials>
+		<rooms>3020000011</rooms>
+		<v_gab>11700</v_gab>
+		<h_gab>9000</h_gab>
+		<ob_pl>168.4</ob_pl>
+		<price1>30080</price1>
+		<price3>2970</price3>
+		<var1>A-222-1K</var1>
+		<var_des1>Вариант проекта с большей площадью</var_des1>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-169-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-169-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-169-1d/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-169-1d/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-169-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-169-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-169-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-169-1d/z-sm.gif</fasad_behind>
+		<img_hash>39e06e38ba25a4c840e3454492385258</img_hash>
+		<prj_name>A-169-1D</prj_name>
+		<date>2010-02-10</date>
+		<labels></labels>
+		<materials>Фундаменты - ленточный монолитный<br />Наружные стены - оцилиндрованное бревно диаметр 240 мм<br />Перекрытия - деревянные<br />Покрытие кровли - металлочерепица</materials>
+		<rooms>4020000000</rooms>
+		<v_gab>11200</v_gab>
+		<h_gab>13300</h_gab>
+		<ob_pl>169</ob_pl>
+		<jil_pl>88</jil_pl>
+		<price1>25000</price1>
+		<price2>20000</price2>
+		<price3>2500</price3>
+		<price4>2500</price4>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-170-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-170-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-170-1d/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-170-1d/2.gif</plan_2>
+		<plan_m>http://www.deltaplans.ru/projects/a-170-1d/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-170-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-170-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-170-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-170-1d/z-sm.gif</fasad_behind>
+		<img_hash>3b20a732dcedd4cd927651784fb65b00</img_hash>
+		<prj_name>A-170-1D</prj_name>
+		<labels></labels>
+		<materials>Фундаменты – ленточные сборные<br />Наружные стены – брус<br />Перекрытия – по деревянным балкам<br />Кровля – рулонная, металлическая</materials>
+		<rooms>4120000000</rooms>
+		<v_gab>9400</v_gab>
+		<h_gab>12000</h_gab>
+		<ob_pl>170.1</ob_pl>
+		<price1>30250</price1>
+		<price3>3000</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-172-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-172-1k/p.jpg</perspectiva_big>
+		<plan_0>http://www.deltaplans.ru/projects/a-172-1k/0.gif</plan_0>
+		<plan_1>http://www.deltaplans.ru/projects/a-172-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-172-1k/2.gif</plan_2>
+		<fasad_front>http://www.deltaplans.ru/projects/a-172-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-172-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-172-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-172-1k/z-sm.gif</fasad_behind>
+		<img_hash>2d22990d8ebf4040cb6f0937acc93cbb</img_hash>
+		<prj_name>A-172-1K</prj_name>
+		<labels>[63]</labels>
+		<materials>Фундаменты – ленточные сборные<br />Наружные стены – кирпич (эффекивная кладка)<br />Перекрытия – железобетонные сборные<br />Кровля – металлочерепица</materials>
+		<rooms>3021000011</rooms>
+		<v_gab>6300</v_gab>
+		<h_gab>9600</h_gab>
+		<ob_pl>171.8</ob_pl>
+		<price1>30180</price1>
+		<price3>3000</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-173-1k/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-173-1k/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-173-1k/1.gif</plan_1>
+		<plan_2>http://www.deltaplans.ru/projects/a-173-1k/2.gif</plan_2>
+		<plan_m>http://www.deltaplans.ru/projects/a-173-1k/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-173-1k/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-173-1k/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-173-1k/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-173-1k/z-sm.gif</fasad_behind>
+		<img_hash>89f9b92206a3ea9d911e1d0e749360c3</img_hash>
+		<prj_name>A-173-1K</prj_name>
+		<labels>[63]</labels>		
+<materials>Общая площадь дома без мансарды - 130.5 кв.м.
+<br />Фундаменты – сборный ж/б<br />Наружные стены – кирпич<br />Перекрытия – железобетонные плиты<br />Кровля – мансардная<br />Покрытие – металлочерепица, кровельный лист<br />Наружная отделка – штукатурка<br />
+Цоколь - цементная штукатурка<br />
+Отопление и горячее водоснабжение - автономные<br />
+Строительный объём с мансардой - 908.0 м3</materials>
+		<rooms>402100001100</rooms>
+		<v_gab>7960</v_gab>
+		<h_gab>9000</h_gab>
+		<ob_pl>173.4</ob_pl>
+		<pl_zast>98</pl_zast>
+		<price1>30250</price1>
+		<price3>3000</price3>
+	</project>
+	
+	<project>
+		<perspectiva_small>http://www.deltaplans.ru/projects/a-174-1d/p-sm.jpg</perspectiva_small>
+		<perspectiva_big>http://www.deltaplans.ru/projects/a-174-1d/p.jpg</perspectiva_big>
+		<plan_1>http://www.deltaplans.ru/projects/a-174-1d/1.gif</plan_1>
+		<plan_m>http://www.deltaplans.ru/projects/a-174-1d/m.gif</plan_m>
+		<fasad_front>http://www.deltaplans.ru/projects/a-174-1d/f-sm.gif</fasad_front>
+		<fasad_left>http://www.deltaplans.ru/projects/a-174-1d/l-sm.gif</fasad_left>
+		<fasad_right>http://www.deltaplans.ru/projects/a-174-1d/r-sm.gif</fasad_right>
+		<fasad_behind>http://www.deltaplans.ru/projects/a-174-1d/z-sm.gif</fasad_behind>
+		<img_hash>a5f6b0f5f1e37b44e50e3bb048ed18d3</img_hash>
+		<prj_name>A-174-1D</prj_name>
+		<date>2009-07-29</date>
+		<labels></labels>		
+<materials>Фундаменты – ленточный, монолитный
+<br />Наружные стены –оцилиндрованное бревно, гараж - газосиликатный блок 
+<br />Перекрытия – деревянные
+<br />Покрытие кровли – металлочерепица
+</materials>
+		<v_gab>12000</v_gab>
+		<h_gab>14000</h_gab>
+		<ob_pl>174</ob_pl>
+		<jil_pl>70</jil_pl>
+		<price1>26000</price1>
+		<price2>20800</price2>
+		<price3>2600</price3>
+		<price4>2600</price4>
+	</project>
+</xml>
