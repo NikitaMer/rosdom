@@ -49,7 +49,7 @@
     */
     function AddingParceAdd($manually = false) {
 
-        arshow(date("H:i:s"));
+        //arshow(date("H:i:s"));
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
        // $file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
@@ -62,7 +62,7 @@
             $i++;
         }
 
-        arshow(count($vars));
+        //arshow(count($vars));
 
         CModule::IncludeModule('iblock');
 
@@ -769,11 +769,6 @@
                         $arLoadProductArray["PREVIEW_PICTURE"] = $file_item; // добавл€ем url картинки
                     }
                 }
-                if($item_parser["prj_name"] == 'G-139-1D'){
-                    arshow($newfile_perspectiva_small);
-                    arshow($section_id);
-                    arshow($ar_item_name[$item_parser["prj_name"]]);
-                }
 
                 $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
 
@@ -836,7 +831,7 @@
 
         }
 
-        arshow(date("H:i:s"));
+        //arshow(date("H:i:s"));
         //если парсер запускаетс€ не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
             return "AddingParceAdd();";
