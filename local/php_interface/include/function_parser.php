@@ -49,7 +49,7 @@
     */
     function AddingParceAdd($manually = false) {
 
-        //arshow(date("H:i:s"));
+        arshow(date("H:i:s"));
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
        // $file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
@@ -62,26 +62,79 @@
             $i++;
         }
 
-        //arshow(count($vars));
+        arshow(count($vars));
 
         CModule::IncludeModule('iblock');
 
-        $arSelect = Array("ID", "IBLOCK_ID", "PROPERTY_UNLOADED_THROUGH_PARSER", "NAME", "PROPERTY_IMG_HASH", "PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE");
+        $arSelect = Array(
+            "ID",
+            "IBLOCK_ID",
+            "PROPERTY_UNLOADED_THROUGH_PARSER",
+            "NAME",
+            "PROPERTY_IMG_HASH",
+            "PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE",
+            "PROPERTY_MATERIALS",
+            "PROPERTY_V_GAB",
+            "PROPERTY_H_GAB",
+            "PROPERTY_OB_PL",
+            "PROPERTY_JIL_PL",
+            "PROPERTY_NUMBER_OF_BEDROOMS",
+            "PROPERTY_NUMBER_OF_LIVING",
+            "PROPERTY_NUMBER_OF_BATH",
+            "PROPERTY_PRESENCE",
+            "PROPERTY_POOL",
+            "PROPERTY_BILLIARD",
+            "PROPERTY_COMPLEX",
+            "PROPERTY_PRESENCE_WINTER",
+            "PROPERTY_EXISTENS_GARAGE",
+            "PROPERTY_NUMBER_CARS",
+            "PROPERTY_NUMBER_CARS",
+            "PROPERTY_IMG_HASH",
+            "PROPERTY_BLOG_POST_ID",
+            "PROPERTY_BLOG_COMMENTS_CNT",
+            "PROPERTY_MATERIAL",
+            "PROPERTY_FLOORS",
+            "PROPERTY_PLINTH",
+            "PROPERTY_ATTIC",
+            "IBLOCK_SECTION_ID"
+            );
         $arFilter = Array("IBLOCK_ID" => IBLOCK_ID_PROJECT);
 
         //выбираем текущие проекты из каталога
         $ar_item_name = array();
-        $ar_element = CIBlockElement::GetList(Array("TIMESTAMP_X" => "ASC"), $arFilter, false, Array(), $arSelect);
+        $ar_element = CIBlockElement::GetList(Array("TIMESTAMP_X" => "ASC"), $arFilter, false, false, $arSelect);
         while ($element_wrap = $ar_element->GetNext()) {
             if ($element_wrap["PROPERTY_UNLOADED_THROUGH_PARSER_VALUE"] == 'Y'){
                 $ar_item_name[$element_wrap["NAME"]]["ID"] = $element_wrap["ID"];
                 $ar_item_name[$element_wrap["NAME"]]["IMG_HASH"] = $element_wrap["PROPERTY_IMG_HASH_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["TMP_UNAVAILABLE"] = $element_wrap["PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["MATERIALS"] = $element_wrap["PROPERTY_MATERIALS_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["V_GAB"] = $element_wrap["PROPERTY_V_GAB_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["H_GAB"] = $element_wrap["PROPERTY_H_GAB_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["OB_PL"] = $element_wrap["PROPERTY_OB_PL_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["JIL_PL"] = $element_wrap["PROPERTY_JIL_PL_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_BEDROOMS"] = $element_wrap["PROPERTY_NUMBER_OF_BEDROOMS_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_LIVING"] = $element_wrap["PROPERTY_NUMBER_OF_LIVING_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_BATH"] = $element_wrap["PROPERTY_NUMBER_OF_BATH_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["PRESENCE"] = $element_wrap["PROPERTY_PRESENCE_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["POOL"] = $element_wrap["PROPERTY_POOL_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["COMPLEX"] = $element_wrap["PROPERTY_COMPLEX_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["PRESENCE_WINTER"] = $element_wrap["PROPERTY_PRESENCE_WINTER_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["EXISTENS_GARAGE"] = $element_wrap["PROPERTY_EXISTENS_GARAGE_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["NUMBER_CARS"] = $element_wrap["PROPERTY_NUMBER_CARS_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["UNLOADED_THROUGH_PARSER"] = $element_wrap["PROPERTY_UNLOADED_THROUGH_PARSER_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["BLOG_POST_ID"] = $element_wrap["PROPERTY_BLOG_POST_ID_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["BLOG_COMMENTS_CNT"] = $element_wrap["PROPERTY_BLOG_COMMENTS_CNT_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["MATERIAL"] = $element_wrap["PROPERTY_MATERIAL_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["FLOORS"] = $element_wrap["PROPERTY_FLOORS_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["PLINTH"] = $element_wrap["PROPERTY_PLINTH_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["ATTIC"] = $element_wrap["PROPERTY_ATTIC_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["IBLOCK_SECTION_ID"] = $element_wrap["IBLOCK_SECTION_ID"];
             }
         }
 
         foreach($vars as $key => $item_parser){
-           if($key >= 2000 && $key <= 3000){
+           if($key >= 0 && $key <= 3000){
             //если проекта нет в каталоге на сайте, то добавляем его
             if (!$ar_item_name[$item_parser["prj_name"]]) {
 
@@ -397,6 +450,12 @@
                     "NAME"           => $item_parser["prj_name"],
                     "ACTIVE"         => "Y",
                     "PROPERTY_VALUES"=> $PROP,
+                    "IPROPERTY_TEMPLATES" => array(
+                        "ELEMENT_META_TITLE" => PROJECT_HOME.' '.$item_parser["prj_name"],
+                        "ELEMENT_META_KEYWORDS" => PROJECT_HOME.' '.$item_parser["prj_name"],
+                        "ELEMENT_META_DESCRIPTION" => PROJECT_HOME.' '.$item_parser["prj_name"],
+                        "ELEMENT_PAGE_TITLE" => PROJECT_HOME.' '.$item_parser["prj_name"],
+                    ),
 
                 );
 
@@ -453,6 +512,7 @@
             } else if ($ar_item_name[$item_parser["prj_name"]]) {// при наличие товара в инфоблоке обновляем его
 
                 // update
+                $arLoadProductArray = array();
                 $PROP = array();
                 $section_heading = substr($item_parser["prj_name"], -1);
 
@@ -480,22 +540,45 @@
 
                 $element_room = str_split($item_parser["rooms"], 1);  // разбиваем свойство по символам для дальнейшего распредениея
 
-                $PROP["NUMBER_OF_BEDROOMS"] = $element_room[0];  //  Число спален
-                $PROP["NUMBER_OF_LIVING"] = $element_room[1];   // Число жилых комнат, переоборудуемых под спальни, кроме гостиных
-                $PROP["NUMBER_OF_BATH"] = $element_room[2];    // Число с/у, ванн
-                $PROP["PRESENCE"] = ($element_room[3] == 1)? Array("VALUE" => PRESENCE_ID): ''; // Наличие сауны
-                $PROP["POOL"] = ($element_room[4] == 1)? Array("VALUE" => POOL_ID): '';  // Наличие бассейна
-                $PROP["BILLIARD"] = ($element_room[5] == 1)? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
-                $PROP["COMPLEX"] = ($element_room[6] == 1)? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса
-                $PROP["PRESENCE_WINTER"] = ($element_room[7] == 1)? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
-                if ($element_room[8] == 2) {          // Наличие и тип гаража
-                    $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_ONE);
-                } else if ($element_room[8] == 1) {
-                    $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
+                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_BEDROOMS"] != $element_room[0]){
+                    $PROP["NUMBER_OF_BEDROOMS"] = $element_room[0];  //  Число спален
                 }
-
-                $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
-                $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
+                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_LIVING"] != $element_room[1]){
+                    $PROP["NUMBER_OF_LIVING"] = $element_room[1];   // Число жилых комнат, переоборудуемых под спальни, кроме гостиных
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_BATH"] != $element_room[1]){
+                    $PROP["NUMBER_OF_BATH"] = $element_room[2];    // Число с/у, ванн
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["PRESENCE"] != PRESENCE_ID){
+                    $PROP["PRESENCE"] = ($element_room[3] == 1)? Array("VALUE" => PRESENCE_ID): ''; // Наличие сауны
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["POOL"] != POOL_ID){
+                    $PROP["POOL"] = ($element_room[4] == 1)? Array("VALUE" => POOL_ID): '';  // Наличие бассейна
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["BILLIARD"] != BILLIARD_ID){
+                    $PROP["BILLIARD"] = ($element_room[5] == 1)? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["COMPLEX"] != COMPLEX_ID){
+                    $PROP["COMPLEX"] = ($element_room[6] == 1)? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["PRESENCE_WINTER"] != PRESENCE_WINTER_ID){
+                    $PROP["PRESENCE_WINTER"] = ($element_room[7] == 1)? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
+                }
+                if ($element_room[8] == 2) {          // Наличие и тип гаража
+                    if($ar_item_name[$item_parser["prj_name"]]["EXISTENS_GARAGE"] != EXISTENS_GARAGE_ID_ONE){
+                        $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_ONE);
+                    }
+                } else if ($element_room[8] == 1) {
+                    if($ar_item_name[$item_parser["prj_name"]]["EXISTENS_GARAGE"] != EXISTENS_GARAGE_ID_TWO){
+                        $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
+                    }
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["PLINTH"] != PLINTH){
+                    $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["ATTIC"] != ATTIC){
+                    $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
+                }
 
                 // Определяем количество этажей
                 $floor = 0;
@@ -513,38 +596,54 @@
                     4 => FLOORS_4
                 );
 
-
                 $PROP["FLOORS"] = $ar_floors[$floor];
 
                 if ($floor == 1){
-                    $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_1){
+                        $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
+                    }
                 }
-
                 if ($floor == 2){
-                    $PROP["FLOORS"] = Array("VALUE" => FLOORS_2); // этажность
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_2){
+                        $PROP["FLOORS"] = Array("VALUE" => FLOORS_2); // этажность
+                    }
                 }
-
                 if ($floor == 3){
-                    $PROP["FLOORS"] = Array("VALUE" => FLOORS_3); // этажность
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_3){
+                        $PROP["FLOORS"] = Array("VALUE" => FLOORS_3); // этажность
+                    }
                 }
-
                 if ($floor == 4){
-                    $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_4){
+                        $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
+                    }
                 }
 
                 if ($section_heading == 'K' ) {  // раздел кирпич
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIAL"] != MATERIAL_1){
+                        $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
+                    }
                 } else if ($section_heading == 'P' ) { // раздел пенобетон
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIAL"] != MATERIAL_2){
+                        $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
+                    }
                 } else if ($section_heading == 'D' ) { // раздел дерево
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIAL"] != MATERIAL_3){
+                        $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
+                    }
                 } else if ($section_heading == 'S' ) {  // раздел каркас
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_4); // тип материала
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIAL"] != MATERIAL_4){
+                        $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_4); // тип материала
+                    }
                 } else if ($section_heading == 'M' ) {  // раздел каркас
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIAL"] != MATERIAL_5){
+                        $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
+                    }
                 }
 
-                $PROP["NUMBER_CARS"] = $element_room[9];  // Количество машин в гараже
+                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_CARS"] != $element_room[9]){
+                    $PROP["NUMBER_CARS"] = $element_room[9];  // Количество машин в гараже
+                }
                 $PROP["IMG_HASH"] = $item_parser["img_hash"];   // контрольная сумма по картинкам проекта
                 $key_word = 0;
                 $materials = array();
@@ -561,13 +660,25 @@
                     }
                 }
                 foreach($materials as $key=>$material){
-                    $PROP["MATERIALS"][$key] =  $material;  // свойство "строительные материалы"
+                    if($ar_item_name[$item_parser["prj_name"]]["MATERIALS"] != $material){
+                        $PROP["MATERIALS"][$key] =  $material;  // свойство "строительные материалы"
+                    }
                 }
-                $PROP["V_GAB"] = $item_parser["v_gab"];  // свойство "габарит дома 1"
-                $PROP["H_GAB"] = $item_parser["h_gab"];        // свойство "габарит дома 2"
-                $PROP["OB_PL"] = $item_parser["ob_pl"];        // свойство "общая площадь"
-                $PROP["JIL_PL"] = $item_parser["jil_pl"];        // свойство "жилая площадь"
-                $PROP["UNLOADED_THROUGH_PARSER"] = 'Y';        // свойство "Товар выгружен через парсер"
+                if($ar_item_name[$item_parser["prj_name"]]["V_GAB"] != $item_parser["v_gab"]){
+                    $PROP["V_GAB"] = $item_parser["v_gab"];  // свойство "габарит дома 1"
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["H_GAB"] != $item_parser["h_gab"]){
+                    $PROP["H_GAB"] = $item_parser["h_gab"];        // свойство "габарит дома 2"
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["OB_PL"] != $item_parser["ob_pl"]){
+                    $PROP["OB_PL"] = $item_parser["ob_pl"];        // свойство "общая площадь"
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["JIL_PL"] != $item_parser["jil_pl"]){
+                    $PROP["JIL_PL"] = $item_parser["jil_pl"];        // свойство "жилая площадь"
+                }
+                if($ar_item_name[$item_parser["prj_name"]]["UNLOADED_THROUGH_PARSER"] != 'Y'){
+                    $PROP["UNLOADED_THROUGH_PARSER"] = 'Y';        // свойство "Товар выгружен через парсер"
+                }
 
                 if ($newfile_perspectiva_plan_0) {
                     $PROP["PLAN_0"] = CFile::MakeFileArray($newfile_perspectiva_plan_0);
@@ -751,9 +862,11 @@
                     $section_id[] = OTHER_BUILDINGS; // Прочие здания
                 }
 
-                $arLoadProductArray = Array(
-                    "IBLOCK_SECTION" => $section_id,          // элемент лежит в корне раздела
-                );
+                if(!in_array($ar_item_name[$item_parser["prj_name"]]["IBLOCK_SECTION_ID"], $section_id)){
+                    $arLoadProductArray = Array(
+                        "IBLOCK_SECTION" => $section_id,          // элемент лежит в корне раздела
+                    );
+                }
 
                 $file_item = '';
                 if ($newfile_perspectiva_big) {
@@ -770,13 +883,15 @@
                     }
                 }
 
-                $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
+                if(!empty($arLoadProductArray)){
+                    $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
+                }
 
                 foreach($PROP as $code_prop=>$value_prop){
                     if ($value_prop) {
-                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => $value_prop)); // обновляем свойства
+                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => $value_prop)); // обновляем свойства
                     } else {
-                        $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
+                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
                     }
                 }
 
@@ -831,7 +946,6 @@
 
         }
 
-        //arshow(date("H:i:s"));
         //если парсер запускается не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
             return "AddingParceAdd();";
