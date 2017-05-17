@@ -896,7 +896,7 @@
                 }
 
                 if (!$update_id) {        // запись в логи
-                    my_log("Ошибка при измененеии в проекте ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
+                    my_log("В проектк изменений не было ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
                 } else {
                     my_log("Изменен прпект ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
                 }
