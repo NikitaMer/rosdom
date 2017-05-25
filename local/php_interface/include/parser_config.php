@@ -88,3 +88,4 @@
     define("PRICE_FOR_ARCHITECTURAL", 4);    // тип цены на архитектурно-строительные чертежи
     define("PRICE_OF_AN_ADDITIONAL", 5);    // тип цены на дополнительный комплект чертежей (копию)
     define("PRICE_OF_THE_PASSPORT", 6);    // тип цены на паспорт проекта
+    define("PROJECT_HOME", 'Проект дома');    // тип цены на паспорт проекта
