@@ -29,7 +29,7 @@ $APPLICATION->SetTitle("Проекты домов");
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "Y",
+		"CACHE_GROUPS" => "N",
 		"USE_MAIN_ELEMENT_SECTION" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_TITLE" => "Y",
