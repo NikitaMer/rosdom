@@ -223,7 +223,7 @@
     $moduleMenu[] = array(
         "parent_menu" => "global_menu_services",
         "sort"        => 1000,
-        "url"         => "/bitrix/admin/mobile/parser.php?lang=".LANG,
+        "url"         => "/bitrix/admin/parser.php?lang=".LANG,
         "text"        => 'Запуск парсера',
         "title"       => 'Парсер каталога проектов',
         "icon"        => "form_menu_icon",
