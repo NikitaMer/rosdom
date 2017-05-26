@@ -49,7 +49,7 @@
     */
     function AddingParceAdd($manually = false) {
 
-        arshow(date("H:i:s"));
+        my_log("Начата выгрузка в инфоблок: ".date("H:i:s"));
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
        // $file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
@@ -953,5 +953,6 @@
             //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
         }
+        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));
     }
 ?>
