@@ -49,7 +49,7 @@
     */
     function AddingParceAdd($manually = false) {
 
-        arshow(date("H:i:s"));
+        my_log("Начата выгрузка в инфоблок: ".date("H:i:s"));
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
        // $file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
@@ -61,9 +61,6 @@
             $vars[] = get_object_vars($value);   // преобразуем объект в массив
             $i++;
         }
-
-        arshow(count($vars));
-
         CModule::IncludeModule('iblock');
 
         $arSelect = Array(
@@ -469,7 +466,7 @@
                 $PRODUCT_ID = $el_add->Add($arLoadProductArray);
 
                 if ($PRODUCT_ID) {        // запись в логи
-                    my_log("Создан новый товар ".$item_parser["prj_name"]." c ID №".$PRODUCT_ID);
+                    my_log("Создан новый проект ".$item_parser["prj_name"]." c ID №".$PRODUCT_ID);
 
                     $ar_item_name[$item_parser["prj_name"]] = $PRODUCT_ID;
 
@@ -896,9 +893,9 @@
                 }
 
                 if (!$update_id) {        // запись в логи
-                    my_log("В проектк изменений не было ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
+                    my_log("В проекте изменений не было ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
                 } else {
-                    my_log("Изменен прпект ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
+                    my_log("Изменен проекте ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
                 }
 
                 $arCatFields = array(
@@ -953,5 +950,7 @@
             //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
         }
+        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));
+
     }
 ?>
