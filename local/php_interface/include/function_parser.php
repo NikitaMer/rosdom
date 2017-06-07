@@ -17,15 +17,17 @@
 
         $picture_last = array_pop($piture);
         $picture_penult = array_pop($piture);
-        if (exif_imagetype($image_url) != false) {
+        if (exif_imagetype($image_url)) {
 
             if ($picture_penult && $picture_last){
                 $newfile = $_SERVER["DOCUMENT_ROOT"] . '/upload/iblock/photo/' . $picture_penult . $picture_last;
             }
-
-            if (!CFile::MakeFileArray($newfile)) {
-                $file_get = file_put_contents($newfile, file_get_contents($image_url));
+            
+            if (file_exists($newfile)) {
+                unlink($newfile);
             }
+
+            file_put_contents($newfile, file_get_contents($image_url));    
 
         } else {
             $newfile = false;
@@ -35,11 +37,20 @@
     }
 
     function my_log($string) {  // записываем логи в файл
-        $log_file_name = $_SERVER['DOCUMENT_ROOT']."/log_parser/my_log";
+        $log_file_name = $_SERVER['DOCUMENT_ROOT']."/local/php_interface/include/parser_files/log/";
         $now = date("Y-m-d H:i:s");
-        file_put_contents($log_file_name.'_'.date("d-m-Y").'.log', $now . " " . $string . "\r\n", FILE_APPEND);
+        file_put_contents($log_file_name . date("Y-m-d").'.log', $now . " " . $string . "\r\n", FILE_APPEND);
     }
 
+    function delete_hash() {  // записываем логи в файл
+        $ar_element = CIBlockElement::GetList(Array("TIMESTAMP_X" => "ASC"), Array("IBLOCK_ID" => IBLOCK_ID_PROJECT), false, false, array("ID", "PROPERTY_IMG_HASH"));
+        while ($element_wrap = $ar_element->GetNext()) {
+            /*$PROPERTY_CODE = "IMG_HASH";  // код свойства
+            $PROPERTY_VALUE = "";  // значение свойства
+            // Установим новое значение для данного свойства данного элемента
+            CIBlockElement::SetPropertyValuesEx($element_wrap["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE)); */
+        }
+    }
 
     /**
     * put your comment there...
@@ -47,20 +58,35 @@
     * @param boolean $manually - флаг ручного запуска. По умолчанию - false.
     * @return mixed
     */
-    function AddingParceAdd($manually = false) {
-
-        my_log("Начата выгрузка в инфоблок: ".date("H:i:s"));
+    function AddingParceAdd($manually = false) {            
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
-       // $file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
+        //$file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
 
-        $simple  = simplexml_load_file($file_path);
+        $data = file_get_contents($file_path);   
+
+        if (empty($data)) {
+            my_log("Не удалось получить содержимое файла или файл не найден!");
+            return false;     
+        }
+
+        //записываем полученный файл, чтобы можно было потом по нему проверить корректность данных
+        file_put_contents($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/parser_files/catalog/" . date("Y-m-d H:i:s") . ".xml", $data);
+
+        $simple = new SimpleXMLElement($data);
+
         $vars = array();
         $i = 0;
         foreach ($simple->project as $name => $value) {
             $vars[] = get_object_vars($value);   // преобразуем объект в массив
             $i++;
         }
+
+        if (empty($vars) || count($vars) <= 0) {
+            my_log("В файле не найдено ни одного проекта!");    
+            return false; 
+        }
+
         CModule::IncludeModule('iblock');
 
         $arSelect = Array(
@@ -68,7 +94,6 @@
             "IBLOCK_ID",
             "PROPERTY_UNLOADED_THROUGH_PARSER",
             "NAME",
-            "PROPERTY_IMG_HASH",
             "PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE",
             "PROPERTY_MATERIALS",
             "PROPERTY_V_GAB",
@@ -94,7 +119,7 @@
             "PROPERTY_PLINTH",
             "PROPERTY_ATTIC",
             "IBLOCK_SECTION_ID"
-            );
+        );
         $arFilter = Array("IBLOCK_ID" => IBLOCK_ID_PROJECT);
 
         //выбираем текущие проекты из каталога
@@ -113,7 +138,7 @@
                 $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_BEDROOMS"] = $element_wrap["PROPERTY_NUMBER_OF_BEDROOMS_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_LIVING"] = $element_wrap["PROPERTY_NUMBER_OF_LIVING_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["NUMBER_OF_BATH"] = $element_wrap["PROPERTY_NUMBER_OF_BATH_VALUE"];
-                $ar_item_name[$element_wrap["NAME"]]["PRESENCE"] = $element_wrap["PROPERTY_PRESENCE_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["PRESENCE"] = $element_wrap["PROPERTY_PRESENCE_ENUM_ID"];
                 $ar_item_name[$element_wrap["NAME"]]["POOL"] = $element_wrap["PROPERTY_POOL_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["COMPLEX"] = $element_wrap["PROPERTY_COMPLEX_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["PRESENCE_WINTER"] = $element_wrap["PROPERTY_PRESENCE_WINTER_VALUE"];
@@ -122,7 +147,7 @@
                 $ar_item_name[$element_wrap["NAME"]]["UNLOADED_THROUGH_PARSER"] = $element_wrap["PROPERTY_UNLOADED_THROUGH_PARSER_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["BLOG_POST_ID"] = $element_wrap["PROPERTY_BLOG_POST_ID_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["BLOG_COMMENTS_CNT"] = $element_wrap["PROPERTY_BLOG_COMMENTS_CNT_VALUE"];
-                $ar_item_name[$element_wrap["NAME"]]["MATERIAL"] = $element_wrap["PROPERTY_MATERIAL_VALUE"];
+                $ar_item_name[$element_wrap["NAME"]]["MATERIAL"] = $element_wrap["PROPERTY_MATERIAL_ENUM_ID"];
                 $ar_item_name[$element_wrap["NAME"]]["FLOORS"] = $element_wrap["PROPERTY_FLOORS_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["PLINTH"] = $element_wrap["PROPERTY_PLINTH_VALUE"];
                 $ar_item_name[$element_wrap["NAME"]]["ATTIC"] = $element_wrap["PROPERTY_ATTIC_VALUE"];
@@ -131,7 +156,6 @@
         }
 
         foreach($vars as $key => $item_parser){
-           if($key >= 0 && $key <= 3000){
             //если проекта нет в каталоге на сайте, то добавляем его
             if (!$ar_item_name[$item_parser["prj_name"]]) {
 
@@ -506,15 +530,21 @@
 
 
 
-            } else if ($ar_item_name[$item_parser["prj_name"]]) {// при наличие товара в инфоблоке обновляем его
+            } else if ($ar_item_name[$item_parser["prj_name"]]) {// при наличие товара в инфоблоке обновляем его     
+
 
                 // update
                 $arLoadProductArray = array();
                 $PROP = array();
                 $section_heading = substr($item_parser["prj_name"], -1);
 
+                $newfile_perspectiva_big = false;
+                $newfile_perspectiva_small = false;
+                $newfile_perspectiva_plan_0 = false;
                 //если хеш картинок из файла не соответствует хешу картинок в инфоблоке, то нужно загрузить новые картинки
                 if ($ar_item_name[$item_parser["prj_name"]]["IMG_HASH"] != $item_parser["img_hash"]) {
+
+                    $PROP["IMG_HASH"] = $item_parser["img_hash"];
 
                     $newfile_perspectiva_big = UpdatePicture($item_parser["perspectiva_big"]);
                     $newfile_perspectiva_small = UpdatePicture($item_parser["perspectiva_small"]);
@@ -531,6 +561,36 @@
                     $newfile_perspectiva_fasad_right = UpdatePicture($item_parser["fasad_right"]);
                     $newfile_perspectiva_fasad_behind = UpdatePicture($item_parser["fasad_behind"]);
 
+                    if ($newfile_perspectiva_plan_0) {
+                        $PROP["PLAN_0"] = CFile::MakeFileArray($newfile_perspectiva_plan_0);
+                    }
+                    if ($newfile_perspectiva_plan_1) {
+                        $PROP["PLAN_1"] = CFile::MakeFileArray($newfile_perspectiva_plan_1);
+                    }
+                    if ($newfile_perspectiva_plan_2) {
+                        $PROP["PLAN_2"] = CFile::MakeFileArray($newfile_perspectiva_plan_2);
+                    }
+                    if ($newfile_perspectiva_plan_3) {
+                        $PROP["PLAN_3"] = CFile::MakeFileArray($newfile_perspectiva_plan_3);
+                    }
+                    if ($newfile_perspectiva_plan_4) {
+                        $PROP["PLAN_4"] = CFile::MakeFileArray($newfile_perspectiva_plan_4);
+                    }
+                    if ($newfile_perspectiva_plan_m) {
+                        $PROP["PLAN_M"] = CFile::MakeFileArray($newfile_perspectiva_plan_m);
+                    }
+                    if ($newfile_perspectiva_fasad_front) {
+                        $PROP["FASAD_FRONT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_front);
+                    }
+                    if ($newfile_perspectiva_fasad_left) {
+                        $PROP["FASAD_LEFT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_left);
+                    }
+                    if ($newfile_perspectiva_fasad_right) {
+                        $PROP["FASAD_RIGHT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_right);
+                    }
+                    if ($newfile_perspectiva_fasad_behind) {
+                        $PROP["FASAD_BEHIND"] = CFile::MakeFileArray($newfile_perspectiva_fasad_behind);
+                    }
                 }
 
                 $el_uodate = new CIBlockElement;
@@ -543,22 +603,22 @@
                 if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_LIVING"] != $element_room[1]){
                     $PROP["NUMBER_OF_LIVING"] = $element_room[1];   // Число жилых комнат, переоборудуемых под спальни, кроме гостиных
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_BATH"] != $element_room[1]){
+                if($ar_item_name[$item_parser["prj_name"]]["NUMBER_OF_BATH"] != $element_room[2]){
                     $PROP["NUMBER_OF_BATH"] = $element_room[2];    // Число с/у, ванн
                 }
                 if($ar_item_name[$item_parser["prj_name"]]["PRESENCE"] != PRESENCE_ID){
                     $PROP["PRESENCE"] = ($element_room[3] == 1)? Array("VALUE" => PRESENCE_ID): ''; // Наличие сауны
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["POOL"] != POOL_ID){
+                if($ar_item_name[$item_parser["prj_name"]]["POOL"] != POOL_ID && $element_room[4] > 0){
                     $PROP["POOL"] = ($element_room[4] == 1)? Array("VALUE" => POOL_ID): '';  // Наличие бассейна
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["BILLIARD"] != BILLIARD_ID){
+                if($ar_item_name[$item_parser["prj_name"]]["BILLIARD"] != BILLIARD_ID && $element_room[5] > 0){
                     $PROP["BILLIARD"] = ($element_room[5] == 1)? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["COMPLEX"] != COMPLEX_ID){
+                if($ar_item_name[$item_parser["prj_name"]]["COMPLEX"] != COMPLEX_ID && $element_room[6] > 0){
                     $PROP["COMPLEX"] = ($element_room[6] == 1)? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["PRESENCE_WINTER"] != PRESENCE_WINTER_ID){
+                if($ar_item_name[$item_parser["prj_name"]]["PRESENCE_WINTER"] != PRESENCE_WINTER_ID && $element_room[7] > 0){
                     $PROP["PRESENCE_WINTER"] = ($element_room[7] == 1)? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
                 }
                 if ($element_room[8] == 2) {          // Наличие и тип гаража
@@ -570,10 +630,10 @@
                         $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
                     }
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["PLINTH"] != PLINTH){
+                if($ar_item_name[$item_parser["prj_name"]]["PLINTH"] != PLINTH && $item_parser["plan_0"]){
                     $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
                 }
-                if($ar_item_name[$item_parser["prj_name"]]["ATTIC"] != ATTIC){
+                if($ar_item_name[$item_parser["prj_name"]]["ATTIC"] != ATTIC && $item_parser["plan_m"]){
                     $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
                 }
 
@@ -591,27 +651,27 @@
                     2 => FLOORS_2,
                     3 => FLOORS_3,
                     4 => FLOORS_4
-                );
+                );            
 
-                $PROP["FLOORS"] = $ar_floors[$floor];
+                //$PROP["FLOORS"] = $ar_floors[$floor];
 
                 if ($floor == 1){
-                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_1){
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != $floor){
                         $PROP["FLOORS"] = Array("VALUE" => FLOORS_1); // этажность
                     }
                 }
                 if ($floor == 2){
-                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_2){
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != $floor){
                         $PROP["FLOORS"] = Array("VALUE" => FLOORS_2); // этажность
                     }
                 }
                 if ($floor == 3){
-                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_3){
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != $floor){
                         $PROP["FLOORS"] = Array("VALUE" => FLOORS_3); // этажность
                     }
                 }
                 if ($floor == 4){
-                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != FLOORS_4){
+                    if($ar_item_name[$item_parser["prj_name"]]["FLOORS"] != $floor){
                         $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
                     }
                 }
@@ -640,8 +700,9 @@
 
                 if($ar_item_name[$item_parser["prj_name"]]["NUMBER_CARS"] != $element_room[9]){
                     $PROP["NUMBER_CARS"] = $element_room[9];  // Количество машин в гараже
-                }
-                $PROP["IMG_HASH"] = $item_parser["img_hash"];   // контрольная сумма по картинкам проекта
+                } 
+
+
                 $key_word = 0;
                 $materials = array();
                 $temp_material = utf8win1251($item_parser["materials"]);
@@ -677,36 +738,7 @@
                     $PROP["UNLOADED_THROUGH_PARSER"] = 'Y';        // свойство "Товар выгружен через парсер"
                 }
 
-                if ($newfile_perspectiva_plan_0) {
-                    $PROP["PLAN_0"] = CFile::MakeFileArray($newfile_perspectiva_plan_0);
-                }
-                if ($newfile_perspectiva_plan_1) {
-                    $PROP["PLAN_1"] = CFile::MakeFileArray($newfile_perspectiva_plan_1);
-                }
-                if ($newfile_perspectiva_plan_2) {
-                    $PROP["PLAN_2"] = CFile::MakeFileArray($newfile_perspectiva_plan_2);
-                }
-                if ($newfile_perspectiva_plan_3) {
-                    $PROP["PLAN_3"] = CFile::MakeFileArray($newfile_perspectiva_plan_3);
-                }
-                if ($newfile_perspectiva_plan_4) {
-                    $PROP["PLAN_4"] = CFile::MakeFileArray($newfile_perspectiva_plan_4);
-                }
-                if ($newfile_perspectiva_plan_m) {
-                    $PROP["PLAN_M"] = CFile::MakeFileArray($newfile_perspectiva_plan_m);
-                }
-                if ($newfile_perspectiva_fasad_front) {
-                    $PROP["FASAD_FRONT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_front);
-                }
-                if ($newfile_perspectiva_fasad_left) {
-                    $PROP["FASAD_LEFT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_left);
-                }
-                if ($newfile_perspectiva_fasad_right) {
-                    $PROP["FASAD_RIGHT"] = CFile::MakeFileArray($newfile_perspectiva_fasad_right);
-                }
-                if ($newfile_perspectiva_fasad_behind) {
-                    $PROP["FASAD_BEHIND"] = CFile::MakeFileArray($newfile_perspectiva_fasad_behind);
-                }
+
                 // генерируем символьный код товара
                 $xml_name = Cutil::translit($item_parser["prj_name"], "ru", $arParams);
 
@@ -880,17 +912,27 @@
                     }
                 }
 
-                if(!empty($arLoadProductArray)){
-                    $update_id = $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
+                $update_id = false;
+
+                if(!empty($arLoadProductArray)){     
+                    $el_uodate->Update($ar_item_name[$item_parser["prj_name"]]["ID"], $arLoadProductArray);
+                    $update_id = true;
                 }
 
-                foreach($PROP as $code_prop=>$value_prop){
-                    if ($value_prop) {
-                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => $value_prop)); // обновляем свойства
-                    } else {
-                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"],IBLOCK_ID_PROJECT,array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
+                if($ar_item_name[$item_parser["prj_name"]]["TMP_UNAVAILABLE"] == "Y"){
+                    $PROP["PROJECT_TEMPORARILY_UNAVAILABLE"] = " ";
+                }  
+
+                foreach($PROP as $code_prop => $value_prop){
+                    if ($value_prop) {   
+                        $update_id = true;
+                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"], IBLOCK_ID_PROJECT, array($code_prop => $value_prop)); // обновляем свойства
+                    } else {   
+                        $update_id = true;
+                        $update_id = $el_uodate->SetPropertyValuesEx($ar_item_name[$item_parser["prj_name"]]["ID"], IBLOCK_ID_PROJECT, array($code_prop => Array ("VALUE" => array("del" => "Y")))); // обновляем свойства
                     }
                 }
+                $ar_item_name[$item_parser["prj_name"]]["UPDATED"] = "Y";
 
                 if (!$update_id) {        // запись в логи
                     my_log("В проекте изменений не было ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"].": ".$el_uodate->LAST_ERROR);
@@ -930,19 +972,20 @@
                 }
             } else {
 
-                $ELEMENT_ID = $ar_item_name[$item_parser["prj_name"]]["ID"];
-                $PROPERTY_CODE = "PROJECT_TEMPORARILY_UNAVAILABLE";  // код свойства
-                $PROPERTY_VALUE = "Y";  // значение свойства
-                // запись  в логи
-                my_log("Проект был деактивирован ".$item_parser["prj_name"]." с ID №".$ar_item_name[$item_parser["prj_name"]]["ID"]);
-
-                // Установим новое значение для данного свойства данного элемента
-                CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, false, array($PROPERTY_CODE => $PROPERTY_VALUE));
             }
         }
 
-        }
+        foreach($ar_item_name as $key => $item){
+            if(!$item["UPDATED"]){
+                $PROPERTY_CODE = "PROJECT_TEMPORARILY_UNAVAILABLE";  // код свойства
+                $PROPERTY_VALUE = "Y";  // значение свойства
+                // запись  в логи
+                my_log("Проект был деактивирован ".$key." с ID №".$item["ID"]);
 
+                // Установим новое значение для данного свойства данного элемента
+                CIBlockElement::SetPropertyValuesEx($item["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
+            }
+        }
         //если парсер запускается не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
             return "AddingParceAdd();";
@@ -950,6 +993,6 @@
             //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
         }
-        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));  
+        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));
     }
 ?>

@@ -48,4 +48,5 @@ $MESS["PROJ_DES"] = "Описание проекта";
 $MESS["PROJ_OPT"] = "Варианты данного проекта:";
 $MESS["PROJ_PRICE"] = "Цены";
 $MESS["PROJ_SER"] = "Проекты этой серии:";
+$MESS["TMP_UNVAILABLE"] = "Временно недоступен";
 ?>

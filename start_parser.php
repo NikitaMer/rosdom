@@ -1,7 +1,7 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>
 <?
-
-    AddingParceAdd(true);
+    // delete_hash();
+    //AddingParceAdd(true);
     /*
     if($_POST["parser"]){
        AddingParceAdd(true);
