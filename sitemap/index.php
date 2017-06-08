@@ -43,6 +43,7 @@ function getArticlesSections($iblock_id, $root_link, $section_id = 0) {
         $linkz[] = $root_link.'/'.$ar_result["CODE"].'/';
         getArticles($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
         if (($ar_result["RIGHT_MARGIN"] - $ar_result["LEFT_MARGIN"]) > 1){
+
             getArticlesSections($iblock_id, $root_link.'/'.$ar_result["CODE"], $ar_result["ID"]);
         };
 
