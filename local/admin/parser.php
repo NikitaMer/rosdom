@@ -6,7 +6,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_aft
 ?>
 <?
     if($_POST["parser"]){
-       AddingParceAdd(true);
+       ParceCatalog(true);
     } else {
 ?>
     <form action="<?$APPLICATION->GetCurPage()?>" method="post">

@@ -58,7 +58,7 @@
     * @param boolean $manually - флаг ручного запуска. По умолчанию - false.
     * @return mixed
     */
-    function AddingParceAdd($manually = false) {            
+    function ParceCatalog($manually = false) {            
 
         $file_path = "http://www.catalog-domov.ru/xml/rosdom.xml";
         //$file_path = $_SERVER["DOCUMENT_ROOT"]."/catalog_tmp.xml";
@@ -988,7 +988,7 @@
         }
         //если парсер запускается не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
-            return "AddingParceAdd();";
+            return "ParceCatalog();";
         } else {
             //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
