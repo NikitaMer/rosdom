@@ -27,7 +27,7 @@ if ($isFilter || $isSidebar):?>
 				"TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
 				'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
 				'CURRENCY_ID' => $arParams['CURRENCY_ID'],
-				"SEF_MODE" => $arParams["SEF_MODE"],                
+				"SEF_MODE" => $arParams["SEF_MODE"],
 				//"SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
 				//"SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
 				"PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
@@ -42,7 +42,7 @@ if ($isFilter || $isSidebar):?>
 <?endif;
 $this->EndViewTarget();?>
 	<div class="row">
-		
+
 		<div class="col-xs-12">
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:catalog.section.list",
@@ -74,6 +74,8 @@ $this->EndViewTarget();?>
 		$basketAction = (isset($arParams['SECTION_ADD_TO_BASKET_ACTION']) ? $arParams['SECTION_ADD_TO_BASKET_ACTION'] : '');
 
 	$intSectionID = 0;
+    global $arrFilter;
+    $arrFilter["!PROPERTY_PROJECT_TEMPORARILY_UNAVAILABLE"] = "Y";
 	?>
 	<?$intSectionID = $APPLICATION->IncludeComponent(
 		"bitrix:catalog.section",
@@ -97,7 +99,7 @@ $this->EndViewTarget();?>
 			"SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
 			"PRODUCT_QUANTITY_VARIABLE" => $arParams["PRODUCT_QUANTITY_VARIABLE"],
 			"PRODUCT_PROPS_VARIABLE" => $arParams["PRODUCT_PROPS_VARIABLE"],
-			"FILTER_NAME" => $arParams["FILTER_NAME"],
+			"FILTER_NAME" => 'arrFilter',
 			"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 			"CACHE_TIME" => $arParams["CACHE_TIME"],
 			"CACHE_FILTER" => $arParams["CACHE_FILTER"],

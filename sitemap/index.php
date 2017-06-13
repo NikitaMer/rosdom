@@ -60,7 +60,7 @@ function getArticles($iblock_id, $root_link, $section_id = 0){
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/articles/article'.$arFields['CODE'].'/';
+      $linkz[] = '/articles/'.$arFields['CODE'].'/';
     }
 }
 
@@ -112,7 +112,7 @@ function getFaq($iblock_id, $root_link, $section_id = 0){
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/faq/faq'.$arFields['CODE'].'/';
+      $linkz[] = '/faq/'.$arFields['CODE'].'/';
     }
 }
 
@@ -214,7 +214,6 @@ $data = '<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 foreach ($linkz as $link) {
     $priority = explode('/', $link);
-
     if(count($priority) <= 3){
      $data .=
         '<url>
