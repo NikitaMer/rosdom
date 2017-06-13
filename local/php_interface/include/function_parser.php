@@ -754,16 +754,6 @@
                         $section_id[] = PROJECTS_HOUSES_BLOCKS_400; // Проекты домов из пеноблоков и пенобетона 400 квадратных метров
                     }
                 } else if ($section_heading == 'D' ) { // раздел дерево
-                    if ($item_parser["ob_pl"] < TOTAL_AREA_1){  // площадь дома 150 квадратных метров
-                        $section_id[] = PROJECTS_BRICK_150;  // Проекты деревянных домов 150 квадратных метров
-                    } else if ($item_parser["ob_pl"] >= TOTAL_AREA_1 && $item_parser["ob_pl"] < TOTAL_AREA_2){ // площадь дома 250 квадратных метров
-                        $section_id[] = PROJECTS_BRICK_150_250;  // Проекты деревянных домов от 150 до 250 квадратных метров
-                    } else if ($item_parser["ob_pl"] >= TOTAL_AREA_2 && $item_parser["ob_pl"] < TOTAL_AREA_3){ // площадь дома 400 квадратных метров
-                        $section_id[] = PROJECTS_BRICK_250_400;  // Проекты деревянных домов от 250 до 400 квадратных метров
-                    } else if ($item_parser["ob_pl"] > TOTAL_AREA_3){ // площадь дома 400 квадратных метров
-                        $section_id[] = PROJECTS_BRICK_400;    // Проекты деревянных домов 400 квадратных метров
-                    }
-                } else if ($section_heading == 'K' ) {  // раздел кирпич
                     if ($item_parser["ob_pl"] < TOTAL_AREA_1){ // площадь дома 150 квадратных метров
                         $section_id[] = PROJECTS_WOODEN_150;  // Проекты кирпичных домов 150 квадратных метров
                     } else if ($item_parser["ob_pl"] >= TOTAL_AREA_1 && $item_parser["ob_pl"] < TOTAL_AREA_2){ // площадь дома 250 квадратных метров
@@ -772,6 +762,16 @@
                         $section_id[] = PROJECTS_WOODEN_250_400;    // Проекты кирпичных домов от 250 до 400 квадратных метров
                     } else if ($item_parser["ob_pl"] > TOTAL_AREA_3){ // площадь дома 400 квадратных метров
                         $section_id[] = PROJECTS_WOODEN_400;   // Проекты кирпичных домов 400 квадратных метров
+                    }     
+                } else if ($section_heading == 'K' ) {  // раздел кирпич
+                    if ($item_parser["ob_pl"] < TOTAL_AREA_1){  // площадь дома 150 квадратных метров
+                        $section_id[] = PROJECTS_BRICK_150;  // Проекты деревянных домов 150 квадратных метров
+                    } else if ($item_parser["ob_pl"] >= TOTAL_AREA_1 && $item_parser["ob_pl"] < TOTAL_AREA_2){ // площадь дома 250 квадратных метров
+                        $section_id[] = PROJECTS_BRICK_150_250;  // Проекты деревянных домов от 150 до 250 квадратных метров
+                    } else if ($item_parser["ob_pl"] >= TOTAL_AREA_2 && $item_parser["ob_pl"] < TOTAL_AREA_3){ // площадь дома 400 квадратных метров
+                        $section_id[] = PROJECTS_BRICK_250_400;  // Проекты деревянных домов от 250 до 400 квадратных метров
+                    } else if ($item_parser["ob_pl"] > TOTAL_AREA_3){ // площадь дома 400 квадратных метров
+                        $section_id[] = PROJECTS_BRICK_400;    // Проекты деревянных домов 400 квадратных метров
                     }
                 } else if ($section_heading == 'S' ) {  // раздел каркас
                     if ($item_parser["ob_pl"] < TOTAL_AREA_1){  // площадь дома 150 квадратных метров
