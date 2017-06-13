@@ -60,7 +60,7 @@ function getArticles($iblock_id, $root_link, $section_id = 0){
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/articles/'.$arFields['CODE'].'/';
+      $linkz[] = '/articles/article'.$arFields['CODE'].'/';
     }
 }
 
@@ -112,7 +112,7 @@ function getFaq($iblock_id, $root_link, $section_id = 0){
     while($ob = $res->GetNextElement())
     {
       $arFields = $ob->GetFields();
-      $linkz[] = '/faq/'.$arFields['CODE'].'/';
+      $linkz[] = '/faq/faq'.$arFields['CODE'].'/';
     }
 }
 
