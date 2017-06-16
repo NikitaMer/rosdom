@@ -87,7 +87,8 @@ $APPLICATION->SetTitle("Проекты домов");
 		"POST_FIRST_MESSAGE" => "N",
 		"USE_COMPARE" => "N",
 		"PRICE_CODE" => array(
-			0 => "price_for_architectural",
+			0 => "price_of_complete_set",
+			1 => "price_for_architectural",
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",

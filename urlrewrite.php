@@ -71,17 +71,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "MAIN_SECTION_CODE=\$1&SECTION_CODE=\$2",
-		"ID" => "",
-		"PATH" => "/realty/index.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/education/education([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
 		"PATH" => "/education/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "MAIN_SECTION_CODE=\$1&SECTION_CODE=\$2",
+		"ID" => "",
+		"PATH" => "/realty/index.php",
 		"SORT" => "100",
 	),
 	array(
@@ -130,7 +130,7 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/documents/list.php",
+		"PATH" => "/magazines/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -144,7 +144,7 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/magazines/detail.php",
+		"PATH" => "/documents/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -155,13 +155,6 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/education/section.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
@@ -169,8 +162,15 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/education/section.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
 		"ID" => "",
 		"PATH" => "",
 		"SORT" => "100",
@@ -180,13 +180,6 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/articles/list.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
-		"ID" => "",
-		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -204,10 +197,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/realty/index.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -225,17 +218,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/shops/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/realty/detail.php",
+		"PATH" => "/realty/index.php",
 		"SORT" => "100",
 	),
 	array(
@@ -246,10 +232,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/video/video([0-9]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/shops/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/realty/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/photo/photo([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/video/detail.php",
+		"PATH" => "/photo/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -260,10 +253,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/photo/photo([0-9]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/video/video([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/photo/detail.php",
+		"PATH" => "/video/detail.php",
 		"SORT" => "100",
 	),
 	array(

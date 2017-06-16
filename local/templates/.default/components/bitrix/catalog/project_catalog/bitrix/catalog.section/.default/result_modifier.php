@@ -501,3 +501,21 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+
+//определение корректной минимальной цены для проектов, где она нулевая
+foreach ($arResult["ITEMS"] as $i => $item) {
+    if ($item["MIN_PRICE"]["VALUE"] == 0) {
+        $min_price = 0;
+        $min_price_code = "";
+        foreach ($item["PRICES"] as $price_code => $price) {
+            if ($price["VALUE"] != 0 && ($price["VALUE"] < $min_price || $min_price == 0)) {
+                $min_price = $price["VALUE"]; 
+                $min_price_code = $price_code;   
+            }
+        }  
+        
+        if (!empty($min_price_code)) {
+            $arResult["ITEMS"][$i]["MIN_PRICE"] = $item["PRICES"][$min_price_code];    
+        }          
+    }
+}

@@ -163,20 +163,25 @@
                 );
 
                 $minPrice = false;
+                $minPrice = $arItem['MIN_PRICE'];
+                /*
                 if (isset($arItem['MIN_PRICE']) || isset($arItem['RATIO_PRICE']))
                     $minPrice = (isset($arItem['RATIO_PRICE']) ? $arItem['RATIO_PRICE'] : $arItem['MIN_PRICE']);
+                    */
+                //    arshow($arItem, true);
                 
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
-            ?><div class="bx_catalog_item"> 
-                <div class="bx_catalog_item_container" id="<? echo $strMainID; ?>"> 
+            ?><div class="bx_catalog_item" id="<? echo $strMainID; ?>" > 
+                <div class="bx_catalog_item_container" > 
                     <a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>"><img src="<? echo $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<? echo strip_tags(html_entity_decode($productTitle)) ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>" class="bx_catalog_item_img"></a>
                     <div class="bx_catalog_item_title"><a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>"><?echo html_entity_decode($productTitle);?></a></div>
                     <br/>
                     <p class="info">
                         <noindex><?=GetMessage("TOTAL_AREA")?><b><?=$arItem['PROPERTIES']['OB_PL']['VALUE']?> ì<sup>2</sup></b><br>
                         <?=GetMessage("DIMENSIONS")?><b><?=$arItem['PROPERTIES']['V_GAB']['VALUE']?> x <?=$arItem['PROPERTIES']['H_GAB']['VALUE']?></b><br>
-                        <?=GetMessage("MATERIAL")?></noindex><b><a href="/projects/<?=$section["CODE"]?>/"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b><br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
+                        <?=GetMessage("MATERIAL")?></noindex><b><a href="/projects/<?=$section["CODE"]?>/"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b>
+                        <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
                         </noindex>

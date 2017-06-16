@@ -12,10 +12,15 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
     $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues($arResult['IBLOCK_ID'], $arResult['ID']);
-    $IPROPERTY = $ipropValues->getValues();
-
+    $IPROPERTY = $ipropValues->getValues();   
+    
     $ELEMENT_META_TITLE_whith_tag =  html_entity_decode($IPROPERTY['ELEMENT_META_TITLE']);                                                                                    
-    $ELEMENT_PAGE_TITLE_whith_tag =  html_entity_decode($IPROPERTY['ELEMENT_PAGE_TITLE']);                                                                                    
+    $ELEMENT_PAGE_TITLE_whith_tag =  html_entity_decode($IPROPERTY['ELEMENT_PAGE_TITLE']);     
+    
+    $replace_from = array("<nobr>", "</nobr>");
+    $replace_to = array(GetMessage("PROJECT")." ", "");
+    $ELEMENT_PAGE_TITLE_whith_tag = str_replace($replace_from, $replace_to, $ELEMENT_PAGE_TITLE_whith_tag);           
+                                                                                   
     $ELEMENT_META_TITLE =  strip_tags(html_entity_decode($IPROPERTY['ELEMENT_META_TITLE']));                                                                                      
 ?>
 <section class="last-posts w-tabs"> 

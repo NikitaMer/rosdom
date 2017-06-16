@@ -2,6 +2,9 @@
     define('MENU_TEXT', 'Различные тексты');
     define('MENU_FILE', 'Файлы');
     define('IBLOCK_ID_PROJECT', 37);
+    define("FAQ_IBLOCK_ID", 14); 
+    define("ARTICLES_IBLOCK_ID", 9); 
+    
 
     if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php')){
         include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php');
@@ -26,7 +29,7 @@
             } while($res);
             $arFields["CODE"] = $find;
 
-            if($arFields["IBLOCK_ID"] == 14) $arFields["PREVIEW_TEXT"]=$arFields["NAME"];
+            if($arFields["IBLOCK_ID"] == FAQ_IBLOCK_ID) $arFields["PREVIEW_TEXT"]=$arFields["NAME"];
 
             include($_SERVER["DOCUMENT_ROOT"]."/sitemap/index_i.php");
         }
@@ -73,10 +76,7 @@
         }else{
             return strcmp($a["UF_MENUTITLE"], $b["UF_MENUTITLE"]);
         }
-    }
-
-
-
+    }      
 
     function arshow($array, $adminCheck = false){
         global $USER;
@@ -101,7 +101,7 @@
         if($subdir[0] == 'faq'){
             if(strpos($subdir[1],'faq') === false){
                 $cod[0] = '/faq/';
-                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(14),'GLOBAL_ACTIVE'=>'Y'));
+                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(FAQ_IBLOCK_ID),'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
@@ -115,7 +115,7 @@
                     exit();
                 }
             }
-        }elseif($subdir[0] == 'documents'){
+        } elseif ($subdir[0] == 'documents'){
             $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(15),'GLOBAL_ACTIVE'=>'Y'));
             while($arCod = $obCod->GetNext()){
                 if ($arCod["DEPTH_LEVEL"] == 1){
@@ -128,6 +128,7 @@
                     $cod_dl_3[] = $arCod['CODE'];
                 }
             }
+            
             if(!in_array($subdir[1], $cod_dl_1) && isset($subdir[1])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
@@ -136,7 +137,7 @@
                 include($_SERVER["DOCUMENT_ROOT"].'/404.php');
                 include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
                 exit();
-            }elseif(!in_array($subdir[2], $cod_dl_2) && isset($subdir[2])){
+            } elseif (!in_array($subdir[2], $cod_dl_2) && isset($subdir[2])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
@@ -144,7 +145,7 @@
                 include($_SERVER["DOCUMENT_ROOT"].'/404.php');
                 include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
                 exit();
-            }elseif(!in_array($subdir[3], $cod_dl_3) && isset($subdir[3])){
+            } elseif (!in_array($subdir[3], $cod_dl_3) && isset($subdir[3])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
@@ -154,7 +155,7 @@
                 exit();
             }
 
-        }elseif($subdir[0] == 'equipment' || $subdir[0] == 'material' || $subdir[0] == 'interior'|| $subdir[0] == 'machinery'|| $subdir[0] == 'service'){
+        } elseif ($subdir[0] == 'equipment' || $subdir[0] == 'material' || $subdir[0] == 'interior'|| $subdir[0] == 'machinery'|| $subdir[0] == 'service'){
             $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(10),'GLOBAL_ACTIVE'=>'Y'));
             $cod[0] = '/equipment/';
             $cod[1] = '/material/';
@@ -173,13 +174,14 @@
                 include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
                 exit();
             }
-        }elseif($subdir[0] == 'articles'){
-            if(strpos($subdir[1],'article') === false){
+        } elseif ($subdir[0] == 'articles'){
+            if (strpos($subdir[1],'article') === false){
                 $cod[0] = '/articles/';
                 $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(9),'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
+                
                 if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                     $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
