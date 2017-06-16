@@ -510,6 +510,7 @@
                         PRICE_FOR_ARCHITECTURAL  => $item_parser["price2"],
                         PRICE_OF_AN_ADDITIONAL  => $item_parser["price3"],
                         PRICE_OF_THE_PASSPORT  => $item_parser["price4"],
+                        PRICE_OF_ARCHITECT_SOLUTIONS  => $item_parser["pricedop29"],
                     );
 
                     foreach($ar_price_type as $key_type => $price) {
@@ -955,6 +956,7 @@
                     PRICE_FOR_ARCHITECTURAL  => $item_parser["price2"],
                     PRICE_OF_AN_ADDITIONAL  => $item_parser["price3"],
                     PRICE_OF_THE_PASSPORT  => $item_parser["price4"],
+                    PRICE_OF_ARCHITECT_SOLUTIONS  => $item_parser["pricedop29"],
                 );
                 foreach($ar_price_type as $key_type => $preice) {
                     $ar_fields_offer_price = array(
