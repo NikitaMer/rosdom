@@ -177,7 +177,7 @@
         } elseif ($subdir[0] == 'articles') {
             if (strpos($subdir[1], 'article') === false){
                 $cod[0] = '/articles/';
-                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=> array(9), 'GLOBAL_ACTIVE'=>'Y'));
+                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=> array(ARTICLES_IBLOCK_ID), 'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
@@ -194,7 +194,7 @@
             } else {
              //проверка кода элемента   
              $item_code = str_replace("article", "", $subdir[1]);
-             $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => 9, "CODE" => $item_code), false, false, array())->Fetch();
+             $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => ARTICLES_IBLOCK_ID, "CODE" => $item_code), false, false, array())->Fetch();
              if (!$check_item["ID"]) {
                 $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
