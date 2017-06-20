@@ -1,19 +1,19 @@
-<?// Кнопка Поделиться от Яндекса ?>
-<br /><br />
+
+<!-- Поделиться от Яндекса -->                  
 <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
 <script src="//yastatic.net/share2/share.js" charset="utf-8"></script>
 <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,collections,gplus"></div>
 
-</article>  
+</article>
 </div>
 <footer>
     <div class="w-foot">
-        <section class="foot-links">
+        <section class="foot-links"> <!- -->
             <?$APPLICATION->IncludeComponent("bitrix:menu", "rosdom_bottom", array(
                     "ROOT_MENU_TYPE" => "bottom",
-                    "MENU_CACHE_TYPE" => "A",
+                    "MENU_CACHE_TYPE" => "N",
                     "MENU_CACHE_TIME" => "3600",
-                    "MENU_CACHE_USE_GROUPS" => "Y",
+                    "MENU_CACHE_USE_GROUPS" => "N",
                     "MENU_CACHE_GET_VARS" => array(
                     ),
                     "MAX_LEVEL" => "3",
@@ -28,7 +28,8 @@
 
         <section class="foot-data">
             <div class="b-copyright">
-                &copy; 2011 Rosdom.ru — портал лучших строительный фирм. Все права защищены.<br />
+                &copy; 2011 Rosdom.ru. Все права защищены.<br />
+                Автор: Алексей Пензин.
             </div>
             <div class="b-counter">
                 <div class="counter">
@@ -45,6 +46,10 @@
                                 "border='0' width='31' height='31'><\/a>")
                         //--></script><!--/LiveInternet-->
 
+                        <a href="https://www.facebook.com/Rosdom.ru" target="_blank"><img src="/logo_facebook.png"></a>
+                        <a href="https://twitter.com/Rosdom_RU" target="_blank"><img src="/logo_twitter.png"></a>
+                        <a href="https://plus.google.com/109666258847080290759?prsrc=3" target="_blank"><img src="/logo_g.png"></a>
+                        <a href="https://plus.google.com/u/0/b/105793966849441883946/" target="_blank"><img src="/logo_gplus.png"></a>
 
                     </noindex>
                 </div>
@@ -93,8 +98,21 @@
                 );?>            </div>
         </section>
     </div>
+    <!-- Yandex.Metrika counter -->
+    <div style="display:none;"><script type="text/javascript">
+            (function(w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter182498 = new Ya.Metrika({id:182498, enableAll: true, webvisor:true});
+                    }
+                    catch(e) { }
+                });
+            })(window, "yandex_metrika_callbacks");
+        </script></div>
+    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+    <noscript><div><img src="//mc.yandex.ru/watch/182498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
    </footer>
-
-
 </body>
 </html>

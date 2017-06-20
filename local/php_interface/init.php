@@ -4,7 +4,7 @@
     define('IBLOCK_ID_PROJECT', 37);
     define("FAQ_IBLOCK_ID", 14); 
     define("ARTICLES_IBLOCK_ID", 9); 
-    
+
 
     if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php')){
         include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php');
@@ -108,10 +108,10 @@
                 if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                     $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
-                    @define("ERROR_404","Y");
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                    include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                    @define("ERROR_404","Y");        
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                     exit();
                 }
             }
@@ -128,30 +128,30 @@
                     $cod_dl_3[] = $arCod['CODE'];
                 }
             }
-            
+
             if(!in_array($subdir[1], $cod_dl_1) && isset($subdir[1])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             } elseif (!in_array($subdir[2], $cod_dl_2) && isset($subdir[2])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             } elseif (!in_array($subdir[3], $cod_dl_3) && isset($subdir[3])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             }
 
@@ -163,34 +163,47 @@
             $cod[3] = '/machinery/';
             $cod[4] = '/service/';
             while($arCod = $obCod->GetNext()){
-                    $cod[] = $arCod['SECTION_PAGE_URL'];
+                $cod[] = $arCod['SECTION_PAGE_URL'];
             }
             if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             }
-        } elseif ($subdir[0] == 'articles'){
-            if (strpos($subdir[1],'article') === false){
+        } elseif ($subdir[0] == 'articles') {
+            if (strpos($subdir[1], 'article') === false){
                 $cod[0] = '/articles/';
-                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(9),'GLOBAL_ACTIVE'=>'Y'));
+                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=> array(9), 'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
-                
+
                 if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                     $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
                     @define("ERROR_404","Y");
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                    include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                     exit();
                 }
+            } else {
+             //проверка кода элемента   
+             $item_code = str_replace("article", "", $subdir[1]);
+             $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => 9, "CODE" => $item_code), false, false, array())->Fetch();
+             if (!$check_item["ID"]) {
+                $APPLICATION->RestartBuffer();
+                    CHTTP::SetStatus("404 Not Found");
+                    @define("ERROR_404","Y");
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
+                    exit(); 
+             }  
             }
         }
 
@@ -198,17 +211,17 @@
     // Редирект URL на нижний регистр
     function LowerCase() {
         if (strpos($_SERVER['REQUEST_URI'], '?')) {
-             $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
-             $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
-             $req = strstr($_SERVER['REQUEST_URI'], '?');
-             $new_url = $url_without_req_min.$req;
+            $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
+            $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
+            $req = strstr($_SERVER['REQUEST_URI'], '?');
+            $new_url = $url_without_req_min.$req;
         }else {
-             $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
-             $url_without_req = $_SERVER['REQUEST_URI'];
-             $new_url = $url_without_req_min;
+            $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
+            $url_without_req = $_SERVER['REQUEST_URI'];
+            $new_url = $url_without_req_min;
         }
         if ($url_without_req != $url_without_req_min) {
-             LocalRedirect($new_url, true, "301 Moved permanently");
+            LocalRedirect($new_url, true, "301 Moved permanently");
         }
     }
 
@@ -222,15 +235,15 @@
     //Подключение парсера в админке
     AddEventHandler("main", "OnBuildGlobalMenu", "AlexMenus");
     function AlexMenus(&$adminMenu, &$moduleMenu){
-    $moduleMenu[] = array(
-        "parent_menu" => "global_menu_services",
-        "sort"        => 1000,
-        "url"         => "/bitrix/admin/parser.php?lang=".LANG,
-        "text"        => 'Запуск парсера',
-        "title"       => 'Парсер каталога проектов',
-        "icon"        => "form_menu_icon",
-        "page_icon"   => "form_page_icon",
-        "items_id"    => "menu",
-        "items"       => array()
-    );
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_services",
+            "sort"        => 1000,
+            "url"         => "/bitrix/admin/parser.php?lang=".LANG,
+            "text"        => 'Запуск парсера',
+            "title"       => 'Парсер каталога проектов',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu",
+            "items"       => array()
+        );
     }

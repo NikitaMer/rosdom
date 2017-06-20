@@ -1,18 +1,14 @@
 <?// Кнопка Поделиться от Яндекса ?>
 <br /><br />
-<div style="_clear:both; float:none;"></div>                                                            
 <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
 <script src="//yastatic.net/share2/share.js" charset="utf-8"></script>
-<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,collections,gplus"></div>
-
+<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,collections,gplus"></div>    
 </article>
-<div class="push"><!-- --></div>
 </div>
 <footer>
     <div class="w-foot">
         <section class="foot-links"> 
-            <!- --> 
-            <? ?>
+           
 
             <?$APPLICATION->IncludeComponent("bitrix:menu", "rosdom_bottom", array(
                     "ROOT_MENU_TYPE" => "bottom",
