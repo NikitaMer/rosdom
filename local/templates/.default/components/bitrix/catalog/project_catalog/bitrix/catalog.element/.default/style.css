@@ -1930,6 +1930,10 @@
     color: #fff;
 }
 
+.buy_project:visited {
+    color: #fff;
+}
+
 .project_tmp_unavailable {
     color: red;
     font-weight: bold;
