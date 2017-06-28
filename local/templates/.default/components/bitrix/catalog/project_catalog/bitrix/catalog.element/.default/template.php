@@ -13,21 +13,23 @@
     $this->setFrameMode(true);
     $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues($arResult['IBLOCK_ID'], $arResult['ID']);
     $IPROPERTY = $ipropValues->getValues();   
-    
+
     $ELEMENT_META_TITLE_whith_tag =  html_entity_decode($IPROPERTY['ELEMENT_META_TITLE']);                                                                                    
     $ELEMENT_PAGE_TITLE_whith_tag =  html_entity_decode($IPROPERTY['ELEMENT_PAGE_TITLE']);     
-    
+
     $replace_from = array("<nobr>", "</nobr>");
     $replace_to = array(GetMessage("PROJECT")." ", "");
     $ELEMENT_PAGE_TITLE_whith_tag = str_replace($replace_from, $replace_to, $ELEMENT_PAGE_TITLE_whith_tag);           
-                                                                                   
+
     $ELEMENT_META_TITLE =  strip_tags(html_entity_decode($IPROPERTY['ELEMENT_META_TITLE']));                                                                                      
 ?>
 <section class="last-posts w-tabs"> 
     <table style="margin-bottom:10px; width:650px;" id="h2header">
         <tbody><tr>
                 <td>
-                <h1 style="padding:0;"><?if($ELEMENT_PAGE_TITLE_whith_tag){ echo $ELEMENT_PAGE_TITLE_whith_tag;} else {echo GetMessage("HOUSE_PROJECT") . $arResult["NAME"];}?></h1><?=GetMessage("TOTAL_AREA")?><b style="margin:0;padding:0;"><?=$arResult['PROPERTIES']['OB_PL']['VALUE']?></b> ì<sup>2</sup>                        </td>
+                    <h1><?if($ELEMENT_PAGE_TITLE_whith_tag){ echo $ELEMENT_PAGE_TITLE_whith_tag;} else {echo GetMessage("HOUSE_PROJECT") . $arResult["NAME"];}?></h1>
+                    <span><?=GetMessage("TOTAL_AREA")?> <b style="margin:0;padding:0;"><?=$arResult['PROPERTIES']['OB_PL']['VALUE']?></b> ì<sup>2</sup></span>                        
+                </td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td align="right">
                     <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>
