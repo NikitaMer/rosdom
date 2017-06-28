@@ -4,6 +4,8 @@
     define('IBLOCK_ID_PROJECT', 37);
     define("FAQ_IBLOCK_ID", 14); 
     define("ARTICLES_IBLOCK_ID", 9); 
+    define("DOCUMENT_IBLOCK_ID", 15); 
+    define("PROJECTS_IBLOCK_ID", 37); 
 
 
     if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php')){
@@ -116,7 +118,7 @@
                 }
             }
         } elseif ($subdir[0] == 'documents'){
-            $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(15),'GLOBAL_ACTIVE'=>'Y'));
+            $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(DOCUMENT_IBLOCK_ID),'GLOBAL_ACTIVE'=>'Y'));
             while($arCod = $obCod->GetNext()){
                 if ($arCod["DEPTH_LEVEL"] == 1){
                     $cod_dl_1[] = $arCod['CODE'];
@@ -192,21 +194,20 @@
                     exit();
                 }
             } else {
-             //проверка кода элемента   
-             $item_code = str_replace("article", "", $subdir[1]);
-             $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => ARTICLES_IBLOCK_ID, "CODE" => $item_code), false, false, array())->Fetch();
-             if (!$check_item["ID"]) {
-                $APPLICATION->RestartBuffer();
+                 //проверка кода элемента   
+                 $item_code = str_replace("article", "", $subdir[1]);
+                 $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => ARTICLES_IBLOCK_ID, "CODE" => $item_code), false, false, array())->Fetch();
+                 if (!$check_item["ID"]) {
+                    $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
                     @define("ERROR_404","Y");
                     require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
                     require($_SERVER["DOCUMENT_ROOT"].'/404.php');
                     require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                     exit(); 
-             }  
+                }  
             }
-        }
-
+        } 
     }
     // Редирект URL на нижний регистр
     function LowerCase() {

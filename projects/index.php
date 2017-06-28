@@ -257,7 +257,7 @@ $APPLICATION->SetTitle("Проекты домов");
 		"PAGER_BASE_LINK" => "",
 		"PAGER_PARAMS_NAME" => "arrPager",
 		"SET_STATUS_404" => "Y",
-		"SHOW_404" => "N",
+		"SHOW_404" => "Y",
 		"MESSAGE_404" => "",
 		"ADD_PICT_PROP" => "-",
 		"LABEL_PROP" => "-",
