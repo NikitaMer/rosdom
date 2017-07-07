@@ -1,11 +1,11 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("сантехника h1");
-?> 
+?>
 
 <?$APPLICATION->IncludeComponent(
-	"bitrix:news.detail", 
-	"article_detail", 
+	"bitrix:news.detail",
+	"article_detail",
 	array(
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",
@@ -69,10 +69,10 @@ $APPLICATION->SetTitle("сантехника h1");
 		"ACTIVE_COMPONENT" => "Y"
 	)
 );
-$arrFilter = array("!ID"=>$_SESSION['ELEMENT_ID'],"SECTION_ID"=>$_SESSION['SECTION_ID'],"ACTIVE"=>"Y");?> 
+$arrFilter = array("!ID"=>$_SESSION['ELEMENT_ID'],"SECTION_ID"=>$_SESSION['SECTION_ID'],"ACTIVE"=>"Y");?>
 <div><?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"rosdom_also_list", 
+	"bitrix:news.list",
+	"rosdom_also_list",
 	array(
 		"IBLOCK_TYPE" => "articles",
 		"IBLOCK_ID" => "9",

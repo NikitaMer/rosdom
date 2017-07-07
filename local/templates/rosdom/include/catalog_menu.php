@@ -152,7 +152,7 @@
 								</td>
 								</tr>
 							<?else:?>
-								<select name=pl><option value='0'>не важно</option><? for($i=0;$i<4;$i++)echo selected($HTTP_GET_VARS["pl"],($i+1),$pl[$i][0]); ?></select>
+								<select name=pl><option value='0'>не важно</option><? for($i=0;$i<4;$i++)echo htmlspecialchars(selected($HTTP_GET_VARS["pl"],($i+1),$pl[$i][0])); ?></select>
 							<?endif?>
 						</td>
 					</tr>
@@ -160,12 +160,12 @@
 					</table>
 				<br />
 					<table class="hiddentable">
-					<tr><td class=b>Номер (лат):</td><td><input type=text class=text name=num value=<? echo $HTTP_GET_VARS["num"]; ?>></td></tr>
-					<tr ><td class=b>Этажей:</td><td><select name=flores><option value='0'>не важно</option><? for($i=1;$i<6;$i++)echo selected($HTTP_GET_VARS["flores"],$i,$i); ?></select></td></tr>
+					<tr><td class=b>Номер (лат):</td><td><input type=text class=text name=num value=<? echo htmlspecialchars($HTTP_GET_VARS["num"]); ?>></td></tr>
+					<tr ><td class=b>Этажей:</td><td><select name=flores><option value='0'>не важно</option><? for($i=1;$i<6;$i++)echo htmlspecialchars(selected($HTTP_GET_VARS["flores"],$i,$i)); ?></select></td></tr>
 					<tr ><td class=b>Цоколь:</td><td><select name=cokol><option value='0'>не важно</option><option value='1' <? if($HTTP_GET_VARS["cokol"] == "1")echo "selected"; ?>>есть</option><option value='2' <? if($HTTP_GET_VARS["cokol"] == "2")echo "selected"; ?>>нет</option></select></td></tr>
 					<tr ><td class=b>Мансарда:</td><td><select name=mansarda><option value='0'>не важно</option><option value='1' <? if($HTTP_GET_VARS["mansarda"] == "1")echo "selected"; ?>>есть</option><option value='2' <? if($HTTP_GET_VARS["mansarda"] == "2")echo "selected"; ?>>нет</option></select></td></tr>
-					<tr ><td class=b>Габарит Х (мм):</td><td><input type=text class=text name=gabx value=<? echo $HTTP_GET_VARS["gabx"]; ?>></td></tr>
-					<tr ><td class=b>Габарит Y (мм):</td><td><input type=text class=text name=gaby value=<? echo $HTTP_GET_VARS["gaby"]; ?>></td></tr>
+					<tr ><td class=b>Габарит Х (мм):</td><td><input type=text class=text name=gabx value=<? echo htmlspecialchars($HTTP_GET_VARS["gabx"]); ?>></td></tr>
+					<tr ><td class=b>Габарит Y (мм):</td><td><input type=text class=text name=gaby value=<? echo htmlspecialchars($HTTP_GET_VARS["gaby"]); ?>></td></tr>
 					<tr ><td class=b>Помещения:</td><td><input class=checkbox type=checkbox name=garage <? if($HTTP_GET_VARS["garage"] == "on")echo "checked"; ?>>&nbsp;гараж <input class=checkbox type=checkbox name=sauna <? if($HTTP_GET_VARS["sauna"] == "on")echo "checked"; ?>>&nbsp;сауна <br><input class=checkbox type=checkbox name=waterpool <? if($HTTP_GET_VARS["waterpool"] == "on")echo "checked"; ?>>&nbsp;бассейн </td></tr>
 				</table>
 				<br>

@@ -1,7 +1,16 @@
 <?
-    define('MENU_TEXT', 'Различные тексты');
-    define('MENU_FILE', 'Файлы');
+    define('MENU_TEXT', '��������� ������');
+    define('MENU_FILE', '�����');
     define('IBLOCK_ID_PROJECT', 37);
+    define("FAQ_IBLOCK_ID", 14); 
+    define("ARTICLES_IBLOCK_ID", 9); 
+    define("DOCUMENT_IBLOCK_ID", 15); 
+    define("PROJECTS_IBLOCK_ID", 37); 
+
+
+    if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php')){
+        include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php');
+    }
 
     //error_reporting(E_ALL);
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
@@ -9,9 +18,8 @@
     AddEventHandler("main", "OnProlog", "LowerCase");
     class MyClass
     {
-        // ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В·ГѓЖ’Г‚ВђГѓвЂљГ‚ВґГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚В?? ГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Гўв‚¬?ГѓВўГўв‚¬ЕЎГ‚В¬ГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г‚ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Г‚ВђГѓвЂљГ‚Вє ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г‚В№ГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЏ "OnBeforeIBlockElementAdd"
         function OnBeforeIBlockElementAddHandler(&$arFields)
-        { // ГѓЖ’Г‚ВђГѓвЂљГ‚ВўГѓЖ’Гўв‚¬?ГѓВўГўв‚¬ЕЎГ‚В¬ГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚В»ГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Гўв‚¬?ГѓВўГўв‚¬ЕЎГ‚В¬ГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Гўв‚¬?ГѓВўГўв‚¬ЕЎГ‚В¬ГѓЖ’Гўв‚¬?ГѓвЂ Гўв‚¬в„ўГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚В?? CODE ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЌГѓЖ’Г‚ВђГѓвЂљГ‚В»ГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚В??ГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚ВІ
+        {
             $name = $arFields["NAME"];
             $arParams = array("replace_space"=>"-","replace_other"=>"-");
             $trans = Cutil::translit($name,"ru",$arParams);
@@ -22,8 +30,8 @@
                 if($res = $db->GetNext()) $i++;
             } while($res);
             $arFields["CODE"] = $find;
-            // ГѓЖ’Г‚ВђГѓВўГўвЂљВ¬Г‚ВўГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚В»ГѓЖ’Г‚ВђГѓвЂљГ‚Вё iblock - FAQ, ГѓЖ’Г‚ВђГѓвЂљГ‚ВґГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚В±ГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВІГѓЖ’Г‚ВђГѓвЂљГ‚В»ГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЏГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚В?? ГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚В·ГѓЖ’Г‚ВђГѓвЂљГ‚ВІГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Г‚ВђГѓвЂљГ‚ВёГѓЖ’Г‚ВђГѓвЂљГ‚Вµ ГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎГѓЖ’Г‚ВђГѓвЂљГ‚ВµГѓЖ’Г‚ВђГѓвЂљГ‚ВєГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Гўв‚¬?ГѓВўГўвЂљВ¬Г…ВЎ ГѓЖ’Г‚ВђГѓвЂљГ‚В°ГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Г‚ВђГѓвЂљГ‚ВѕГѓЖ’Г‚ВђГѓвЂљГ‚ВЅГѓЖ’Гўв‚¬?ГѓвЂљГ‚ВЃГѓЖ’Г‚ВђГѓвЂљГ‚В°
-            if($arFields["IBLOCK_ID"] == 14) $arFields["PREVIEW_TEXT"]=$arFields["NAME"];
+
+            if($arFields["IBLOCK_ID"] == FAQ_IBLOCK_ID) $arFields["PREVIEW_TEXT"]=$arFields["NAME"];
 
             include($_SERVER["DOCUMENT_ROOT"]."/sitemap/index_i.php");
         }
@@ -63,19 +71,14 @@
         echo '</td></tr></table>';
     }
 
-    // Функция сортировки по алфовиту.
+    // ������� ���������� �� ��������.
     function cmp($a, $b){
         if(empty($a["UF_MENUTITLE"]) && empty($b["UF_MENUTITLE"])){
             return strcmp($a["TEXT"], $b["TEXT"]);
         }else{
             return strcmp($a["UF_MENUTITLE"], $b["UF_MENUTITLE"]);
         }
-    }
-
-    if(file_exists('local/php_interface/include/.config.php')){
-        include('local/php_interface/include/.config.php');
-    }
-
+    }      
 
     function arshow($array, $adminCheck = false){
         global $USER;
@@ -90,7 +93,7 @@
         echo "</pre>";
     }
 
-    //  Функция для удаления дублей
+    //  ������� ��� �������� ������
     function fixCatalogDuplication(){
         global $APPLICATION;
         $cod = array();
@@ -100,22 +103,22 @@
         if($subdir[0] == 'faq'){
             if(strpos($subdir[1],'faq') === false){
                 $cod[0] = '/faq/';
-                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(14),'GLOBAL_ACTIVE'=>'Y'));
+                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(FAQ_IBLOCK_ID),'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
                 if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                     $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
-                    @define("ERROR_404","Y");
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                    include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                    @define("ERROR_404","Y");        
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                     exit();
                 }
             }
-        }elseif($subdir[0] == 'documents'){
-            $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(15),'GLOBAL_ACTIVE'=>'Y'));
+        } elseif ($subdir[0] == 'documents'){
+            $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(DOCUMENT_IBLOCK_ID),'GLOBAL_ACTIVE'=>'Y'));
             while($arCod = $obCod->GetNext()){
                 if ($arCod["DEPTH_LEVEL"] == 1){
                     $cod_dl_1[] = $arCod['CODE'];
@@ -127,33 +130,34 @@
                     $cod_dl_3[] = $arCod['CODE'];
                 }
             }
+
             if(!in_array($subdir[1], $cod_dl_1) && isset($subdir[1])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
-            }elseif(!in_array($subdir[2], $cod_dl_2) && isset($subdir[2])){
+            } elseif (!in_array($subdir[2], $cod_dl_2) && isset($subdir[2])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
-            }elseif(!in_array($subdir[3], $cod_dl_3) && isset($subdir[3])){
+            } elseif (!in_array($subdir[3], $cod_dl_3) && isset($subdir[3])){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             }
 
-        }elseif($subdir[0] == 'equipment' || $subdir[0] == 'material' || $subdir[0] == 'interior'|| $subdir[0] == 'machinery'|| $subdir[0] == 'service'){
+        } elseif ($subdir[0] == 'equipment' || $subdir[0] == 'material' || $subdir[0] == 'interior'|| $subdir[0] == 'machinery'|| $subdir[0] == 'service'){
             $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(10),'GLOBAL_ACTIVE'=>'Y'));
             $cod[0] = '/equipment/';
             $cod[1] = '/material/';
@@ -161,78 +165,86 @@
             $cod[3] = '/machinery/';
             $cod[4] = '/service/';
             while($arCod = $obCod->GetNext()){
-                    $cod[] = $arCod['SECTION_PAGE_URL'];
+                $cod[] = $arCod['SECTION_PAGE_URL'];
             }
             if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                 $APPLICATION->RestartBuffer();
                 CHTTP::SetStatus("404 Not Found");
                 @define("ERROR_404","Y");
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                 exit();
             }
-        }elseif($subdir[0] == 'articles'){
-            if(strpos($subdir[1],'article') === false){
+        } elseif ($subdir[0] == 'articles') {
+            if (strpos($subdir[1], 'article') === false){
                 $cod[0] = '/articles/';
-                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=>array(9),'GLOBAL_ACTIVE'=>'Y'));
+                $obCod = CIBlockSection::GetTreeList(Array("IBLOCK_ID"=> array(ARTICLES_IBLOCK_ID), 'GLOBAL_ACTIVE'=>'Y'));
                 while($arCod = $obCod->GetNext()){
                     $cod[] = $arCod['SECTION_PAGE_URL'];
                 }
+
                 if(!in_array($GLOBALS["APPLICATION"] -> GetCurPage(),$cod)){
                     $APPLICATION->RestartBuffer();
                     CHTTP::SetStatus("404 Not Found");
                     @define("ERROR_404","Y");
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/header.php");
-                    include($_SERVER["DOCUMENT_ROOT"].'/404.php');
-                    include($_SERVER["DOCUMENT_ROOT"]."/local/templates/rosdom_copy/footer.php");
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
                     exit();
                 }
+            } else {
+                 //�������� ���� ��������   
+                 $item_code = str_replace("article", "", $subdir[1]);
+                 $check_item = CIBlockElement::getList(array(), array("IBLOCK_ID" => ARTICLES_IBLOCK_ID, "CODE" => $item_code), false, false, array())->Fetch();
+                 if (!$check_item["ID"]) {
+                    $APPLICATION->RestartBuffer();
+                    CHTTP::SetStatus("404 Not Found");
+                    @define("ERROR_404","Y");
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+                    require($_SERVER["DOCUMENT_ROOT"].'/404.php');
+                    require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
+                    exit(); 
+                }  
             }
-        }
-
+        } 
     }
-    // Редирект URL на нижний регистр
-    function LowerCase() { 
+    // �������� URL �� ������ �������
+    function LowerCase() {
         if (strpos($_SERVER['REQUEST_URI'], '?')) {
-             $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
-             $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
-             $req = strstr($_SERVER['REQUEST_URI'], '?');
-             $new_url = $url_without_req_min.$req; 
+            $url_without_req_min = strtolower(strstr($_SERVER['REQUEST_URI'], '?', true));
+            $url_without_req = strstr($_SERVER['REQUEST_URI'], '?', true);
+            $req = strstr($_SERVER['REQUEST_URI'], '?');
+            $new_url = $url_without_req_min.$req;
         }else {
-             $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
-             $url_without_req = $_SERVER['REQUEST_URI'];
-             $new_url = $url_without_req_min;
-        }         
-        if ($url_without_req != $url_without_req_min) {             
-             LocalRedirect($new_url, true, "301 Moved permanently");       
-        }    
-    }  
-
-
-
-    if(file_exists('local/php_interface/include/function_parser.php')){
-        include('local/php_interface/include/function_parser.php');
-    } 
-    if(file_exists('local/php_interface/include/function_parser_manually.php')){
-        include('local/php_interface/include/function_parser_manually.php');
+            $url_without_req_min = strtolower($_SERVER['REQUEST_URI']);
+            $url_without_req = $_SERVER['REQUEST_URI'];
+            $new_url = $url_without_req_min;
+        }
+        if ($url_without_req != $url_without_req_min) {
+            LocalRedirect($new_url, true, "301 Moved permanently");
+        }
     }
 
 
 
+    if(file_exists($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php')){
+        include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/function_parser.php');
+    }
 
-    //Подключение парсера в админке 
+
+    //����������� ������� � �������
     AddEventHandler("main", "OnBuildGlobalMenu", "AlexMenus");
     function AlexMenus(&$adminMenu, &$moduleMenu){
-    $moduleMenu[] = array(
-    "parent_menu" => "global_menu_services", 
-    "sort"        => 1000,                    
-    "url"         => "/bitrix/admin/mobile/parser.php?lang=".LANG,  
-    "text"        => 'Запуск парсера',       
-    "title"       => 'Парсер каталога проектов', 
-    "icon"        => "form_menu_icon", 
-    "page_icon"   => "form_page_icon", 
-    "items_id"    => "menu",  
-    "items"       => array()          
-    );
-    }  
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_services",
+            "sort"        => 1000,
+            "url"         => "/bitrix/admin/parser.php?lang=".LANG,
+            "text"        => '������ �������',
+            "title"       => '������ �������� ��������',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu",
+            "items"       => array()
+        );
+    }

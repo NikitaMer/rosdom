@@ -75,7 +75,7 @@ function SAFChangeAuthForm(v)
 <?}?>
 
 <div id="at_frm_bitrix" style="z-index:13;">
-<div style="width:530px; height:211px; background:url(/i/auth_form_bg.gif) no-repeat; position:relative; z-index:14;">
+<div style="width:272px; height:211px; background:url(/i/auth_form_bg.gif) no-repeat; position:relative; z-index:14;">
 	<a style="position:absolute; top:2px; right:4px; cursor:pointer; color:#222 z-index:15;" onclick="javascript:document.getElementById('login_form').style.display='none';gray_hide();">[x]</a>
 	<div style="width:240px; float:left; height:181px; text-align:center; padding:40px 0 0 25px; z-index:15;">
     	<form method="post" target="_top" action="/personal/my/" <?//=$arResult["AUTH_URL"]?>>
@@ -110,7 +110,7 @@ function SAFChangeAuthForm(v)
                         <input type="password" name="USER_PASSWORD" maxlength="50" size="17" /></td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align:right;"><a class="Authlink" href="/personal/registration/forgot_pass.php"<?//=$arResult["AUTH_FORGOT_PASSWORD_URL"]?> rel="nofollow" ><?=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a><br/><br/></td>
+                   <!--     <td colspan="3" style="text-align:right;"><a class="Authlink" href="/personal/registration/forgot_pass.php"<?//=$arResult["AUTH_FORGOT_PASSWORD_URL"]?> rel="nofollow" ><?//=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a><br/><br/></td>  -->
                     </tr>
                     
                 <?
@@ -142,36 +142,36 @@ function SAFChangeAuthForm(v)
             </table>
         </form>
     </div>
-   <div style="width:240px; float:right; height:181px; text-align:center; padding:24px 14px 0 0; z-index:1500;">
+   <div style="width:240px; float:right; height:181px; display:none; text-align:center; padding:24px 14px 0 0; z-index:1500;">
    
     	<table style="width:95%; text-align:left;">
-                    <tr>
+                <!--    <tr>
                     	<td>
                         	<p>
 								<?if (!$arResult["ERROR"]):?>
 									<!--[if lt IE 8]><br/><![endif]--> 
-									Если Вы не являетесь нашим 
+				<!--					Если Вы не являетесь нашим 
 									клиентом, нажмите 
 									кнопку <strong>"Регистрация"</strong>. <br/>
 									<br/>
 									Если Вы уже проходили процедуру
 									регистрации на нашем сайте, 
 									введите логин и пароль в блоке 
-									слева  и нажмите кнопку <strong>"Войти"</strong> 
+									слева  и нажмите кнопку <strong>"Войти"</strong>    -->
 								<?else:?>
 									<?global $loginError?>
 									<?$loginError = "Y"?>
 									<?ShowError("К сожалению, Вы неверно ввели логин и пароль. Попробуйте еще раз.<br />Проверьте язык ввода, а также что кнопка Caps-Lock не нажата.")?>
 								<?endif?>
                             </p>
-                        </td>
-                    </tr>
+                <!--        </td>
+                    </tr>     -->
                             <?
 							if (($arResult["NEW_USER_REGISTRATION"] == "Y") && (!$arResult["ERROR"]))
 							{
 							?>
 								<tr>
-									<td style="text-align:right;"><a class="Authlink" style="color:#ff7201;" href="/personal/registration/?register=yes<?//=$arResult["AUTH_REGISTER_URL"]?>" rel="nofollow"><?=GetMessage("AUTH_REGISTER")?></a><br /></td>
+									<td style="text-align:right;"><a class="Authlink" style="color:#ff7201;" href="/personal/registration/?register=yes<?//=$arResult["AUTH_REGISTER_URL"]?>" rel="nofollow"><?//=GetMessage("AUTH_REGISTER")?></a><br /></td>
 								</tr>
 							<?
 							}
