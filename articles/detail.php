@@ -33,7 +33,7 @@ $APPLICATION->SetTitle("сантехника h1");
 		"META_DESCRIPTION" => "DESCRIPTION",
 		"BROWSER_TITLE" => "METATITLE",
 		"SET_TITLE" => "Y",
-		"SET_STATUS_404" => "N",
+		"SET_STATUS_404" => "Y",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "Y",
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
@@ -51,7 +51,7 @@ $APPLICATION->SetTitle("сантехника h1");
 		"AJAX_OPTION_HISTORY" => "N",
 		"COMPONENT_TEMPLATE" => "article_detail",
 		"DETAIL_URL" => "",
-		"AJAX_OPTION_ADDITIONAL" => "undefined",
+		"AJAX_OPTION_ADDITIONAL" => "",
 		"SET_CANONICAL_URL" => "N",
 		"SET_BROWSER_TITLE" => "Y",
 		"SET_META_KEYWORDS" => "Y",
@@ -59,8 +59,10 @@ $APPLICATION->SetTitle("сантехника h1");
 		"SET_LAST_MODIFIED" => "N",
 		"ADD_ELEMENT_CHAIN" => "N",
 		"PAGER_BASE_LINK_ENABLE" => "N",
-		"SHOW_404" => "N",
-		"MESSAGE_404" => ""
+		"SHOW_404" => "Y",
+		"MESSAGE_404" => "",
+		"STRICT_SECTION_CHECK" => "N",
+		"FILE_404" => ""
 	),
 	false,
 	array(
