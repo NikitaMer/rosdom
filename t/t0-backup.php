@@ -395,14 +395,14 @@
 					<noindex>
 						<form id=search action=/search/ method=get>
 							<table>
-								<tr><td class=b>Номер (лат):</td><td><input type=text class=text name=num value=<? echo $HTTP_GET_VARS["num"]; ?>></td></tr>
-								<tr><td class=b>Площадь:</td><td><select name=pl><option value='0'>не важно</option><? for($i=0;$i<4;$i++)echo selected($HTTP_GET_VARS["pl"],($i+1),$pl[$i][0]); ?></select></td></tr>
+								<tr><td class=b>Номер (лат):</td><td><input type=text class=text name=num value=<? echo htmlspecialchars($HTTP_GET_VARS["num"]); ?>></td></tr>
+								<tr><td class=b>Площадь:</td><td><select name=pl><option value='0'>не важно</option><? for($i=0;$i<4;$i++)echo htmlspecialchars(selected($HTTP_GET_VARS["pl"],($i+1),$pl[$i][0])); ?></select></td></tr>
 								<tr><td class=b>Материал:</td><td><input class=checkbox type=checkbox name=k <? if($HTTP_GET_VARS["k"] == "on")echo "checked"; ?>>кирпич<input class=checkbox type=checkbox name=p <? if($HTTP_GET_VARS["p"] == "on")echo "checked"; ?>>пенобетон<br><input class=checkbox type=checkbox name=d <? if($HTTP_GET_VARS["d"] == "on")echo "checked"; ?>>дерево<input class=checkbox type=checkbox name=s <? if($HTTP_GET_VARS["s"] == "on")echo "checked"; ?>>каркас</td></tr>
-								<tr><td class=b>Этажей:</td><td><select name=flores><option value='0'>не важно</option><? for($i=1;$i<6;$i++)echo selected($HTTP_GET_VARS["flores"],$i,$i); ?></select></td></tr>
+								<tr><td class=b>Этажей:</td><td><select name=flores><option value='0'>не важно</option><? for($i=1;$i<6;$i++)echo htmlspecialchars(selected($HTTP_GET_VARS["flores"],$i,$i)); ?></select></td></tr>
 								<tr><td class=b>Цоколь:</td><td><select name=cokol><option value='0'>не важно</option><option value='1' <? if($HTTP_GET_VARS["cokol"] == "1")echo "selected"; ?>>есть</option><option value='2' <? if($HTTP_GET_VARS["cokol"] == "2")echo "selected"; ?>>нет</option></select></td></tr>
 								<tr><td class=b>Мансарда:</td><td><select name=mansarda><option value='0'>не важно</option><option value='1' <? if($HTTP_GET_VARS["mansarda"] == "1")echo "selected"; ?>>есть</option><option value='2' <? if($HTTP_GET_VARS["mansarda"] == "2")echo "selected"; ?>>нет</option></select></td></tr>
-								<tr><td class=b>Габарит Х (мм):</td><td><input type=text class=text name=gabx value=<? echo $HTTP_GET_VARS["gabx"]; ?>></td></tr>
-								<tr><td class=b>Габарит Y (мм):</td><td><input type=text class=text name=gaby value=<? echo $HTTP_GET_VARS["gaby"]; ?>></td></tr>
+								<tr><td class=b>Габарит Х (мм):</td><td><input type=text class=text name=gabx value=<? echo htmlspecialchars($HTTP_GET_VARS["gabx"]); ?>></td></tr>
+								<tr><td class=b>Габарит Y (мм):</td><td><input type=text class=text name=gaby value=<? echo htmlspecialchars($HTTP_GET_VARS["gaby"]); ?>></td></tr>
 								<tr><td class=b>Помещения:</td><td><input class=checkbox type=checkbox name=garage <? if($HTTP_GET_VARS["garage"] == "on")echo "checked"; ?>>гараж<input class=checkbox type=checkbox name=sauna <? if($HTTP_GET_VARS["sauna"] == "on")echo "checked"; ?>>сауна<br><input class=checkbox type=checkbox name=waterpool <? if($HTTP_GET_VARS["waterpool"] == "on")echo "checked"; ?>>бассейн</td></tr>
 								<tr><td colspan=2><input class=submit type=submit src=/i2/find1.jpg value=' Найти '></td></tr>
 							</table>
