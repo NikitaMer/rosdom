@@ -2,6 +2,26 @@
 
 use Bitrix\Main\Loader,
 	Bitrix\Main\ModuleManager;
+    
+if($_POST["sort"] == null && $_SESSION["sort"] == null){
+    $arParams["ELEMENT_SORT_FIELD"] = null;    
+}elseif($_POST["sort"] == null && $_SESSION["sort"] != null){
+    $arParams["ELEMENT_SORT_FIELD"] = $_SESSION["sort"];    
+}elseif($_POST["sort"] != null){
+    $arParams["ELEMENT_SORT_FIELD"] = $_POST["sort"];
+    $_SESSION["sort"] = $_POST["sort"];
+}
+if($_POST["method"] == null && $_SESSION["method"] == null){
+    $arParams["ELEMENT_SORT_ORDER"] = null;    
+    $arParams["ELEMENT_SORT_ORDER2"] = null;    
+}elseif($_POST["method"] == null && $_SESSION["method"] != null){
+    $arParams["ELEMENT_SORT_ORDER"] = $_SESSION["method"];    
+    $arParams["ELEMENT_SORT_ORDER2"] = $_SESSION["method"];    
+}elseif($_POST["method"] != null){
+    $arParams["ELEMENT_SORT_ORDER"] = $_POST["method"];
+    $arParams["ELEMENT_SORT_ORDER2"] = $_POST["method"];
+    $_SESSION["method"] = $_POST["method"];
+}        
 $this->SetViewTarget('filter');
 if ($isFilter || $isSidebar):?>
 <div >
