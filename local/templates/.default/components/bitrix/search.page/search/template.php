@@ -240,7 +240,15 @@
 			<?endif;//if($arParams["SHOW_WHERE"] || $arParams["SHOW_WHEN"])?>
 		</noindex>
 	</form-->
-
+<?if($arParams["SHOW_ORDER_BY"] != "N"):?>
+    <div class="search-sorting"><label><?echo GetMessage("CT_BSP_ORDER")?>:</label>&nbsp;
+    <?if($arResult["REQUEST"]["HOW"]=="d"):?>
+        <a href="<?=$arResult["URL"]?>&amp;how=r"><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></a>&nbsp;<b><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></b>
+    <?else:?>
+        <b><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></b>&nbsp;<a href="<?=$arResult["URL"]?>&amp;how=d"><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></a>
+    <?endif;?>
+    </div>
+<?endif;?>
 <?if(isset($arResult["REQUEST"]["ORIGINAL_QUERY"])):
 	?>
 	<div class="search-language-guess">
@@ -282,17 +290,16 @@ endif;?>
 	<?elseif(count($arResult["SEARCH"])>0):?>
 	<?unset($sres);?>
 		<?if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
-		<?foreach($arResult["SEARCH"] as $arItem):?>
-		<?
-		//echo '<pre>';	print_r($arItem); echo '</pre>';
-		//echo $arItem['PARAM1'].' ';
-		if ($arItem['PARAM1'] == 'firms'){
-			if(strpos($arItem['ITEM_ID'], 'S') === 0) $sres['sections'][] = $arItem;
-				else $sres[$arItem['PARAM1']][] = $arItem;
-		} else
-			$sres[$arItem['PARAM1']][] = $arItem;
+		<?foreach($arResult["SEARCH"] as $arItem):
+		    if ($arItem['PARAM1'] == 'firms'){
+			    if(strpos($arItem['ITEM_ID'], 'S') === 0) $sres['sections'][] = $arItem;
+				    else $sres[$arItem['PARAM1']][] = $arItem;
+		    } else {
+			    $sres[$arItem['PARAM1']][] = $arItem;
+            }
 		?>
-		<?endforeach;?>
+		<?endforeach;
+        //arshow($sres)?>
 		<section class="faq">
 		<?foreach($sres as $k=>$val){
 			?><div class="b-subsection"><?
@@ -307,7 +314,8 @@ endif;?>
 				case 'exhibitions': $name = 'Выставки'; break;
 				case 'documents': $name = 'Документы'; break;
 				case 'firms': $name = 'Компании'; break;
-				case 'sections': $name = 'Товары и услуги'; break;
+                case 'sections': $name = 'Товары и услуги'; break;
+				case 'projects_catalog': $name = 'Проекты домов'; break;
 				
 				default: $name = ''; break;
 				
@@ -328,8 +336,7 @@ endif;?>
 				</li>
 				<?
 				}
-				$j++;
-				//echo '<pre>'; print_r($result); echo '</pre>';
+				$j++;                                            
 			}
 			?>
 			</ul>
@@ -338,15 +345,6 @@ endif;?>
 		}?>
 		</section>
 		<?if($arParams["DISPLAY_BOTTOM_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
-		<?if($arParams["SHOW_ORDER_BY"] != "N"):?>
-			<div class="search-sorting"><label><?echo GetMessage("CT_BSP_ORDER")?>:</label>&nbsp;
-			<?if($arResult["REQUEST"]["HOW"]=="d"):?>
-				<a href="<?=$arResult["URL"]?>&amp;how=r"><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></a>&nbsp;<b><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></b>
-			<?else:?>
-				<b><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></b>&nbsp;<a href="<?=$arResult["URL"]?>&amp;how=d"><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></a>
-			<?endif;?>
-			</div>
-		<?endif;?>
 	<?else:?>
 		<?ShowNote(GetMessage("CT_BSP_NOTHING_TO_FOUND"));?>
 	<?endif;?>

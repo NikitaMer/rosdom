@@ -112,10 +112,10 @@ $APPLICATION->SetTitle("Проекты домов");
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
 		"PAGE_ELEMENT_COUNT" => "21",
 		"LINE_ELEMENT_COUNT" => "5",
-		"ELEMENT_SORT_FIELD" => "sort",
-		"ELEMENT_SORT_ORDER" => "asc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "desc",
+		"ELEMENT_SORT_FIELD" => "",
+		"ELEMENT_SORT_ORDER" => "",
+		"ELEMENT_SORT_FIELD2" => "CATALOG_PRICE_3",
+		"ELEMENT_SORT_ORDER2" => "",
 		"LIST_PROPERTY_CODE" => array(
 			0 => "H_GAB",
 			1 => "V_GAB",
@@ -306,6 +306,8 @@ $APPLICATION->SetTitle("Проекты домов");
 		"COMMON_ADD_TO_BASKET_ACTION" => "",
 		"SECTIONS_HIDE_SECTION_NAME" => "N",
 		"FILE_404" => "",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"COMPATIBLE_MODE" => "Y",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE_PATH#/",
