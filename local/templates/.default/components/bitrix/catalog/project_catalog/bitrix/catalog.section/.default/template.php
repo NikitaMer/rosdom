@@ -10,8 +10,7 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
-    $this->setFrameMode(true);
-    //arshow($arResult['ITEMS']);   
+    $this->setFrameMode(true);       
 ?>
 <?
     if (!empty($arResult['ITEMS']))
@@ -177,11 +176,7 @@
                 );
 
                 $minPrice = false;
-                $minPrice = $arItem['MIN_PRICE'];
-                /*
-                if (isset($arItem['MIN_PRICE']) || isset($arItem['RATIO_PRICE']))
-                    $minPrice = (isset($arItem['RATIO_PRICE']) ? $arItem['RATIO_PRICE'] : $arItem['MIN_PRICE']);
-                    */                    
+                $minPrice = $arItem['MIN_PRICE'];                   
                 
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
