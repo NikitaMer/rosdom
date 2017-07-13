@@ -11,11 +11,11 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
-   
+    //arshow($arResult['ITEMS']);   
 ?>
 <?
     if (!empty($arResult['ITEMS']))
-    {
+    {                              
         $templateLibrary = array('popup');
         $currencyList = '';
         if (!empty($arResult['CURRENCIES']))
@@ -115,8 +115,22 @@
         <div class="bx-section-desc <? echo $templateData['TEMPLATE_CLASS']; ?>">
             <p class="bx-section-desc-post"><?=$arResult["DESCRIPTION"]?></p>
         </div>
-        <? } ?>
-    <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">
+        <div class="catalog-sort">
+            Сортировка
+            <form method="post" class="catalog-sort-form">
+                <select name="sort" onchange="this.form.submit()" class="select-type">
+                    <option value="CATALOG_PRICE_4" <?if($_POST["sort"] == "CATALOG_PRICE_4" || $_SESSION["sort"] == "CATALOG_PRICE_4"){?>selected="selected"<?}?>><?=GetMessage('BY_PRICE')?></option>
+                    <option value="PROPERTY_201" <?if($_POST["sort"] == "PROPERTY_201" || $_SESSION["sort"] == "PROPERTY_201"){?>selected="selected"<?}?>><?=GetMessage('BY_AREA')?></option>
+                    <option value="created_date" <?if($_POST["sort"] == "created_date" || $_SESSION["sort"] == "created_date"){?>selected="selected"<?}?>><?=GetMessage('BY_DATE')?></option>  
+                </select>
+                <select name="method" onchange="this.form.submit()" class="select-from-to">
+                    <option value="desc,nulls" <?if($_POST["method"] == "desc,nulls" || $_SESSION["method"] == "desc,nulls"){?>selected="selected"<?}?>><?=GetMessage('FROM_BIG_TO_SMALL')?></option>
+                    <option value="asc,nulls" <?if($_POST["method"] == "asc,nulls" || $_SESSION["method"] == "asc,nulls"){?>selected="selected"<?}?>><?=GetMessage('FROM_SMALL_TO_BIG')?></option>   
+                </select> 
+            </form> 
+        </div>       
+        <? } ?>   
+    <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">        
         <?
             foreach ($arResult['ITEMS'] as $key => $arItem) 
             {                 
@@ -167,8 +181,7 @@
                 /*
                 if (isset($arItem['MIN_PRICE']) || isset($arItem['RATIO_PRICE']))
                     $minPrice = (isset($arItem['RATIO_PRICE']) ? $arItem['RATIO_PRICE'] : $arItem['MIN_PRICE']);
-                    */
-                //    arshow($arItem, true);
+                    */                    
                 
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
@@ -184,7 +197,8 @@
                         <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
-                        </noindex>
+                        </noindex><br>
+                        <?//=$arItem["CATALOG_PRICE_3"]?>
                     </p>
                 </div>
             </div><?
@@ -215,4 +229,4 @@
         {
         ?><? echo $arResult["NAV_STRING"]; ?><?
         }
-}
+}                               

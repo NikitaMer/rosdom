@@ -27,4 +27,9 @@ $MESS["MATERIAL"] = "Материал: ";
 $MESS["PRICE"] = "Цена: ";
 $MESS["HOUSE_PROJECT"] = "Проект дома № ";
 $MESS["BUY"] = "КУПИТЬ";
+$MESS["BY_PRICE"] = "По цене проекта";
+$MESS["BY_AREA"] = "По площади";
+$MESS["BY_DATE"] = "По дате";
+$MESS["FROM_BIG_TO_SMALL"] = "от большего к меньшему";
+$MESS["FROM_SMALL_TO_BIG"] = "от меньшего к большему";
 ?>
