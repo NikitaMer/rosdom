@@ -57,17 +57,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "MAIN_SECTION_CODE=\$1&SECTION_CODE=\$2",
-		"ID" => "",
-		"PATH" => "/realty/index.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/education/education([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
 		"PATH" => "/education/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "MAIN_SECTION_CODE=\$1&SECTION_CODE=\$2",
+		"ID" => "",
+		"PATH" => "/realty/index.php",
 		"SORT" => "100",
 	),
 	array(
@@ -155,17 +155,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
-		"RULE" => "ELEMENT_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/articles/detail.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/education/section.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
+		"RULE" => "ELEMENT_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/articles/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -204,10 +204,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/video/list.php",
+		"PATH" => "/realty/index.php",
 		"SORT" => "100",
 	),
 	array(
@@ -218,10 +218,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/realty/index.php",
+		"PATH" => "/video/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -239,10 +239,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/video/video([0-9]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/photo/photo([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/video/detail.php",
+		"PATH" => "/photo/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -253,10 +253,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/photo/photo([0-9]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/video/video([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/photo/detail.php",
+		"PATH" => "/video/detail.php",
 		"SORT" => "100",
 	),
 	array(
