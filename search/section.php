@@ -24,7 +24,7 @@ switch($_REQUEST['b']){
 echo '<h1>Результаты поиска &mdash; '.$name.'</h1>';
 ?><?$APPLICATION->IncludeComponent(
 	"bitrix:search.page", 
-	"search", 
+	"searh.page", 
 	array(
 		"RESTART" => "Y",
 		"NO_WORD_LOGIC" => "N",
@@ -56,7 +56,7 @@ echo '<h1>Результаты поиска &mdash; '.$name.'</h1>';
 		"SHOW_ORDER_BY" => "Y",
 		"SHOW_TAGS_CLOUD" => "N",
 		"AJAX_OPTION_ADDITIONAL" => "",
-		"COMPONENT_TEMPLATE" => "search"
+		"COMPONENT_TEMPLATE" => "searh.page"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
