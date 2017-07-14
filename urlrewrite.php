@@ -162,6 +162,13 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
+		"ID" => "",
+		"PATH" => "",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
@@ -171,13 +178,6 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
 		"ID" => "",
 		"PATH" => "",
 		"SORT" => "100",
@@ -197,6 +197,13 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "ELEMENT_ID=\$1",
+		"ID" => "",
+		"PATH" => "/firms/detail.php",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
@@ -208,13 +215,6 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "ELEMENT_ID=\$1",
-		"ID" => "",
-		"PATH" => "/firms/detail.php",
 		"SORT" => "100",
 	),
 	array(

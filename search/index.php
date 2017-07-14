@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Поиск");?> 
 <?$APPLICATION->IncludeComponent(
 	"bitrix:search.page", 
-	"searh.page", 
+	"search", 
 	array(
 		"RESTART" => "Y",
 		"NO_WORD_LOGIC" => "N",
@@ -52,7 +52,7 @@ $APPLICATION->SetTitle("Поиск");?>
 		),
 		"SHOW_WHERE" => "N",
 		"SHOW_WHEN" => "Y",
-		"PAGE_RESULT_COUNT" => "20",
+		"PAGE_RESULT_COUNT" => "20000000",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
@@ -72,7 +72,7 @@ $APPLICATION->SetTitle("Поиск");?>
 		"SHOW_ORDER_BY" => "Y",
 		"SHOW_TAGS_CLOUD" => "N",
 		"AJAX_OPTION_ADDITIONAL" => "",
-		"COMPONENT_TEMPLATE" => "searh.page",
+		"COMPONENT_TEMPLATE" => "search",
 		"arrWHERE" => array(
 			0 => "iblock_articles",
 			1 => "iblock_faq",
