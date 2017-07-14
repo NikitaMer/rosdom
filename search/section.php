@@ -24,7 +24,7 @@ switch($_REQUEST['b']){
 echo '<h1>Результаты поиска &mdash; '.$name.'</h1>';
 ?><?$APPLICATION->IncludeComponent(
 	"bitrix:search.page", 
-	"searh.page", 
+	"section_search", 
 	array(
 		"RESTART" => "Y",
 		"NO_WORD_LOGIC" => "N",
@@ -33,6 +33,7 @@ echo '<h1>Результаты поиска &mdash; '.$name.'</h1>';
 		"DEFAULT_SORT" => "rank",
 		"FILTER_NAME" => "",
 		"arrFILTER" => array(
+			0 => "iblock_".$_REQUEST['b'],
 		),
 		"SHOW_WHERE" => "N",
 		"SHOW_WHEN" => "N",
@@ -56,7 +57,16 @@ echo '<h1>Результаты поиска &mdash; '.$name.'</h1>';
 		"SHOW_ORDER_BY" => "Y",
 		"SHOW_TAGS_CLOUD" => "N",
 		"AJAX_OPTION_ADDITIONAL" => "",
-		"COMPONENT_TEMPLATE" => "searh.page"
+		"COMPONENT_TEMPLATE" => "section_search",
+		"arrFILTER_iblock_articles" => array(
+			0 => "all",
+		),
+		"arrFILTER_iblock_services" => array(
+			0 => "all",
+		),
+		"arrFILTER_iblock_generated" => array(
+			0 => "all",
+		)
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
