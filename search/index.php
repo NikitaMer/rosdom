@@ -52,7 +52,7 @@ $APPLICATION->SetTitle("Поиск");?>
 		),
 		"SHOW_WHERE" => "N",
 		"SHOW_WHEN" => "Y",
-		"PAGE_RESULT_COUNT" => "20000000",
+		"PAGE_RESULT_COUNT" => "2000000",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",

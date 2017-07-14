@@ -148,6 +148,13 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/education/section.php",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
@@ -155,10 +162,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/education/section.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -176,13 +183,6 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/markets/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
@@ -197,6 +197,13 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
@@ -208,13 +215,6 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/video/list.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -260,17 +260,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/photo/([0-9]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1&SECTION_ID=\$1",
-		"ID" => "",
-		"PATH" => "/photo/section.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/bitrix/services/ymarket/#",
 		"RULE" => "",
 		"ID" => "",
 		"PATH" => "/bitrix/services/ymarket/index.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/photo/([0-9]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1&SECTION_ID=\$1",
+		"ID" => "",
+		"PATH" => "/photo/section.php",
 		"SORT" => "100",
 	),
 	array(
