@@ -240,15 +240,6 @@
 			<?endif;//if($arParams["SHOW_WHERE"] || $arParams["SHOW_WHEN"])?>
 		</noindex>
 	</form-->
-<?if($arParams["SHOW_ORDER_BY"] != "N"):?>
-    <div class="search-sorting"><label><?echo GetMessage("CT_BSP_ORDER")?>:</label>&nbsp;
-    <?if($arResult["REQUEST"]["HOW"]=="d"):?>
-        <a href="<?=$arResult["URL"]?>&amp;how=r"><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></a>&nbsp;<b><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></b>
-    <?else:?>
-        <b><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></b>&nbsp;<a href="<?=$arResult["URL"]?>&amp;how=d"><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></a>
-    <?endif;?>
-    </div>
-<?endif;?>
 <?if(isset($arResult["REQUEST"]["ORIGINAL_QUERY"])):
 	?>
 	<div class="search-language-guess">

@@ -300,6 +300,6 @@ $arUrlRewrite = array(
         "ID" => "bitrix:catalog",
         "PATH" => "/project/index.php",
         "SORT" => "100",
-    ),
+    ),      
 );
 ?>
