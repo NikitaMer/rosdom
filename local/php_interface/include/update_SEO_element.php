@@ -56,8 +56,7 @@ while($elem=$el->GetNext()){
            "ELEMENT_PAGE_TITLE"          =>  "Проект ".$mat." ".$type.", ".$dop[$dop_rand]." ".$elem["NAME"]."  площадью ".$elem["PROPERTY_OB_PL_VALUE"]."  м2", 
         )
         );        
-        $res = $E->Update($elem["ID"],$arLoadProductArray);
-        arshow($elem["ID"]);                    
+        $res = $E->Update($elem["ID"],$arLoadProductArray);                    
     }
 }
 ?>
