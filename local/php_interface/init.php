@@ -248,3 +248,12 @@
             "items"       => array()
         );
     }
+    
+    AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateTage");
+    function UpdateTage(&$arFields)
+    {
+        if($arFields["IBLOCK_ID"] == 37)
+        {
+
+        }
+    } 
