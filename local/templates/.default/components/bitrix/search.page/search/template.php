@@ -318,11 +318,23 @@ endif;?>
 			echo '<p>Всего: '.count($val).'</p>';
 			?><figure><figcaption><?
 			?><ul><?
-			$j=0;
+			$j=0;  
 			foreach ($val as $result){  
-				if($j < 5){                     
-                    $link = $arItem['LINK'];
-				?>
+				if($j < 5){ 
+                    if($result['PARAM1'] == 'documents'){
+                        $link = '/';
+                        $id = intval($result['ITEM_ID']);
+                        $db_props = CIBlockElement::GetProperty(15, $id, Array("sort"=>"asc"), Array("CODE"=>"FILE"));
+                        if($ar_props = $db_props->Fetch()){                        
+                            $file = $ar_props['VALUE'];
+                            $rsFile = CFile::GetByID($file);
+                            $arFile = $rsFile->Fetch();                       
+                            $link = '/upload/'.$arFile['SUBDIR'].'/'.$arFile['FILE_NAME'];
+                        }                   
+                        $result['URL_WO_PARAMS'] = $link;
+                    }
+                    ?>
+                
                 <li>
 					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['TAGS'][0]['TAG_NAME'];}?></a> <br>
 					<p><?=$result['BODY_FORMATED']?></p>					
