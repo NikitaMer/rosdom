@@ -239,10 +239,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/magazines/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "CODE=\$1",
+		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/magazines/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/documents/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -267,15 +274,8 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/documents/list.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
+		"CONDITION" => "#^/magazines/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "CODE=\$1",
 		"ID" => "",
 		"PATH" => "/magazines/detail.php",
 		"SORT" => "100",
@@ -292,6 +292,13 @@ $arUrlRewrite = array(
 		"RULE" => "alias=\$1",
 		"ID" => "bitrix:im.router",
 		"PATH" => "/desktop_app/router.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/education/section.php",
 		"SORT" => "100",
 	),
 	array(
@@ -316,17 +323,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/education/section.php",
+		"PATH" => "/articles/list.php",
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
+		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => ""
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -340,21 +347,14 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
+		"PATH" => "/articles/list.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
+		"ID" => "",
 		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/articles/list.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/articles/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -386,20 +386,6 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
@@ -411,6 +397,20 @@ $arUrlRewrite = array(
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
 		"PATH" => "/firms/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "ELEMENT_ID=\$1",
+		"ID" => "",
+		"PATH" => "/firms/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -421,10 +421,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/firms/firm([0-9]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "ELEMENT_ID=\$1",
+		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/firms/detail.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -476,7 +476,14 @@ $arUrlRewrite = array(
 		"PATH" => "/video/detail.php",
 		"SORT" => "100",
 	),
-	array(                                    
+	array(
+		"CONDITION" => "#^/help/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/help/detail.php",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/help/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
@@ -491,13 +498,6 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/help/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/help/detail.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/faq/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
@@ -523,13 +523,6 @@ $arUrlRewrite = array(
 		"RULE" => "ELEMENT_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/faq/detail.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/photo/([0-9]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1&SECTION_ID=\$1",
-		"ID" => "",
-		"PATH" => "/photo/section.php",
 		"SORT" => "100",
 	),
 	array(
@@ -537,6 +530,13 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "",
 		"PATH" => "/bitrix/services/ymarket/index.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/photo/([0-9]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1&SECTION_ID=\$1",
+		"ID" => "",
+		"PATH" => "/photo/section.php",
 		"SORT" => "100",
 	),
 	array(
@@ -579,6 +579,13 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:stssync.server",
 		"PATH" => "/bitrix/services/stssync/calendar/index.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/projects/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/project/index.php",
 		"SORT" => "100",
 	),
 	array(
@@ -586,13 +593,6 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:catalog",
 		"PATH" => "/projects/index.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/projects/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/project/index.php",
 		"SORT" => "100",
 	),
 	array(
