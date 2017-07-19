@@ -3061,3 +3061,20 @@ table {
 .catalog-sort-form{
     display: inline;
 } 
+.button_desc, .button_asc{
+    width: 20px;
+    height: 20px;                    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+    border: none;
+    position: absolute;
+    margin: -1px 0px 0px 5px;   
+}
+.button_asc{
+    background-image: url(images/down.png);    
+}
+.button_desc{
+    background-image: url(images/up.png);    
+}

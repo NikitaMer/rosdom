@@ -122,10 +122,12 @@
                     <option value="PROPERTY_201" <?if($_POST["sort"] == "PROPERTY_201" || $_SESSION["sort"] == "PROPERTY_201"){?>selected="selected"<?}?>><?=GetMessage('BY_AREA')?></option>
                     <option value="created_date" <?if($_POST["sort"] == "created_date" || $_SESSION["sort"] == "created_date"){?>selected="selected"<?}?>><?=GetMessage('BY_DATE')?></option>  
                 </select>
-                <select name="method" onchange="this.form.submit()" class="select-from-to">
-                    <option value="desc,nulls" <?if($_POST["method"] == "desc,nulls" || $_SESSION["method"] == "desc,nulls"){?>selected="selected"<?}?>><?=GetMessage('FROM_BIG_TO_SMALL')?></option>
-                    <option value="asc,nulls" <?if($_POST["method"] == "asc,nulls" || $_SESSION["method"] == "asc,nulls"){?>selected="selected"<?}?>><?=GetMessage('FROM_SMALL_TO_BIG')?></option>   
-                </select> 
+                <?if($_POST["method"] == "asc,nulls" || $_SESSION["method"] == "asc,nulls"){?>
+                    <button class="button_desc" name="method" onchange="this.form.submit()" value="desc,nulls"></button>
+                <?}else{?>
+                    <button class="button_asc" name="method" onchange="this.form.submit()" value="asc,nulls"></button>
+                <?}?>
+                                 
             </form> 
         </div>       
         <? } ?>   
