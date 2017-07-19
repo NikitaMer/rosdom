@@ -59,7 +59,7 @@ endif;?>
 <?elseif(count($arResult["SEARCH"])>0):?>
 	<?if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
 	<br /><hr />
-	<?foreach($arResult["SEARCH"] as $arItem):?>
+	<?foreach($arResult["SEARCH"] as $arItem):?>        
 		<a href="<?echo $arItem["URL"]?>"><?echo $arItem["TITLE_FORMATED"]?></a>
 		<p><?echo $arItem["BODY_FORMATED"]?></p>
 		<?if (

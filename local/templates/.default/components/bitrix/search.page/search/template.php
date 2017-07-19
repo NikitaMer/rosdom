@@ -281,7 +281,7 @@ endif;?>
 	<?elseif(count($arResult["SEARCH"])>0):?>
 	<?unset($sres);?>
 		<?if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
-		<?foreach($arResult["SEARCH"] as $arItem):
+		<?foreach($arResult["SEARCH"] as $arItem):  
 		    if ($arItem['PARAM1'] == 'firms'){
 			    if(strpos($arItem['ITEM_ID'], 'S') === 0) $sres['sections'][] = $arItem;
 				    else $sres[$arItem['PARAM1']][] = $arItem;
@@ -290,7 +290,7 @@ endif;?>
             }
 		?>
 		<?endforeach;
-        //arshow($sres)?>
+        ?>
 		<section class="faq">
 		<?foreach($sres as $k=>$val){
 			?><div class="b-subsection"><?
@@ -306,7 +306,8 @@ endif;?>
 				case 'documents': $name = 'Документы'; break;
 				case 'firms': $name = 'Компании'; break;
                 case 'sections': $name = 'Товары и услуги'; break;
-				case 'projects_catalog': $name = 'Проекты домов'; break;
+                case 'projects_catalog': $name = 'Проекты домов'; break;
+				case 'photos': $name = 'Фото'; break;
 				
 				default: $name = ''; break;
 				
@@ -318,12 +319,13 @@ endif;?>
 			?><figure><figcaption><?
 			?><ul><?
 			$j=0;
-			foreach ($val as $result){
-				if($j < 5){ $link = $arItem['LINK'];
-				?><li>
-					<a href="<?=$result['URL_WO_PARAMS']?>"><?=$result['TITLE']?></a> <?/*=$result['ITEM_ID']?> <?echo strpos($result['ITEM_ID'], 'S').' ';?><?if(strpos($result['ITEM_ID'], 'S') === 0) echo ' раздел';*/?><br>
-					<p><?=$result['BODY_FORMATED']?></p>
-					
+			foreach ($val as $result){  
+				if($j < 5){                     
+                    $link = $arItem['LINK'];
+				?>
+                <li>
+					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['TAGS'][0]['TAG_NAME'];}?></a> <br>
+					<p><?=$result['BODY_FORMATED']?></p>					
 				</li>
 				<?
 				}
