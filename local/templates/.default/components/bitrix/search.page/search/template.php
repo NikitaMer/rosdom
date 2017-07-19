@@ -318,7 +318,7 @@ endif;?>
 			?><figure><figcaption><?
 			?><ul><?
 			$j=0;
-			foreach ($val as $result){
+			foreach ($val as $result){  
 				if($j < 5){ $link = $arItem['LINK'];
 				?><li>
 					<a href="<?=$result['URL_WO_PARAMS']?>"><?=$result['TITLE']?></a> <?/*=$result['ITEM_ID']?> <?echo strpos($result['ITEM_ID'], 'S').' ';?><?if(strpos($result['ITEM_ID'], 'S') === 0) echo ' раздел';*/?><br>
