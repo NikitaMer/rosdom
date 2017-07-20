@@ -87,9 +87,11 @@ $APPLICATION->SetTitle("Проекты домов");
 		"POST_FIRST_MESSAGE" => "N",
 		"USE_COMPARE" => "N",
 		"PRICE_CODE" => array(
-			0 => "price_of_complete_set",
-			1 => "price_for_architectural",
-			2 => "price_of_architect_solution",
+			0 => "RUB",
+			1 => "price_of_developer_kit",
+			2 => "price_of_complete_set",
+			3 => "price_for_architectural",
+			4 => "price_of_architect_solution",
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
@@ -114,7 +116,7 @@ $APPLICATION->SetTitle("Проекты домов");
 		"LINE_ELEMENT_COUNT" => "5",
 		"ELEMENT_SORT_FIELD" => "",
 		"ELEMENT_SORT_ORDER" => "",
-		"ELEMENT_SORT_FIELD2" => "CATALOG_PRICE_3",
+		"ELEMENT_SORT_FIELD2" => "",
 		"ELEMENT_SORT_ORDER2" => "",
 		"LIST_PROPERTY_CODE" => array(
 			0 => "H_GAB",
