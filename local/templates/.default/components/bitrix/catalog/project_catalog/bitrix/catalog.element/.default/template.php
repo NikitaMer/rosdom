@@ -151,10 +151,10 @@
     <?*/?>
     <?$price = CPrice::GetList(array(),array('PRODUCT_ID' => $arResult['ID']),false,false,array()); 
         while ($ar_res = $price->Fetch()) {
-            if($ar_res['PRICE'] != 0){
+            if($ar_res['PRICE'] != 0 && $ar_res['CATALOG_GROUP_ID'] != 1){
                 $allPrice[] = $ar_res;    
             }         
-    }?>
+        }?>
     <h2><?=GetMessage("PROJ_PRICE")?></h2>
     <table class="prices" cellpadding="0" cellspacing="0">
         <tbody>

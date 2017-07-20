@@ -118,7 +118,7 @@
             Сортировка
             <form method="post" class="catalog-sort-form">
                 <select name="sort" onchange="this.form.submit()" class="select-type">
-                    <option value="CATALOG_PRICE_4" <?if($_POST["sort"] == "CATALOG_PRICE_4" || $_SESSION["sort"] == "CATALOG_PRICE_4"){?>selected="selected"<?}?>><?=GetMessage('BY_PRICE')?></option>
+                    <option value="CATALOG_PRICE_1" <?if($_POST["sort"] == "CATALOG_PRICE_1" || $_SESSION["sort"] == "CATALOG_PRICE_1"){?>selected="selected"<?}?>><?=GetMessage('BY_PRICE')?></option>
                     <option value="PROPERTY_201" <?if($_POST["sort"] == "PROPERTY_201" || $_SESSION["sort"] == "PROPERTY_201"){?>selected="selected"<?}?>><?=GetMessage('BY_AREA')?></option>
                     <option value="created_date" <?if($_POST["sort"] == "created_date" || $_SESSION["sort"] == "created_date"){?>selected="selected"<?}?>><?=GetMessage('BY_DATE')?></option>  
                 </select>
@@ -194,7 +194,7 @@
                         <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
-                        </noindex><br>                   
+                        </noindex><br>                                    
                     </p>
                 </div>
             </div><?
