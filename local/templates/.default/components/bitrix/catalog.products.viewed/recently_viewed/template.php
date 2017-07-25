@@ -112,12 +112,13 @@ $generalParams = array(
 
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($this->randString()));
 $containerName = 'catalog-products-viewed-container';
+if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
+{
 ?>
 <h2>Просмотренные проекты:</h2>
 <div class="bx_catalog_list_home col3">
 	<?
-	if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
-	{
+	
 		$areaIds = array();
          $j = 0;
 		foreach ($arResult['ITEMS'] as $item)
@@ -151,6 +152,7 @@ $containerName = 'catalog-products-viewed-container';
 		unset($generalParams, $rowItems);
 		?>
 		<!-- items-container -->
+</div>
 		<?
 	}
 	else
@@ -165,7 +167,6 @@ $containerName = 'catalog-products-viewed-container';
 		);
 	}
 	?>
-</div>
 <div style="clear: both;"></div>
 <script>
 	BX.message({
