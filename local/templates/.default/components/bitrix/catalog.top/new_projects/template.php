@@ -35,6 +35,7 @@ if (!empty($arResult['ITEMS']))
 		'CURRENCIES' => $currencyList
 	);
 	unset($currencyList, $templateLibrary);?>
+    <h1><?=GetMessage("PROJECTS_CATALOG")?></h1>
     <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">        
         <?
             foreach ($arResult['ITEMS'] as $key => $arItem) 
