@@ -183,7 +183,7 @@
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
             ?><div class="bx_catalog_item" id="<? echo $strMainID; ?>" > 
-                <div class="bx_catalog_item_container" > 
+                <div class="bx_catalog_item_container min" > 
                     <a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>"><img src="<? echo $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<? echo strip_tags(html_entity_decode($productTitle)) ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>" class="bx_catalog_item_img"></a>
                     <div class="bx_catalog_item_title"><a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>"><?echo html_entity_decode($productTitle);?></a></div>
                     <br/>

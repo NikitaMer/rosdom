@@ -53,7 +53,7 @@ if ($arResult["SECTION"]["PATH"] == false){
     <?foreach ($arResult["SECTIONS"] as $arSection) {
         if($arSection["UF_SORT_MENU"] == 1){?>
         <tr valign="top">
-            <td rowspan="5"><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><img src="<?=$arSection['PICTURE']['SRC']?>"></a></td>
+            <td rowspan="5"><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><img class="cat_td_img" src="<?=$arSection['PICTURE']['SRC']?>"></a></td>
             <td><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><b><?=$arSection["NAME"]?></b></a></td>
             <td align="center"><b><?=CIBlockSection::GetSectionElementsCount($arSection['ID'])?></b></td>
         </tr>

@@ -1083,6 +1083,9 @@ overflow:hidden;
 .cat td { 
     padding:3px; 
 }
+.cat_td_img{
+    height: 100px;    
+}
 .plbuttons{
     margin-top: 10px;    
 }
@@ -2202,8 +2205,10 @@ table {
     animation: borderview 0.5s;
 }
 .bx_catalog_item_container{
-    margin: 10px;
-    min-height: 350px;
+    margin: 10px;    
+}
+.min{
+    min-height: 350px; 
 }
 /*
 @media (min-width: 960px) {
