@@ -961,8 +961,21 @@
                 );
                 $product_cat = CCatalogProduct::Add($arCatFields);
 
+                $p = array();
+                if($item_parser["price0"] != 0){
+                    array_push($p, $item_parser["price0"]);   
+                }
+                if($item_parser["price1"] != 0){
+                    array_push($p, $item_parser["price1"]);        
+                }
+                if($item_parser["price2"] != 0){
+                    array_push($p, $item_parser["price2"]);        
+                }
+                $min_price = min($p);
+                //добавляем цены
                 $ar_price_type = array(); // массив типов цен и самих цен
                 $ar_price_type = array(
+                    PRICE_MAIN => $min_price,
                     PRICE_OF_DEVELOPER_KIT => $item_parser["price0"],
                     PRICE_OF_COMPLETE_SET => $item_parser["price1"],
                     PRICE_FOR_ARCHITECTURAL  => $item_parser["price2"],

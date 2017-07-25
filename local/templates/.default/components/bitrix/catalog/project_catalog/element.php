@@ -152,7 +152,74 @@ $isSidebar = ($arParams["SIDEBAR_DETAIL_SHOW"] == "Y" && isset($arParams["SIDEBA
 		"GIFTS_MAIN_PRODUCT_DETAIL_BLOCK_TITLE" => $arParams['GIFTS_MAIN_PRODUCT_DETAIL_BLOCK_TITLE'],
 	),
 	$component
-);?><?  
+);?>
+<?
+$APPLICATION->IncludeComponent(
+    "bitrix:catalog.products.viewed", 
+    "recently_viewed", 
+    array(
+        "ACTION_VARIABLE" => "action_cpv",
+        "ADDITIONAL_PICT_PROP_37" => "-",
+        "ADD_PROPERTIES_TO_BASKET" => "Y",
+        "ADD_TO_BASKET_ACTION" => "ADD",
+        "BASKET_URL" => "/personal/basket.php",
+        "CACHE_GROUPS" => "N",
+        "CACHE_TIME" => "3600",
+        "CACHE_TYPE" => "N",
+        "CART_PROPERTIES_37" => "",
+        "COMPONENT_TEMPLATE" => "recently_viewed",
+        "CONVERT_CURRENCY" => "N",
+        "DEPTH" => "2",
+        "DISPLAY_COMPARE" => "N",
+        "ENLARGE_PRODUCT" => "STRICT",
+        "HIDE_NOT_AVAILABLE" => "N",
+        "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+        "IBLOCK_ID" => "37",
+        "IBLOCK_MODE" => "single",
+        "IBLOCK_TYPE" => "projects_catalog",
+        "LABEL_PROP_37" => "",
+        "LABEL_PROP_MOBILE_37" => "",
+        "LABEL_PROP_POSITION" => "top-left",
+        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+        "MESS_BTN_BUY" => "Купить",
+        "MESS_BTN_DETAIL" => "Подробнее",
+        "MESS_BTN_SUBSCRIBE" => "Подписаться",
+        "MESS_NOT_AVAILABLE" => "Нет в наличии",
+        "PAGE_ELEMENT_COUNT" => "3",
+        "PARTIAL_PRODUCT_PROPERTIES" => "N",
+        "PRICE_CODE" => array(
+        ),
+        "PRICE_VAT_INCLUDE" => "Y",
+        "PRODUCT_BLOCKS_ORDER" => "price,props,sku,quantityLimit,quantity,buttons,compare",
+        "PRODUCT_ID_VARIABLE" => "id",
+        "PRODUCT_PROPS_VARIABLE" => "prop",
+        "PRODUCT_QUANTITY_VARIABLE" => "quantity",
+        "PRODUCT_ROW_VARIANTS" => "[{'VARIANT':'2','BIG_DATA':false}]",
+        "PRODUCT_SUBSCRIPTION" => "Y",
+        "PROPERTY_CODE_37" => "",
+        "PROPERTY_CODE_MOBILE_37" => "",
+        "SECTION_CODE" => "",
+        "SECTION_ELEMENT_CODE" => "",
+        "SECTION_ELEMENT_ID" => $GLOBALS["CATALOG_CURRENT_ELEMENT_ID"],
+        "SECTION_ID" => $GLOBALS["CATALOG_CURRENT_SECTION_ID"],
+        "SHOW_CLOSE_POPUP" => "N",
+        "SHOW_DISCOUNT_PERCENT" => "N",
+        "SHOW_FROM_SECTION" => "N",
+        "SHOW_MAX_QUANTITY" => "N",
+        "SHOW_OLD_PRICE" => "N",
+        "SHOW_PRICE_COUNT" => "1",
+        "SHOW_PRODUCTS_37" => "N",
+        "SHOW_SLIDER" => "Y",
+        "SLIDER_INTERVAL" => "3000",
+        "SLIDER_PROGRESS" => "N",
+        "TEMPLATE_THEME" => "blue",
+        "USE_ENHANCED_ECOMMERCE" => "N",
+        "USE_PRICE_COUNT" => "N",
+        "USE_PRODUCT_QUANTITY" => "N"
+    ),
+    false
+);
+?><?  
 $GLOBALS["CATALOG_CURRENT_ELEMENT_ID"] = $ElementID;
 // Удаление из description тегов  
 $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues($arParams["IBLOCK_ID"],$ElementID);

@@ -3055,3 +3055,9 @@ table {
 .h2_main{
     color: #393939 !important;
 } 
+#bx_incl_area_8_2{
+    min-height: 200px;
+}
+.min{
+    min-height: 210px;
+}

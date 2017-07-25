@@ -279,7 +279,14 @@ endif;?>
 			</tr>
 		</table>
 	<?elseif(count($arResult["SEARCH"])>0):?>
-	<?unset($sres);?>
+	<?unset($sres);
+    // Сортировка разделов.
+    $sres["projects_catalog"] = array();
+    $sres["articles"] = array();
+    $sres["faq"] = array();
+    $sres["photos"] = array();
+    $sres["documents"] = array(); ?>
+    
 		<?if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
 		<?foreach($arResult["SEARCH"] as $arItem):  
 		    if ($arItem['PARAM1'] == 'firms'){
@@ -289,11 +296,11 @@ endif;?>
 			    $sres[$arItem['PARAM1']][] = $arItem;
             }
 		?>
-		<?endforeach;
-        ?>
+		<?endforeach;?>
 		<section class="faq">
 		<?foreach($sres as $k=>$val){
 			?><div class="b-subsection"><?
+            if(empty($val)){break;}            
 			switch($k){
 				case 'articles': $name = 'Статьи'; break;
 				case 'journals': $name = 'Журналы'; break;
@@ -307,11 +314,13 @@ endif;?>
 				case 'firms': $name = 'Компании'; break;
                 case 'sections': $name = 'Товары и услуги'; break;
                 case 'projects_catalog': $name = 'Проекты домов'; break;
-				case 'photos': $name = 'Фото'; break;
+                case 'photos': $name = 'Фотографии'; break;
+				case 'video': $name = 'Видео'; break;
 				
 				default: $name = ''; break;
 				
 			}
+            $sort_mass = array(); // Массив для сортировки.
 			echo '<h2>';
 			if(!empty($name)) echo $name; else echo $k;
 			echo '</h2>';
