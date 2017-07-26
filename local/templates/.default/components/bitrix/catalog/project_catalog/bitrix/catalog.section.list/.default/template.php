@@ -45,7 +45,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
 <div class="<? echo $arCurView['CONT']; ?>">
 <?
 if ($arResult["SECTION"]["PATH"] == false){
-    ?><h1 style="margin:0;padding:0;"><?=GetMessage("PROJECTS_CATALOG")?></h1><?
+    ?><h1><?=GetMessage("PROJECTS_CATALOG")?></h1><?
     $cnt = CIBlockElement::GetList(array(),array('IBLOCK_ID'=>$arParams["IBLOCK_ID"],"!SECTION_ID" => false ,'ACTIVE '=>'Y'),false, false, array("ID","IBLOCK_SECTION_ID"));?>
     <p class="colprj"><?=GetMessage("TOTAL_NUMBER")?><b class="total"><?=$cnt->SelectedRowsCount()?></b></p>
     <table class="cat">
