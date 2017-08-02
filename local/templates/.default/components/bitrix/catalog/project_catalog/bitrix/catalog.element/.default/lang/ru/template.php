@@ -35,6 +35,7 @@ $MESS["CT_BCE_CATALOG_PRODUCT_GIFT_LABEL"] = "Подарок";
 $MESS["HOUSE_PROJECT"] = "Проект дома № ";
 $MESS["TOTAL_AREA"] = "общая площадь: ";
 $MESS["BUY_PROJECT"] = "Купить проект";
+$MESS["DELAY_PROJECT"] = "Добавить проект в отложенные";
 $MESS["MATERIALS"] = "Материалы заложенные в типовой проект:";
 $MESS["PLANS"] = "Планы";
 $MESS["FACADES"] = "Фасады";

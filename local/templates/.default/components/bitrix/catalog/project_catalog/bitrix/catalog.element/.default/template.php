@@ -52,6 +52,11 @@ BX.ready(
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td align="right">
                     <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>
+                        <a href="" class="buy_project"><?=GetMessage("DELAY_PROJECT")?></a>                       
+                    <?}?>
+                </td>
+                <td align="right">
+                    <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>
                         <a href="/order/?nproj=<?=$arResult['CODE']?>" class="buy_project"><?=GetMessage("BUY_PROJECT")?></a>                       
                         <?} else {?>
                         <span class="project_tmp_unavailable"><?=GetMessage("TMP_UNVAILABLE")?></span>
