@@ -1,6 +1,7 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <div class="search-page">
 <h1>Результаты поиска</h1>
+
 	<?if($arParams["SHOW_TAGS_CLOUD"] == "Y")
 	{
 		$arCloudParams = Array(
@@ -348,7 +349,7 @@ endif;?>
                     ?>
                 
                 <li>
-					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['TAGS'][0]['TAG_NAME'];}?></a> <br>
+					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['~TAGS'];}?></a> <br>
 					<p><?=$result['BODY_FORMATED']?></p>					
 				</li>
 				<?
