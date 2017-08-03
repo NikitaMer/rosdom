@@ -189,11 +189,11 @@
                 $PROP["PRESENCE_WINTER"] = ($element_room[7] == 1) ? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
                 
                 $seo_extra = array();
-                if($item_parser["plan_0"]){   // Наличие цокольного этажа
+                if ($item_parser["plan_0"]) {   // Наличие цокольного этажа
                     $PROP["PLINTH"] =  Array("VALUE" => PLINTH);
                     array_push($seo_extra, "с цоколем");   // для сео текста
                 }
-                if($item_parser["plan_m"]){   // Наличие мансарды
+                if ($item_parser["plan_m"]) {   // Наличие мансарды
                     $PROP["ATTIC"] =  Array("VALUE" => ATTIC);
                     array_push($seo_extra, "с мансардой"); // для сео текста 
                 }                
