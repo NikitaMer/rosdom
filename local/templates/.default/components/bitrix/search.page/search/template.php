@@ -1,6 +1,8 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <div class="search-page">
 <h1>Результаты поиска</h1>
+
+<?//arshow($arResult);?>
 	<?if($arParams["SHOW_TAGS_CLOUD"] == "Y")
 	{
 		$arCloudParams = Array(
@@ -295,12 +297,14 @@ endif;?>
 		    } else {
 			    $sres[$arItem['PARAM1']][] = $arItem;
             }
+            
 		?>
 		<?endforeach;?>
 		<section class="faq">
 		<?foreach($sres as $k=>$val){
 			?><div class="b-subsection"><?
-            if(empty($val)){break;}            
+            if(empty($val)){continue;}            
+            if($k == "video"){continue;}            
 			switch($k){
 				case 'articles': $name = 'Статьи'; break;
 				case 'journals': $name = 'Журналы'; break;
@@ -329,7 +333,8 @@ endif;?>
 			?><ul><?
 			$j=0;  
 			foreach ($val as $result){  
-				if($j < 5){ 
+				if($j < 5){
+                 
                     if($result['PARAM1'] == 'documents'){
                         $link = '/';
                         $id = intval($result['ITEM_ID']);
