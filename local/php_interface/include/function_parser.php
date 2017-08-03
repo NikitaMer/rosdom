@@ -226,15 +226,25 @@
                 $PROP["BILLIARD"] = ($element_room[5] == 1) ? Array("VALUE" => BILLIARD_ID): ''; // Наличие биллиарда
                 $PROP["COMPLEX"] = ($element_room[6] == 1) ? Array("VALUE" => COMPLEX_ID): '';   // Наличие спорткомплекса
                 $PROP["PRESENCE_WINTER"] = ($element_room[7] == 1) ? Array("VALUE" => PRESENCE_WINTER_ID): '';   // Наличие зимнего сада
-
+                
+                $seo_extra = array();
+                if ($item_parser["plan_0"]) {   // Наличие цокольного этажа
+                    $PROP["PLINTH"] =  Array("VALUE" => PLINTH);
+                    array_push($seo_extra, "с цоколем");   // для сео текста
+                }
+                if ($item_parser["plan_m"]) {   // Наличие мансарды
+                    $PROP["ATTIC"] =  Array("VALUE" => ATTIC);
+                    array_push($seo_extra, "с мансардой"); // для сео текста 
+                }                
                 if ($element_room[8] == 2) {          // Наличие и тип гаража
                     $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_ONE);
+                    array_push($seo_extra, "с гаражом");   // для сео текста
                 } else if ($element_room[8] == 1) {
                     $PROP["EXISTENS_GARAGE"] = Array("VALUE" => EXISTENS_GARAGE_ID_TWO);
+                    array_push($seo_extra, "с гаражом");   // для сео текста
                 }
 
-                $PROP["PLINTH"] = ($item_parser["plan_0"])? Array("VALUE" => PLINTH): ''; // Наличие цокольного этажа
-                $PROP["ATTIC"] = ($item_parser["plan_m"])? Array("VALUE" => ATTIC): ''; // Наличие мансарды
+                
                 // Определяем количество этажей
                 $floor = 0;
                 if ($item_parser["plan_0"]) $floor++;
@@ -259,14 +269,19 @@
 
                 if ($section_heading == 'K' ) {  // раздел кирпич
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
+                    $seo_material = "кирпичного";  // для сео текста
                 } else if ($section_heading == 'P' ) { // раздел пенобетон
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
+                    $seo_material = "пенобетоного";// для сео текста
                 } else if ($section_heading == 'D' ) { // раздел дерево
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
+                    $seo_material = "деревянного"; // для сео текста
                 } else if ($section_heading == 'S' ) {  // раздел каркас
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_4); // тип материала
+                    $seo_material = "каркасного";  // для сео текста
                 } else if ($section_heading == 'M' ) {  // раздел каркас
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
+                    $seo_material = "монолитного"; // для сео текста
                 }
 
 
@@ -400,99 +415,131 @@
 
                 if ($floor == 1){
                     $section_id[] = PROJECTS_OF_SINGLE_STOREY;   // Проекты одноэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($floor == 2){
                     $section_id[] = DRAFT_TWO_STOREY;  // Проекты двухэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($floor == 3){
                     $section_id[] = PROJECTS_STOREY; // Проекты трехэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($floor == 4){
                     $section_id[] = DRAFT_FOUR_STOREY;   // Проекты четырехэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["plan_0"]){
                     $section_id[] = PROJECTS_OF_HOUSES_WITH; // Проекты домов с цокольным этажом
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["plan_m"]){
                     $section_id[] = PROJECTS_OF_HOUSES_ATTIC; // Проекты домов с мансардой
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[61]'){
                     $section_id[] = PROJECTS_TOWNHOUSES;   // проекты таунхаусов и блокированных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[62]'){
                     $section_id[] = HOUSES_TWO_FAMILIES;  // проекты домов на две семьи
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[63]'){
                     $section_id[] = PROJECTS_NARROW;  // проекты узких домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[60]'){
                     $section_id[] = BATHS_PROJECTS;   // проекты бань
+                    $seo_type = "бани"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[142]'){
                     $section_id[] = MANSIONS_PROJECTS; // проекты особняков
+                    $seo_type = "особняка"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[644]'){
                     $section_id[] = GARAGE_PROJECTS;   // проекты гаражей
+                    $seo_type = "гаража"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[143]') {
                     $section_id[] = GARAGE_POROUS_STONE;   // проекты домов из поризованного камня (RAUF, KNAUF)
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[140]'){
                     $section_id[] = SWIMMING_POOLS_DESIGNS;  // проекты бассейнов
+                    $seo_type = "бассейна"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[645]'){
                     $section_id[] = DESIGNS_GAZEBOS; // Проекты беседок, строительство беседок
+                    $seo_type = "беседоки"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[124]'){
                     $section_id[] = HOUSES_TURNKEY; // Дома под ключ
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[735]'){
                     $section_id[] = PROJECTS_CANADIAN_HOMES; // Проекты канадских домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[736]'){
                     $section_id[] = PROJECTS_ENGLISH_HOUSES; // Проекты английских домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[737]'){
                     $section_id[] = PROJECTS_MODERN_HOUSES; // Проекты современных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[738]'){
                     $section_id[] = CLASSIC_HOUSE_PROJECTS; // Классические проекты домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[739]'){
                     $section_id[] = EUROPEAN_PROJECTS_HOUSES; // Европейские проекты домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[161]'){
                     $section_id[] = BLOCKED_HOME_4_FLOORS; // Блокированные дома до 4-х этажей
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[162]'){
                     $section_id[] = PROJECTS_RESIDENTIAL_BUILDINGS; // Проекты жилых многоэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[168]'){
                     $section_id[] = PROJECTS_RESIDENTIAL_BUILDINGS; // Проекты жилых многоэтажных домов
+                    $seo_type = "дома"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[169]'){
                     $section_id[] = HOTELS; // Гостиницы
+                    $seo_type = "гостиницы"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[170]'){
                     $section_id[] = GARAGES_MULTISTORY; // Гаражи многоэтажные
+                    $seo_type = "гаража"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[171]'){
                     $section_id[] = SPORT_CENTRES; // Спортивные центры
+                    $seo_type = "спартивного центра"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[172]'){
                     $section_id[] = CLINICS; // Поликлиники
+                    $seo_type = "поликлиники"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[173]'){
                     $section_id[] = SHOPPING_CENTERS; // Торгово-развлекательные центры
+                    $seo_type = "торгово-развлекательного центра";  // для сео текста
                 }
                 if ($item_parser["labels"] == '[174]'){
                     $section_id[] = OFFICE_BUILDINGS; // Офисные здания
+                    $seo_type = "офисного здания"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[175]'){
                     $section_id[] = WORSHIP_RELIGIOUS_BUILDINGS; // Религиозные и культовые здания
+                    $seo_type = "религиозного и культового здания"; // для сео текста
                 }
                 if ($item_parser["labels"] == '[177]'){
                     $section_id[] = OTHER_BUILDINGS; // Прочие здания
+                    $seo_type = "";  // для сео текста
                 }
 
                 $el_add = new CIBlockElement;
@@ -510,11 +557,12 @@
                     "NAME"           => $item_parser["prj_name"],
                     "ACTIVE"         => "Y",
                     "PROPERTY_VALUES"=> $PROP,
+                    "TAGS"           => "Проект ".$seo_material." ".$seo_type.", ".$seo_extra[0]." ".$item_parser["prj_name"]."  площадью ".$item_parser["ob_pl"]."  м2",
                     "IPROPERTY_TEMPLATES" => array(
-                        "ELEMENT_META_TITLE" => PROJECT_HOME.' '.$item_parser["prj_name"],
-                        "ELEMENT_META_KEYWORDS" => PROJECT_HOME.' '.$item_parser["prj_name"],
-                        "ELEMENT_META_DESCRIPTION" => PROJECT_HOME.' '.$item_parser["prj_name"],
-                        "ELEMENT_PAGE_TITLE" => PROJECT_HOME.' '.$item_parser["prj_name"],
+                        "ELEMENT_META_TITLE" => "Купить проект ".$seo_material." ".$seo_type." ".$seo_extra[0]." ".$item_parser["prj_name"]."  площадью ".$item_parser["ob_pl"]." м2  от Rosdom",
+                        "ELEMENT_META_DESCRIPTION" => "Задать вопросы по проекту ".$item_parser["prj_name"]." и проконсультироваться по стоимости строительства ".$seo_type." можете по телефону + 7 (495) 775-63-93. Хотите заказать типовой проект ".$item_parser["prj_name"]." ".$seo_material." ".$seo_type." площадью ".$item_parser["ob_pl"]." м2",
+                        "ELEMENT_META_KEYWORDS" => $item_parser["prj_name"].", проект, ".$seo_type,
+                        "ELEMENT_PAGE_TITLE" => "Проект ".$seo_material." ".$seo_type.", ".$seo_extra[0]." ".$item_parser["prj_name"]."  площадью ".$item_parser["ob_pl"]."  м2",
                     ),
 
                 );
