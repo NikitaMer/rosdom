@@ -99,8 +99,7 @@ if (!empty($arResult['ITEMS']))
                         <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
-                        </noindex><br>
-                        <?=$arItem["DATE_CREATE"]?>                   
+                        </noindex><br>                  
                     </p>
                 </div>
             </div><?
