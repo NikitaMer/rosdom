@@ -1,8 +1,6 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <div class="search-page">
 <h1>Результаты поиска</h1>
-
-<?//arshow($arResult);?>
 	<?if($arParams["SHOW_TAGS_CLOUD"] == "Y")
 	{
 		$arCloudParams = Array(
