@@ -210,7 +210,7 @@ footer, .push {
    }
 
 .top-links {
-   position:absolute; top:0; left:317px;
+   position:absolute; top:0; left:230px;
    overflow:hidden;
    }
    
@@ -236,11 +236,11 @@ footer, .push {
       
       
 .search {
-   position:absolute; top:30px; left:317px;
+   position:absolute; top:30px; left:230px;
    }
    
    .search #s{
-      width:410px;
+      width:520px;
       background:url('images/bg-search.gif') 7px 50% no-repeat;
       border:solid 1px #aaadb2;
       padding:3px 0 3px 25px;
@@ -266,7 +266,7 @@ footer, .push {
 .infomenu {
    position_:absolute; 
    top:63px; 
-   left:317px;
+   left:230px;
    float:left;
    }
 

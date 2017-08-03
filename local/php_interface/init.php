@@ -49,7 +49,7 @@
                         foreach($ar_favorite_projects as $element_id => $project_id) {
                             if($project_id == $product_id) {    
                                 unset($ar_favorite_projects[$element_id]);
-                                sort($ar_favorite_projects); 
+                                //sort($ar_favorite_projects); 
                             };                                      
                         } 
                         if(!empty($ar_favorite_projects)){            
@@ -70,7 +70,7 @@
                         foreach($ar_favorite_projects as $element_id => $project_id) {
                             if($project_id == $product_id) {  
                                 unset($ar_favorite_projects[$element_id]);
-                                sort($ar_favorite_projects); 
+                                //sort($ar_favorite_projects); 
                             };                                      
                         }                                                                           
                         setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5);

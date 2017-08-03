@@ -34,6 +34,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Избранные", 
+		"/personal/favorites/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>
