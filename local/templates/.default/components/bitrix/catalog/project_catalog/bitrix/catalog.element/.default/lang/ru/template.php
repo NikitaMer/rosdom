@@ -35,6 +35,8 @@ $MESS["CT_BCE_CATALOG_PRODUCT_GIFT_LABEL"] = "Подарок";
 $MESS["HOUSE_PROJECT"] = "Проект дома № ";
 $MESS["TOTAL_AREA"] = "общая площадь: ";
 $MESS["BUY_PROJECT"] = "Купить проект";
+$MESS["ADD_TO_FAVORITE"] = "В избранное";
+$MESS["REMOVE_FROM_FAVORITE"] = "Убрать из избранного";
 $MESS["MATERIALS"] = "Материалы заложенные в типовой проект:";
 $MESS["PLANS"] = "Планы";
 $MESS["FACADES"] = "Фасады";
@@ -49,5 +51,5 @@ $MESS["PROJ_OPT"] = "Варианты данного проекта:";
 $MESS["PROJ_PRICE"] = "Цены";
 $MESS["PROJ_SER"] = "Проекты этой серии:";
 $MESS["TMP_UNVAILABLE"] = "Временно недоступен";
-$MESS["PROJECT"] = "проект";
+$MESS["PROJECT"] = "проект";                           
 ?>

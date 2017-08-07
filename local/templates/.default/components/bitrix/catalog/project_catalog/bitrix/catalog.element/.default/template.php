@@ -41,15 +41,21 @@ BX.ready(
         );
     })
 );
-</script>
+</script>          
 <section class="last-posts w-tabs"> 
     <table style="margin-bottom:10px; width:650px;" id="h2header">
         <tbody><tr>
-                <td>
+                <td>           
                     <h1><?if($ELEMENT_PAGE_TITLE_whith_tag){ echo $ELEMENT_PAGE_TITLE_whith_tag;} else {echo GetMessage("HOUSE_PROJECT") . $arResult["NAME"];}?></h1>
                     <span><?=GetMessage("TOTAL_AREA")?> <b style="margin:0;padding:0;"><?=$arResult['PROPERTIES']['OB_PL']['VALUE']?></b> ì<sup>2</sup></span>                        
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
+                <td align="right" style="display:none; width:80px;">                                                                          
+                    <a href="" data-project-id="<?=$arResult['ID']?>" class="add_to_favorite"><?=GetMessage("ADD_TO_FAVORITE")?></a>      
+                </td>    
+                <td align="right" style="display:none; width:80px;">                                                                          
+                    <a href="" data-project-id="<?=$arResult['ID']?>" class="delete_from_favorite"><?=GetMessage("REMOVE_FROM_FAVORITE")?></a>      
+                </td>
                 <td align="right">
                     <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>
                         <a href="/order/?nproj=<?=$arResult['CODE']?>" class="buy_project"><?=GetMessage("BUY_PROJECT")?></a>                       
