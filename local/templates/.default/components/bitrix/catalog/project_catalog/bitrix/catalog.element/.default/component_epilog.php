@@ -34,3 +34,41 @@ BX.ready(BX.defer(function(){
 </script><?
 }
 ?>
+
+<?//Скрипты для работой с избранными?>
+<?$arFavoriteProjects = get_favorites_list();?>  
+<?if(in_array($arResult['ID'], $arFavoriteProjects)) { $isFavorite = 'Y'; } else { $isFavorite = 'N'; }?>
+<script>
+$(document).ready(function(){  
+    var is_favorite = '<?=$isFavorite?>'; 
+    
+    if(is_favorite == 'Y'){
+        $('.delete_from_favorite').parent('td').show();   
+    } else {                       
+        $('.add_to_favorite').parent('td').show();           
+    }
+    
+    $('.add_to_favorite').click(function(e){   
+        e.preventDefault();   
+        $.ajax({
+            type: "POST",
+            url: "/ajax/add_to_favorites.php",
+            data: {favorite_project: $(this).attr("data-project-id")}
+        }).done(function() {                                                                        
+            $('.add_to_favorite').parent('td').hide();
+            $('.delete_from_favorite').parent('td').show();                                                                                          
+        });                                                                          
+    });
+    $('.delete_from_favorite').click(function(e){
+        e.preventDefault();                   
+        $.ajax({
+            type: "POST",
+            url: "/ajax/delete_from_favorites.php",
+            data: {favorite_project: $(this).attr("data-project-id")}
+        }).done(function() {                                                                                                                                      
+            $('.delete_from_favorite').parent('td').hide();
+            $('.add_to_favorite').parent('td').show();                                                                                                   
+        });     
+    }) 
+});                          
+</script>                                                                                       

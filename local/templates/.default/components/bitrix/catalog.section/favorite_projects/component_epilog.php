@@ -54,4 +54,16 @@ if ($request->isAjaxRequest() && ($request->get('action') === 'showMore' || $req
 		'items' => $itemsContainer,
 		'pagination' => $paginationContainer
 	));
-}
+}?>   
+<script>
+$('.remove_from_favorites').click(function(e){
+    e.preventDefault();                   
+    $.ajax({
+        type: "POST",
+        url: "/ajax/delete_from_favorites.php",
+        data: {favorite_project: $(this).attr("data-project-id")}
+    }).done(function() {
+        window.location.reload();                                                                                                              
+    });     
+})
+</script>

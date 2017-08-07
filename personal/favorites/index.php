@@ -1,11 +1,13 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("");?>
+$APPLICATION->SetTitle("Избранные проекты");?>   
+<h1>Избранные проекты</h1>
 <?
 global $arrFilter;
 $arFavoriteProjects = get_favorites_list();
-$arrFilter = array("ID" => $arFavoriteProjects);
-?>
-<?$APPLICATION->IncludeComponent(
+if(!empty($arFavoriteProjects)) {
+    $arrFilter = array("ID" => $arFavoriteProjects);
+    ?>
+    <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section", 
 	"favorite_projects", 
 	array(
@@ -80,7 +82,7 @@ $arrFilter = array("ID" => $arFavoriteProjects);
 		"META_DESCRIPTION" => "-",
 		"SET_LAST_MODIFIED" => "N",
 		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
+		"ADD_SECTIONS_CHAIN" => "Y",
 		"CACHE_FILTER" => "N",
 		"ACTION_VARIABLE" => "action",
 		"PRODUCT_ID_VARIABLE" => "id",
@@ -122,4 +124,9 @@ $arrFilter = array("ID" => $arFavoriteProjects);
 		"SLIDER_PROGRESS" => "N"
 	),
 	false
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?>
+<?    
+} else {
+    echo 'Вы еще не добавили проекты в "Избранные"';    
+}?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

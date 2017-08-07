@@ -239,7 +239,7 @@ footer, .push {
    position:absolute; top:30px; left:230px;
    }
    
-   .search #s{
+   .search #s{     
       width:520px;
       background:url('images/bg-search.gif') 7px 50% no-repeat;
       border:solid 1px #aaadb2;

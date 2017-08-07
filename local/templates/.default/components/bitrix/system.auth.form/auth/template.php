@@ -5,7 +5,7 @@
         global $USER;
 	if ($USER->IsAuthorized()):				
 		?>
-<div class="usermenu" style="position:absolute; top:0px; right:0px; float_:right; border:1px dotted; padding:10px; width:250px; text-align:right;">
+<div class="usermenu" style="position:absolute; top:0px; right:0px; float_:right; border:1px dotted; padding:10px; width:240px; text-align:right;">
 
 Вы вошли как <a href="<?=$arResult["PROFILE_URL"]?>" title="<?=GetMessage("AUTH_PROFILE")?>"><?=$arResult["USER_NAME"]?></a><br /><br />
  <a href ="/personal/my/" >Мои материалы</a><br />

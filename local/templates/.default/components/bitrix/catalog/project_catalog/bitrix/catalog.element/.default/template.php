@@ -41,43 +41,20 @@ BX.ready(
         );
     })
 );
-</script>
-<script>
-$(document).ready(function(){  
-    $('.row').find('.add_to_favorite').click(function(e){   
-        e.preventDefault();   
-        $.ajax({
-            type: "POST",
-            url: "/ajax/add_to_favorites.php",
-            data: {favorite_project: $(this).attr("data-project-id")}
-        }).done(function() {                                                                        
-            $('.add_to_favorite').text('Убрать из избранных');  
-            $('.add_to_favorite').removeClass("add_to_favorite").addClass("delete_from_favorite");                                                                                          
-        });                                                                          
-    });
-    $('.row').find('.delete_from_favorite').click(function(e){
-        e.preventDefault();                   
-        $.ajax({
-            type: "POST",
-            url: "/ajax/delete_from_favorites.php",
-            data: {favorite_project: $(this).attr("data-project-id")}
-        }).done(function() {          
-            $('.delete_from_favorite').text('Добавить в избранное');  
-            $('.delete_from_favorite').removeClass("delete_from_favorite").addClass("add_to_favorite");                                                                                                          
-        });     
-    }) 
-});                          
-</script>
+</script>          
 <section class="last-posts w-tabs"> 
     <table style="margin-bottom:10px; width:650px;" id="h2header">
         <tbody><tr>
-                <td>
+                <td>           
                     <h1><?if($ELEMENT_PAGE_TITLE_whith_tag){ echo $ELEMENT_PAGE_TITLE_whith_tag;} else {echo GetMessage("HOUSE_PROJECT") . $arResult["NAME"];}?></h1>
                     <span><?=GetMessage("TOTAL_AREA")?> <b style="margin:0;padding:0;"><?=$arResult['PROPERTIES']['OB_PL']['VALUE']?></b> м<sup>2</sup></span>                        
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td align="right">                                                                          
-                    <a href="" data-project-id="<?=$arResult['ID']?>" class="add_to_favorite"><?=GetMessage("DELAY_PROJECT")?></a>      
+                <td align="right" style="display:none; width:80px;">                                                                          
+                    <a href="" data-project-id="<?=$arResult['ID']?>" class="add_to_favorite"><?=GetMessage("ADD_TO_FAVORITE")?></a>      
+                </td>    
+                <td align="right" style="display:none; width:80px;">                                                                          
+                    <a href="" data-project-id="<?=$arResult['ID']?>" class="delete_from_favorite"><?=GetMessage("REMOVE_FROM_FAVORITE")?></a>      
                 </td>
                 <td align="right">
                     <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>

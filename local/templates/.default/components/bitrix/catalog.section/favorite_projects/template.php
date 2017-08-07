@@ -185,19 +185,7 @@
             </div><?
             }
         ?><div style="clear: both;"></div>
-    </div>
-    <script>
-    $('.remove_from_favorites').click(function(e){
-        e.preventDefault();                   
-        $.ajax({
-            type: "POST",
-            url: "/ajax/delete_from_favorites.php",
-            data: {favorite_project: $(this).attr("data-project-id")}
-        }).done(function() {
-            window.location.reload();                                                                                                              
-        });     
-    })
-    </script>
+    </div>       
     <script type="text/javascript">
         BX.message({
             BTN_MESSAGE_BASKET_REDIRECT: '<? echo GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_BASKET_REDIRECT'); ?>',

@@ -19,74 +19,16 @@
         include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/.config.php');
     }
     
-    //Функции для работы с избранным
-    function delete_from_favorites($product_id) {    
-        if(CModule::IncludeModule('highloadblock')) {    
-            if(!empty($product_id)) {
-                
-                global $USER; 
-                
-                $user_id = $USER->GetID();
-                $ar_favorite_projects = array(); 
-                
-                if ($USER->IsAuthorized()) {
-                    $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
-                    $entity = HL\HighloadBlockTable::compileEntity($hl_block);
-                    $entity_data_class = $entity->getDataClass();
-                                                                       
-                    $basket_item_filter = array(                                                                       
-                        'UF_USER_ID' => $user_id
-                    );                         
-                                                                
-                    $result = $entity_data_class::getList(array(
-                        "select" => array('*'),
-                        "filter" => $basket_item_filter, 
-                        "order"  => array(),
-                        "limit"  => '1',
-                    ));                          
-                    if($favorite_project = $result->Fetch()) {  
-                        $ar_favorite_projects = json_decode($favorite_project['UF_JSON_PROJECTS'], true);
-                        foreach($ar_favorite_projects as $element_id => $project_id) {
-                            if($project_id == $product_id) {    
-                                unset($ar_favorite_projects[$element_id]);
-                                //sort($ar_favorite_projects); 
-                            };                                      
-                        } 
-                        if(!empty($ar_favorite_projects)){            
-                            $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
-                            $result_hl = $entity_data_class::update($favorite_project['ID'], $data); 
-                            return true;     
-                        } else {
-                            $result_hl = $entity_data_class::delete($favorite_project['ID']);
-                            return true;  
-                        }       
-                    } else {                                         
-                        return false;
-                    }     
-                } else {
-                    if(!empty($_COOKIE['favorite_projects'])) {
-                        $ar_favorite_projects = json_decode($_COOKIE['favorite_projects'], true);
-                                                   
-                        foreach($ar_favorite_projects as $element_id => $project_id) {
-                            if($project_id == $product_id) {  
-                                unset($ar_favorite_projects[$element_id]);
-                                //sort($ar_favorite_projects); 
-                            };                                      
-                        }                                                                           
-                        setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5);
-                        return true;  
-                    } else {                                                                                        
-                        return false;   
-                    }   
-                } 
-            } else {
-                return false;
-            } 
-        } else {
-            return false;  
-        };  
-    }
+    function logger($data, $file) {
+        file_put_contents(
+            $file,
+            var_export($data, 1)."\n",
+            FILE_APPEND
+        );
+    }     
     
+    //Функции для работы с избранным
+    AddEventHandler("main", "OnEpilog", "transfer_from_cookie_to_hl");   
     function transfer_from_cookie_to_hl(){   
         global $USER; 
         
@@ -116,21 +58,86 @@
                 ));  
                 
                 if($favorite_project = $result->Fetch()) {                                             
-                    if(!in_array($product_id, $ar_favorite_projects)){
-                        $ar_favorite_projects[] = $product_id;   
+                    if(!in_array($product_id, $ar_favorite_projects)){    
                         $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
                         $result_hl = $entity_data_class::update($favorite_project['ID'], $data);
+                        setcookie('favorite_projects', '', time() + 60*60*24*365*5, '/');
                     } else {
                         return false;
                     }       
-                } else {              
-                    $ar_favorite_projects[] = $product_id;  
-                    $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
+                } else {                                    
+                    $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));   
                     $result_hl = $entity_data_class::add($data);  
+                    setcookie('favorite_projects', '', time() + 60*60*24*365*5, '/');
                     return true;
                 }
             }
         }       
+    }              
+                                    
+    function delete_from_favorites($product_id) {    
+        if(CModule::IncludeModule('highloadblock')) {    
+            if(!empty($product_id)) {
+                
+                global $USER; 
+                
+                $user_id = $USER->GetID();
+                $ar_favorite_projects = array(); 
+                
+                if ($user_id) {
+                    $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
+                    $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+                    $entity_data_class = $entity->getDataClass();
+                                                                       
+                    $basket_item_filter = array(                                                                       
+                        'UF_USER_ID' => $user_id
+                    );                         
+                                                                
+                    $result = $entity_data_class::getList(array(
+                        "select" => array('*'),
+                        "filter" => $basket_item_filter, 
+                        "order"  => array(),
+                        "limit"  => '1',
+                    ));                          
+                    if($favorite_project = $result->Fetch()) {  
+                        $ar_favorite_projects = json_decode($favorite_project['UF_JSON_PROJECTS'], true);
+                        foreach($ar_favorite_projects as $element_id => $project_id) {
+                            if($project_id == $product_id) {    
+                                unset($ar_favorite_projects[$element_id]); 
+                            };                                      
+                        } 
+                        if(!empty($ar_favorite_projects)){            
+                            $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
+                            $result_hl = $entity_data_class::update($favorite_project['ID'], $data); 
+                            return true;     
+                        } else {
+                            $result_hl = $entity_data_class::delete($favorite_project['ID']);
+                            return true;  
+                        }       
+                    } else {                                         
+                        return false;
+                    }     
+                } else {
+                    if(!empty($_COOKIE['favorite_projects'])) {
+                        $ar_favorite_projects = json_decode($_COOKIE['favorite_projects'], true);
+                                                   
+                        foreach($ar_favorite_projects as $element_id => $project_id) {
+                            if($project_id == $product_id) {  
+                                unset($ar_favorite_projects[$element_id]);  
+                            };                                      
+                        }                                                                           
+                        setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5, '/');
+                        return true;  
+                    } else {                                                                                        
+                        return false;   
+                    }   
+                } 
+            } else {
+                return false;
+            } 
+        } else {
+            return false;  
+        };  
     }
     
     function add_to_favorites($product_id){   
@@ -140,9 +147,10 @@
                 global $USER; 
                 
                 $user_id = $USER->GetID();
-                $ar_favorite_projects = array();
+                $ar_favorite_projects = array();     
                 
-                if ($USER->IsAuthorized()) {
+                if ($user_id) {                
+                
                     $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
                     $entity = HL\HighloadBlockTable::compileEntity($hl_block);
                     $entity_data_class = $entity->getDataClass();
@@ -175,19 +183,22 @@
                         $result_hl = $entity_data_class::add($data);  
                         return true;
                     }     
-                } else {
+                } else {                    
                     if(!empty($_COOKIE['favorite_projects'])) {
                         $ar_favorite_projects = json_decode($_COOKIE['favorite_projects'], true);
+                            
                         if(!in_array($product_id, $ar_favorite_projects)){         
                             $ar_favorite_projects[] = $product_id;                                      
-                            setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5);
+                            setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5, '/'); 
+        
                             return true;   
-                        } else {
+                        } else {       
                             return false;
                         }
                     } else {                                                                         
                         $ar_favorite_projects[] = $product_id;                                      
-                        setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5); 
+                        setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5, '/'); 
+        
                         return true;   
                     }   
                 } 
@@ -252,11 +263,12 @@
         };    
     }
 
-    //error_reporting(E_ALL);
+    //error_reporting(E_ALL);                                      
+    
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
     AddEventHandler("main", "OnEpilog", "fixCatalogDuplication");
     AddEventHandler("main", "OnProlog", "LowerCase");
-    class MyClass
+    class MyClass                                
     {
         function OnBeforeIBlockElementAddHandler(&$arFields)
         {
@@ -311,7 +323,7 @@
         echo '</td></tr></table>';
     }
 
-    // Функция сортировки по алфовиту.
+    // Функция сортировки по алфавиту
     function cmp($a, $b){
         if(empty($a["UF_MENUTITLE"]) && empty($b["UF_MENUTITLE"])){
             return strcmp($a["TEXT"], $b["TEXT"]);
