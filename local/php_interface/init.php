@@ -27,7 +27,7 @@
         );
     }     
     
-    //Функции для работы с избранным
+    //Перенос информации о избранных проектах из кук в хайлоад, в том случае если пользователь авторизовался
     AddEventHandler("main", "OnEpilog", "transfer_from_cookie_to_hl");   
     function transfer_from_cookie_to_hl(){   
         global $USER; 
@@ -57,6 +57,7 @@
                     "limit"  => '1',
                 ));  
                 
+                //Если у пользователя уже есть избранные помимо кук, дополним существующие, если нет - создаём
                 if($favorite_project = $result->Fetch()) {                                             
                     if(!in_array($product_id, $ar_favorite_projects)){    
                         $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
@@ -74,7 +75,8 @@
             }
         }       
     }              
-                                    
+    
+    //Удаление проекта из избранных                                
     function delete_from_favorites($product_id) {    
         if(CModule::IncludeModule('highloadblock')) {    
             if(!empty($product_id)) {
@@ -84,6 +86,7 @@
                 $user_id = $USER->GetID();
                 $ar_favorite_projects = array(); 
                 
+                //Проверим авторизован пользователь или нет, для авторизованного удаляем из хайлоад, для неавторизованного из кук
                 if ($user_id) {
                     $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
                     $entity = HL\HighloadBlockTable::compileEntity($hl_block);
@@ -98,14 +101,18 @@
                         "filter" => $basket_item_filter, 
                         "order"  => array(),
                         "limit"  => '1',
-                    ));                          
-                    if($favorite_project = $result->Fetch()) {  
+                    ));      
+                                         
+                    if($favorite_project = $result->Fetch()) { 
+                        //Получим существующий список с избранным 
                         $ar_favorite_projects = json_decode($favorite_project['UF_JSON_PROJECTS'], true);
                         foreach($ar_favorite_projects as $element_id => $project_id) {
                             if($project_id == $product_id) {    
                                 unset($ar_favorite_projects[$element_id]); 
                             };                                      
-                        } 
+                        }    
+                                
+                        //Если после удаление элемента список пустой, удаляем, иначе обновляем
                         if(!empty($ar_favorite_projects)){            
                             $data = array("UF_USER_ID" => $user_id, "UF_JSON_PROJECTS" => json_encode($ar_favorite_projects));
                             $result_hl = $entity_data_class::update($favorite_project['ID'], $data); 
@@ -125,7 +132,9 @@
                             if($project_id == $product_id) {  
                                 unset($ar_favorite_projects[$element_id]);  
                             };                                      
-                        }                                                                           
+                        } 
+                        
+                        //Тут не требуется проверка был ли раньше список или нет, в любом случае если элементов нет мы не удаляем куки а забиваем пустой строкой                                                                          
                         setcookie('favorite_projects', json_encode($ar_favorite_projects), time() + 60*60*24*365*5, '/');
                         return true;  
                     } else {                                                                                        
@@ -140,6 +149,7 @@
         };  
     }
     
+    //Добавление проекта в избранное
     function add_to_favorites($product_id){   
         if(CModule::IncludeModule('highloadblock')) {    
             if(!empty($product_id)) {
@@ -149,6 +159,7 @@
                 $user_id = $USER->GetID();
                 $ar_favorite_projects = array();     
                 
+                //Если пользователь авторизован, добавим элемент в хайлоад, если нет в куки 
                 if ($user_id) {                
                 
                     $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
@@ -166,6 +177,7 @@
                         "limit"  => '1',
                     ));  
                     
+                    //Если список уже существует, дополним существующий, в ином случае создадим новый элемент HL
                     if($favorite_project = $result->Fetch()) {    
                                
                         $ar_favorite_projects = json_decode($favorite_project['UF_JSON_PROJECTS'], true);  
@@ -184,6 +196,7 @@
                         return true;
                     }     
                 } else {                    
+                    //Дополним существующий список или создадим новый
                     if(!empty($_COOKIE['favorite_projects'])) {
                         $ar_favorite_projects = json_decode($_COOKIE['favorite_projects'], true);
                             
@@ -210,6 +223,7 @@
         };    
     }
     
+    //Получение списка избранных
     function get_favorites_list(){   
         if(CModule::IncludeModule('highloadblock')) { 
             
@@ -219,6 +233,7 @@
             
             $ar_favorite_projects = array(); 
             
+            //Для авторизованного пользователя собираем список из хайлоад блока, для неавторизованного из кук
             if($user_id) {  
                 
                 $hl_block = HL\HighloadBlockTable::getById(FAVORITE_PROJECTS_HL_ID)->fetch();
@@ -262,9 +277,7 @@
             return false;  
         };    
     }
-
-    //error_reporting(E_ALL);                                      
-    
+                                                  
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
     AddEventHandler("main", "OnEpilog", "fixCatalogDuplication");
     AddEventHandler("main", "OnProlog", "LowerCase");
