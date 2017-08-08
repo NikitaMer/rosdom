@@ -85,6 +85,9 @@
 	color: #000;
 }
 
+.bx_catalog_list_home {
+    overflow: hidden;
+}
 
 .bx_catalog_item_img{
     width: 100%;   
@@ -205,3 +208,4 @@
 .bx_catalog_item a {
     text-decoration: none;
 }
+
