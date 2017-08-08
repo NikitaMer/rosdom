@@ -5009,6 +5009,7 @@ table {
     display:inline-block; 
     font-size:20px; 
     text-decoration:none;
+    margin-left: 10px;
 }
 
 .buy_project:hover {

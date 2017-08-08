@@ -272,7 +272,7 @@
                     $seo_material = "кирпичного";  // дл€ сео текста
                 } else if ($section_heading == 'P' ) { // раздел пенобетон
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
-                    $seo_material = "пенобетоного";// дл€ сео текста
+                    $seo_material = "пенобетонного";// дл€ сео текста
                 } else if ($section_heading == 'D' ) { // раздел дерево
                     $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
                     $seo_material = "дерев€нного"; // дл€ сео текста
@@ -415,27 +415,21 @@
 
                 if ($floor == 1){
                     $section_id[] = PROJECTS_OF_SINGLE_STOREY;   // ѕроекты одноэтажных домов
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($floor == 2){
                     $section_id[] = DRAFT_TWO_STOREY;  // ѕроекты двухэтажных домов
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($floor == 3){
                     $section_id[] = PROJECTS_STOREY; // ѕроекты трехэтажных домов
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($floor == 4){
                     $section_id[] = DRAFT_FOUR_STOREY;   // ѕроекты четырехэтажных домов
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($item_parser["plan_0"]){
                     $section_id[] = PROJECTS_OF_HOUSES_WITH; // ѕроекты домов с цокольным этажом
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($item_parser["plan_m"]){
                     $section_id[] = PROJECTS_OF_HOUSES_ATTIC; // ѕроекты домов с мансардой
-                    $seo_type = "дома"; // дл€ сео текста
                 }
                 if ($item_parser["labels"] == '[61]'){
                     $section_id[] = PROJECTS_TOWNHOUSES;   // проекты таунхаусов и блокированных домов
