@@ -171,6 +171,11 @@ endif;?>
 			$arItem['URL_WO_PARAMS'] = $link;
 		}
 	}
+    if ($k == 'projects_catalog'){
+        if($arItem["TAGS"][0]["TAG_NAME"]){
+            $arItem["TITLE_FORMATED"] =  $arItem["TAGS"][0]["TAG_NAME"];    
+        }
+    }
 	
 	//end of link calculation
 	?>

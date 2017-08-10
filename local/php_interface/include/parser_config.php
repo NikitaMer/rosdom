@@ -83,6 +83,7 @@
     define("WORSHIP_RELIGIOUS_BUILDINGS", 2715);    // Религиозные и культовые здания
     define("OTHER_BUILDINGS", 2716);    // Прочие здания
 
+    define("PRICE_MAIN", 1);    // основной тип цены. Нужен для сортировки в каталоге
     define("PRICE_OF_DEVELOPER_KIT", 2);    // тип цены на комплект застройщика
     define("PRICE_OF_COMPLETE_SET", 3);    // тип цены на полный комплект чертежей
     define("PRICE_FOR_ARCHITECTURAL", 4);    // тип цены на архитектурно-строительные чертежи

@@ -45,7 +45,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
 <div class="<? echo $arCurView['CONT']; ?>">
 <?
 if ($arResult["SECTION"]["PATH"] == false){
-    ?><h1 style="margin:0;padding:0;"><?=GetMessage("PROJECTS_CATALOG")?></h1><?
+    ?><h1><?=GetMessage("PROJECTS_CATALOG")?></h1><?
     $cnt = CIBlockElement::GetList(array(),array('IBLOCK_ID'=>$arParams["IBLOCK_ID"],"!SECTION_ID" => false ,'ACTIVE '=>'Y'),false, false, array("ID","IBLOCK_SECTION_ID"));?>
     <p class="colprj"><?=GetMessage("TOTAL_NUMBER")?><b class="total"><?=$cnt->SelectedRowsCount()?></b></p>
     <table class="cat">
@@ -53,7 +53,7 @@ if ($arResult["SECTION"]["PATH"] == false){
     <?foreach ($arResult["SECTIONS"] as $arSection) {
         if($arSection["UF_SORT_MENU"] == 1){?>
         <tr valign="top">
-            <td rowspan="5"><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><img src="<?=$arSection['PICTURE']['SRC']?>"></a></td>
+            <td rowspan="5"><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><img class="cat_td_img" src="<?=$arSection['PICTURE']['SRC']?>"></a></td>
             <td><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><b><?=$arSection["NAME"]?></b></a></td>
             <td align="center"><b><?=CIBlockSection::GetSectionElementsCount($arSection['ID'])?></b></td>
         </tr>

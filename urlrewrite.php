@@ -57,6 +57,13 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/information/links/([a-zA-Z0-9_]+)/\\?{0,1}(.*)\$#",
+		"RULE" => "/information/links/index.php?SECTION_CODE=\\1&\\2",
+		"ID" => "",
+		"PATH" => "",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "MAIN_SECTION_CODE=\$1&SECTION_CODE=\$2",
 		"ID" => "",
@@ -64,24 +71,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/education/education([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "ELEMENT_ID=\$1",
-		"ID" => "",
-		"PATH" => "/education/detail.php",
-		"SORT" => "100",
-	),
-	array(
 		"CONDITION" => "#^/information/links/([a-zA-Z0-9_]+)/\\?{0,1}(.*)\$#",
 		"RULE" => "/information/links/index.php?SECTION_CODE=\\1&\\2",
 		"ID" => "",
 		"PATH" => "/articles/list.php",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/information/links/([a-zA-Z0-9_]+)/\\?{0,1}(.*)\$#",
-		"RULE" => "/information/links/index.php?SECTION_CODE=\\1&\\2",
-		"ID" => "",
-		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -116,7 +109,7 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/shops/shops([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
-		"PATH" => "/shops/detail.php",
+		"PATH" => "/exhibitions/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -127,10 +120,17 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
+		"CONDITION" => "#^/shops/shops([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "ELEMENT_ID=\$1",
 		"ID" => "",
-		"PATH" => "/documents/list.php",
+		"PATH" => "/shops/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/shops/shops([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "ELEMENT_ID=\$1",
+		"ID" => "",
+		"PATH" => "/press-release/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -148,6 +148,20 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
+		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/documents/list.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/shops/detail.php",
+		"SORT" => "100",
+	),
+	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
 		"ID" => "bitrix:im.router",
@@ -155,8 +169,8 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
-		"RULE" => "ELEMENT_CODE=\$1",
+		"CONDITION" => "#^/education/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/articles/detail.php",
 		"SORT" => "100",
@@ -166,6 +180,13 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/education/section.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/articles/article([0-9]+)/(\\?+.*|\$)#",
+		"RULE" => "ELEMENT_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/articles/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -179,14 +200,21 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
+		"PATH" => "/articles/detail.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
 		"PATH" => "/articles/list.php",
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/markets/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/articles/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/markets/section.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
@@ -197,17 +225,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/markets/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "",
-		"SORT" => "100",
-	),
-	array(
-		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
-		"ID" => "",
-		"PATH" => "/video/list.php",
+		"PATH" => "/markets/section.php",
 		"SORT" => "100",
 	),
 	array(
@@ -221,14 +242,14 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/realty/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/realty/index.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/shops/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"CONDITION" => "#^/video/([a-zA-Z_\\-)]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/realty/detail.php",
+		"PATH" => "/video/list.php",
 		"SORT" => "100",
 	),
 	array(
@@ -236,6 +257,13 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/shops/section.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/shops/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
+		"ID" => "",
+		"PATH" => "/realty/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -253,10 +281,10 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/photo/photo([0-9]+)/(\\?+.*|\$)#",
-		"RULE" => "ELEMENT_CODE=\$1",
+		"CONDITION" => "#^/help/([a-zA-Z_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/photo/detail.php",
+		"PATH" => "/help/detail.php",
 		"SORT" => "100",
 	),
 	array(
@@ -285,6 +313,13 @@ $arUrlRewrite = array(
 		"RULE" => "SECTION_CODE=\$1&SECTION_ID=\$1",
 		"ID" => "",
 		"PATH" => "/photo/section.php",
+		"SORT" => "100",
+	),
+	array(
+		"CONDITION" => "#^/bitrix/services/ymarket/#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/faq/detail.php",
 		"SORT" => "100",
 	),
 	array(

@@ -7,5 +7,6 @@ $(document).ready(function () {
         $('#viz').attr('src',src);                        
         $('#viz').attr('alt',alt.replace(/(^|\s+)маленькая(\s+|$)/g, ''));                        
         $('#viz').attr('title',title.replace(/(^|\s+)маленькая(\s+|$)/g, ''));                        
-    }); 
+    });
+   
 });

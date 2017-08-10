@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 $arResult["TAGS_CHAIN"] = array();
-if($arResult["REQUEST"]["~TAGS"])
+/*if($arResult["REQUEST"]["~TAGS"])
 {
 	$res = array_unique(explode(",", $arResult["REQUEST"]["~TAGS"]));
 	$url = array();
@@ -21,5 +21,5 @@ if($arResult["REQUEST"]["~TAGS"])
 			$arResult["TAGS_CHAIN"][] = $result;
 		}
 	}
-}
+} */
 ?>

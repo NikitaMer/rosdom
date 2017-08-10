@@ -10,12 +10,11 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
-    $this->setFrameMode(true);
-   
+    $this->setFrameMode(true);       
 ?>
 <?
     if (!empty($arResult['ITEMS']))
-    {
+    {                              
         $templateLibrary = array('popup');
         $currencyList = '';
         if (!empty($arResult['CURRENCIES']))
@@ -115,8 +114,24 @@
         <div class="bx-section-desc <? echo $templateData['TEMPLATE_CLASS']; ?>">
             <p class="bx-section-desc-post"><?=$arResult["DESCRIPTION"]?></p>
         </div>
-        <? } ?>
-    <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">
+        <div class="catalog-sort">
+            Сортировка
+            <form method="post" class="catalog-sort-form">
+                <select name="sort" onchange="this.form.submit()" class="select-type">
+                    <option value="CATALOG_PRICE_1" <?if($_POST["sort"] == "CATALOG_PRICE_1" || $_SESSION["sort"] == "CATALOG_PRICE_1"){?>selected="selected"<?}?>><?=GetMessage('BY_PRICE')?></option>
+                    <option value="PROPERTY_201" <?if($_POST["sort"] == "PROPERTY_201" || $_SESSION["sort"] == "PROPERTY_201"){?>selected="selected"<?}?>><?=GetMessage('BY_AREA')?></option>
+                    <option value="created_date" <?if($_POST["sort"] == "created_date" || $_SESSION["sort"] == "created_date"){?>selected="selected"<?}?>><?=GetMessage('BY_DATE')?></option>  
+                </select>
+                <?if($_POST["method"] == "asc,nulls" || $_SESSION["method"] == "asc,nulls"){?>
+                    <button class="button_desc" name="method" onchange="this.form.submit()" value="desc,nulls"></button>
+                <?}else{?>
+                    <button class="button_asc" name="method" onchange="this.form.submit()" value="asc,nulls"></button>
+                <?}?>
+                                 
+            </form> 
+        </div>       
+        <? } ?>   
+    <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">        
         <?
             foreach ($arResult['ITEMS'] as $key => $arItem) 
             {                 
@@ -163,17 +178,12 @@
                 );
 
                 $minPrice = false;
-                $minPrice = $arItem['MIN_PRICE'];
-                /*
-                if (isset($arItem['MIN_PRICE']) || isset($arItem['RATIO_PRICE']))
-                    $minPrice = (isset($arItem['RATIO_PRICE']) ? $arItem['RATIO_PRICE'] : $arItem['MIN_PRICE']);
-                    */
-                //    arshow($arItem, true);
+                $minPrice = $arItem['MIN_PRICE'];                   
                 
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
             ?><div class="bx_catalog_item" id="<? echo $strMainID; ?>" > 
-                <div class="bx_catalog_item_container" > 
+                <div class="bx_catalog_item_container min" > 
                     <a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>"><img src="<? echo $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<? echo strip_tags(html_entity_decode($productTitle)) ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>" class="bx_catalog_item_img"></a>
                     <div class="bx_catalog_item_title"><a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>"><?echo html_entity_decode($productTitle);?></a></div>
                     <br/>
@@ -184,7 +194,7 @@
                         <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>
-                        </noindex>
+                        </noindex><br>                                    
                     </p>
                 </div>
             </div><?
@@ -215,4 +225,4 @@
         {
         ?><? echo $arResult["NAV_STRING"]; ?><?
         }
-}
+}                               

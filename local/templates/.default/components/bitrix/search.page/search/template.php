@@ -1,6 +1,7 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <div class="search-page">
 <h1>Результаты поиска</h1>
+
 	<?if($arParams["SHOW_TAGS_CLOUD"] == "Y")
 	{
 		$arCloudParams = Array(
@@ -240,7 +241,6 @@
 			<?endif;//if($arParams["SHOW_WHERE"] || $arParams["SHOW_WHEN"])?>
 		</noindex>
 	</form-->
-
 <?if(isset($arResult["REQUEST"]["ORIGINAL_QUERY"])):
 	?>
 	<div class="search-language-guess">
@@ -280,22 +280,30 @@ endif;?>
 			</tr>
 		</table>
 	<?elseif(count($arResult["SEARCH"])>0):?>
-	<?unset($sres);?>
+	<?unset($sres);
+    // Сортировка разделов.
+    $sres["projects_catalog"] = array();
+    $sres["articles"] = array();
+    $sres["faq"] = array();
+    $sres["photos"] = array();
+    $sres["documents"] = array(); ?>
+    
 		<?if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
-		<?foreach($arResult["SEARCH"] as $arItem):?>
-		<?
-		//echo '<pre>';	print_r($arItem); echo '</pre>';
-		//echo $arItem['PARAM1'].' ';
-		if ($arItem['PARAM1'] == 'firms'){
-			if(strpos($arItem['ITEM_ID'], 'S') === 0) $sres['sections'][] = $arItem;
-				else $sres[$arItem['PARAM1']][] = $arItem;
-		} else
-			$sres[$arItem['PARAM1']][] = $arItem;
+		<?foreach($arResult["SEARCH"] as $arItem):  
+		    if ($arItem['PARAM1'] == 'firms'){
+			    if(strpos($arItem['ITEM_ID'], 'S') === 0) $sres['sections'][] = $arItem;
+				    else $sres[$arItem['PARAM1']][] = $arItem;
+		    } else {
+			    $sres[$arItem['PARAM1']][] = $arItem;
+            }
+            
 		?>
 		<?endforeach;?>
 		<section class="faq">
 		<?foreach($sres as $k=>$val){
 			?><div class="b-subsection"><?
+            if(empty($val)){continue;}            
+            if($k == "video"){continue;}            
 			switch($k){
 				case 'articles': $name = 'Статьи'; break;
 				case 'journals': $name = 'Журналы'; break;
@@ -307,29 +315,46 @@ endif;?>
 				case 'exhibitions': $name = 'Выставки'; break;
 				case 'documents': $name = 'Документы'; break;
 				case 'firms': $name = 'Компании'; break;
-				case 'sections': $name = 'Товары и услуги'; break;
+                case 'sections': $name = 'Товары и услуги'; break;
+                case 'projects_catalog': $name = 'Проекты домов'; break;
+                case 'photos': $name = 'Фотографии'; break;
+				case 'video': $name = 'Видео'; break;
 				
 				default: $name = ''; break;
 				
 			}
+            $sort_mass = array(); // Массив для сортировки.
 			echo '<h2>';
 			if(!empty($name)) echo $name; else echo $k;
 			echo '</h2>';
 			echo '<p>Всего: '.count($val).'</p>';
 			?><figure><figcaption><?
 			?><ul><?
-			$j=0;
-			foreach ($val as $result){
-				if($j < 5){ $link = $arItem['LINK'];
-				?><li>
-					<a href="<?=$result['URL_WO_PARAMS']?>"><?=$result['TITLE']?></a> <?/*=$result['ITEM_ID']?> <?echo strpos($result['ITEM_ID'], 'S').' ';?><?if(strpos($result['ITEM_ID'], 'S') === 0) echo ' раздел';*/?><br>
-					<p><?=$result['BODY_FORMATED']?></p>
-					
+			$j=0;  
+			foreach ($val as $result){  
+				if($j < 5){
+                 
+                    if($result['PARAM1'] == 'documents'){
+                        $link = '/';
+                        $id = intval($result['ITEM_ID']);
+                        $db_props = CIBlockElement::GetProperty(15, $id, Array("sort"=>"asc"), Array("CODE"=>"FILE"));
+                        if($ar_props = $db_props->Fetch()){                        
+                            $file = $ar_props['VALUE'];
+                            $rsFile = CFile::GetByID($file);
+                            $arFile = $rsFile->Fetch();                       
+                            $link = '/upload/'.$arFile['SUBDIR'].'/'.$arFile['FILE_NAME'];
+                        }                   
+                        $result['URL_WO_PARAMS'] = $link;
+                    }
+                    ?>
+                
+                <li>
+					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['~TAGS'];}?></a> <br>
+					<p><?=$result['BODY_FORMATED']?></p>					
 				</li>
 				<?
 				}
-				$j++;
-				//echo '<pre>'; print_r($result); echo '</pre>';
+				$j++;                                            
 			}
 			?>
 			</ul>
@@ -338,15 +363,6 @@ endif;?>
 		}?>
 		</section>
 		<?if($arParams["DISPLAY_BOTTOM_PAGER"] != "N") echo $arResult["NAV_STRING"]?>
-		<?if($arParams["SHOW_ORDER_BY"] != "N"):?>
-			<div class="search-sorting"><label><?echo GetMessage("CT_BSP_ORDER")?>:</label>&nbsp;
-			<?if($arResult["REQUEST"]["HOW"]=="d"):?>
-				<a href="<?=$arResult["URL"]?>&amp;how=r"><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></a>&nbsp;<b><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></b>
-			<?else:?>
-				<b><?=GetMessage("CT_BSP_ORDER_BY_RANK")?></b>&nbsp;<a href="<?=$arResult["URL"]?>&amp;how=d"><?=GetMessage("CT_BSP_ORDER_BY_DATE")?></a>
-			<?endif;?>
-			</div>
-		<?endif;?>
 	<?else:?>
 		<?ShowNote(GetMessage("CT_BSP_NOTHING_TO_FOUND"));?>
 	<?endif;?>
