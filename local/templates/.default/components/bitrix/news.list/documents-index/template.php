@@ -1,7 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <section class="list-docs">
 
-<h1><?=$arResult["SECTION"]["PATH"][0]["NAME"]?></h1>
 <dl class="b-list-docs">
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<?=$arResult["NAV_STRING"]?><br />
