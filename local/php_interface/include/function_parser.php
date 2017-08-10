@@ -4,6 +4,45 @@
         include($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/parser_config.php');
     }
 
+    /**
+    * удаляем устаревшие логи и сохраненные файлы импорта
+    * 
+    */
+    function DeleteOldImportFiles() {
+
+        $days = 15; //файлы, старше этого количества дней - удаляем
+
+        //директории для проверки файлов
+        $directories = array(
+            "/local/php_interface/include/parser_files/catalog/",
+            "/local/php_interface/include/parser_files/log/",
+        );
+
+        foreach ($directories as $directory) {
+            $dir_content = scandir($_SERVER["DOCUMENT_ROOT"] . $directory);
+            if (is_array($dir_content) && !empty($dir_content)) {
+                foreach ($dir_content as $file) {
+                    $file_path = $_SERVER["DOCUMENT_ROOT"] . $directory . $file;
+                    if (strlen($file) > 2) {
+                        $file_create_timestamp = filectime($file_path);
+                        $file_update_timestamp = filemtime($file_path);
+                        $timestamp = $file_update_timestamp;
+                        if ($file_create_timestamp < $file_update_timestamp) {
+                            $timestamp = $file_create_timestamp;    
+                        }
+                        //проверяем разницу между текущей меткой времени и меткой времени изменения/создания файла
+                        if (date("U") - $days * 86400 > $timestamp) {
+                            //если файл старше указанного срока, удаляем его
+                            unlink($file_path);
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
     function UpdatePicture($image_url) {
 
         if (empty($image_url)) {
@@ -1055,13 +1094,19 @@
                 CIBlockElement::SetPropertyValuesEx($item["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
             }
         }
+        
+        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));
+        
+        //удаляем устаревшие логи и сохораненные файлы импорта 
+        DeleteOldImportFiles();
+        
         //если парсер запускается не вручную (через агент), то возвращаем саму функцию
         if (!$manually) {
             return "ParceCatalog();";
         } else {
             //при ручном запуске выводим сообщение о результате
             echo "Загрузка проектов завершена";
-        }
-        my_log("Выгрузка в инфоблок завершена: ".date("H:i:s"));
+        }     
+        
     }
 ?>
