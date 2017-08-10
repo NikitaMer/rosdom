@@ -134,15 +134,15 @@ $arUrlRewrite = array(
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/magazines/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "CODE=\$1",
+		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
 		"PATH" => "/magazines/detail.php",
 		"SORT" => "100",
 	),
 	array(
-		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
-		"RULE" => "SECTION_CODE=\$1",
+		"CONDITION" => "#^/magazines/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
+		"RULE" => "CODE=\$1",
 		"ID" => "",
 		"PATH" => "/magazines/detail.php",
 		"SORT" => "100",
@@ -158,7 +158,7 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/documents/([a-zA-Z0-9_\\-]+)/(\\?+.*|\$)#",
 		"RULE" => "SECTION_CODE=\$1",
 		"ID" => "",
-		"PATH" => "/shops/detail.php",
+		"PATH" => "/documents/list.php",
 		"SORT" => "100",
 	),
 	array(
