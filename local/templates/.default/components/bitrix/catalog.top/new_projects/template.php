@@ -36,6 +36,7 @@ if (!empty($arResult['ITEMS']))
 	);
 	unset($currencyList, $templateLibrary);?>
     <h1><?=GetMessage("PROJECTS_CATALOG")?></h1>
+    <div class="col-left">
     <div class="bx_catalog_list_home col<? echo $arParams['LINE_ELEMENT_COUNT']; ?> <? echo $templateData['TEMPLATE_CLASS']; ?>">        
         <?
             foreach ($arResult['ITEMS'] as $key => $arItem) 
@@ -105,6 +106,7 @@ if (!empty($arResult['ITEMS']))
             </div><?
             }
         ?><div style="clear: both;"></div>
+    </div>
     </div>
 <script type="text/javascript">
 BX.message({

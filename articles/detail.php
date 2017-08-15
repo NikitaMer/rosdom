@@ -4,8 +4,8 @@ $APPLICATION->SetTitle("сантехника h1");
 ?>
 
 <?$APPLICATION->IncludeComponent(
-	"bitrix:news.detail",
-	"article_detail",
+	"bitrix:news.detail", 
+	"article_detail", 
 	array(
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",

@@ -5025,3 +5025,7 @@ table {
     font-weight: bold;
     font-size: 16px;
 }
+.col-left{
+    float:left;
+    width: 100%;
+}
