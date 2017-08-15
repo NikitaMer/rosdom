@@ -266,25 +266,7 @@
                 if ($floor == 4){
                     $PROP["FLOORS"] = Array("VALUE" => FLOORS_4); // этажность
                 }
-
-                if ($section_heading == 'K' ) {  // раздел кирпич
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
-                    $seo_material = "кирпичного";  // для сео текста
-                } else if ($section_heading == 'P' ) { // раздел пенобетон
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
-                    $seo_material = "пенобетонного";// для сео текста
-                } else if ($section_heading == 'D' ) { // раздел дерево
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
-                    $seo_material = "деревянного"; // для сео текста
-                } else if ($section_heading == 'S' ) {  // раздел каркас
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_4); // тип материала
-                    $seo_material = "каркасного";  // для сео текста
-                } else if ($section_heading == 'M' ) {  // раздел каркас
-                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
-                    $seo_material = "монолитного"; // для сео текста
-                }
-
-
+                
                 $PROP["NUMBER_CARS"] = $element_room[9];  // Количество машин в гараже
                 $PROP["IMG_HASH"] = $item_parser["img_hash"];   // контрольная сумма по картинкам проекта
                 $key_word = 0;
@@ -413,6 +395,7 @@
                     }
                 }
 
+                $ending = false;
                 if ($floor == 1){
                     $section_id[] = PROJECTS_OF_SINGLE_STOREY;   // Проекты одноэтажных домов
                 }
@@ -446,6 +429,7 @@
                 if ($item_parser["labels"] == '[60]'){
                     $section_id[] = BATHS_PROJECTS;   // проекты бань
                     $seo_type = "бани"; // для сео текста
+                    $ending = true;
                 }
                 if ($item_parser["labels"] == '[142]'){
                     $section_id[] = MANSIONS_PROJECTS; // проекты особняков
@@ -466,6 +450,7 @@
                 if ($item_parser["labels"] == '[645]'){
                     $section_id[] = DESIGNS_GAZEBOS; // Проекты беседок, строительство беседок
                     $seo_type = "беседоки"; // для сео текста
+                    $ending = true;
                 }
                 if ($item_parser["labels"] == '[124]'){
                     $section_id[] = HOUSES_TURNKEY; // Дома под ключ
@@ -506,6 +491,7 @@
                 if ($item_parser["labels"] == '[169]'){
                     $section_id[] = HOTELS; // Гостиницы
                     $seo_type = "гостиницы"; // для сео текста
+                    $ending = true;
                 }
                 if ($item_parser["labels"] == '[170]'){
                     $section_id[] = GARAGES_MULTISTORY; // Гаражи многоэтажные
@@ -518,6 +504,7 @@
                 if ($item_parser["labels"] == '[172]'){
                     $section_id[] = CLINICS; // Поликлиники
                     $seo_type = "поликлиники"; // для сео текста
+                    $ending = true;
                 }
                 if ($item_parser["labels"] == '[173]'){
                     $section_id[] = SHOPPING_CENTERS; // Торгово-развлекательные центры
@@ -536,6 +523,43 @@
                     $seo_type = "";  // для сео текста
                 }
 
+                if ($section_heading == 'K' ) {  // раздел кирпич
+                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_1); // тип материала
+                    if($ending){
+                        $seo_material = "кирпичной";    
+                    }else{
+                        $seo_material = "кирпичного";  // для сео текста 
+                    }
+                } else if ($section_heading == 'P' ) { // раздел пенобетон
+                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_2); // тип материала
+                    if($ending){
+                        $seo_material = "пенобетонной";    
+                    }else{
+                        $seo_material = "пенобетонного";  // для сео текста 
+                    }
+                } else if ($section_heading == 'D' ) { // раздел дерево
+                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_3); // тип материала
+                    if($ending){
+                        $seo_material = "деревянной";    
+                    }else{
+                        $seo_material = "деревянного";  // для сео текста 
+                    }
+                } else if ($section_heading == 'S' ) {  // раздел каркас
+                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_4); // тип материала
+                    if($ending){
+                        $seo_material = "каркасной";    
+                    }else{
+                        $seo_material = "каркасного";  // для сео текста 
+                    }
+                } else if ($section_heading == 'M' ) {  // раздел каркас
+                    $PROP["MATERIAL"] = Array("VALUE" => MATERIAL_5); // тип материала
+                    if($ending){
+                        $seo_material = "монолитной";    
+                    }else{
+                        $seo_material = "монолитного";  // для сео текста 
+                    }
+                }
+                
                 $el_add = new CIBlockElement;
 
                 $project_section = false;
