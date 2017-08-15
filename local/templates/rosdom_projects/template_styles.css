@@ -5027,4 +5027,5 @@ table {
 }
 .col-left{
     float:left;
+    width: 100%;
 }
