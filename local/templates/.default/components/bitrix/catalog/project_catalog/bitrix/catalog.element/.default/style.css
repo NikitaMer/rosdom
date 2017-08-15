@@ -1915,7 +1915,7 @@
 .bx-touch      .bx_catalog_list_home .bx_item_detail_scu .bx_slide_left {left:   0;background:url(images/fade_left.png)  repeat-y   left  center;background-size: 100% auto}
 .bx-touch      .bx_catalog_list_home .bx_item_detail_scu .bx_slide_right{right:  0;background:url(images/fade_right.png) repeat-y   right center;background-size: 100% auto}
 
-.buy_project, .add_to_favorite, .delete_from_favorite {
+.buy_project {
     text-align:center; 
     border-radius:3px; 
     background:#de4139; 
@@ -1925,6 +1925,17 @@
     font-size:20px; 
     text-decoration:none; 
     width: 180px;                                 
+}
+
+.add_to_favorite img, .delete_from_favorite img {
+    width: 28px;
+    padding-top: 7px;
+    margin-left: 5px;
+}
+
+
+.add_to_favorite img:hover, .delete_from_favorite img:hover {
+    -webkit-filter: brightness(85%); 
 }
 
 .buy_project:hover, .add_to_favorite:hover, .delete_from_favorite:hover {
