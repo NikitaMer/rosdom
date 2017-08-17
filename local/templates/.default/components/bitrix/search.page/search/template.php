@@ -349,7 +349,7 @@ endif;?>
                     ?>
                 
                 <li>
-					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo $result['~TAGS'];}?></a> <br>
+					<a href="<?=$result['URL_WO_PARAMS']?>"><?if($result['TAGS'][0]['TAG_NAME'] == null){echo $result['TITLE'];}else{echo html_entity_decode($result['~TAGS']);}?></a> <br>
 					<p><?=$result['BODY_FORMATED']?></p>					
 				</li>
 				<?
