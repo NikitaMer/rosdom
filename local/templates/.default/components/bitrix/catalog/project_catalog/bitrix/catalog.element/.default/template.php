@@ -46,22 +46,26 @@ BX.ready(
     <table style="margin-bottom:10px; width:650px;" id="h2header">
         <tbody>
             <tr>
-                <td style="width:450px;">           
+                <td style="width:425px;">           
                     <h1><?if($ELEMENT_PAGE_TITLE_whith_tag){ echo $ELEMENT_PAGE_TITLE_whith_tag;} else {echo GetMessage("HOUSE_PROJECT") . $arResult["NAME"];}?></h1>
                     <span><?=GetMessage("TOTAL_AREA")?> <b style="margin:0;padding:0;"><?=$arResult['PROPERTIES']['OB_PL']['VALUE']?></b> ì<sup>2</sup></span>                        
                 </td>
                 <?/*                       
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                */?> 
+                */?>   
+                <td align="right">
+                    <a href="" style="display:none" data-project-id="<?=$arResult['ID']?>" title='<?=GetMessage("ADD_TO_FAVORITE")?>' class="add_to_favorite"><img src="/i/add_to_favorites.png"></a>    
+                </td>
+                <td align="right">                                                                
+                    <a href="" style="display:none" data-project-id="<?=$arResult['ID']?>" title='<?=GetMessage("REMOVE_FROM_FAVORITE")?>' class="delete_from_favorite"><img src="/i/delete_from_favorites.png"></a>
+                </td>
                 <td align="right">
                     <?if ($arResult["PROPERTIES"]["PROJECT_TEMPORARILY_UNAVAILABLE"]["VALUE"] != "Y") {?>
                         <a href="/order/?nproj=<?=$arResult['CODE']?>" class="buy_project"><?=GetMessage("BUY_PROJECT")?></a>                       
                     <?} else {?>
                         <span class="project_tmp_unavailable"><?=GetMessage("TMP_UNVAILABLE")?></span>
-                    <?}?>                                                                                                                          
-                    <a href="" style="display:none" data-project-id="<?=$arResult['ID']?>" class="add_to_favorite"><?=GetMessage("ADD_TO_FAVORITE")?></a>                                                                         
-                    <a href="" style="display:none" data-project-id="<?=$arResult['ID']?>" class="delete_from_favorite"><?=GetMessage("REMOVE_FROM_FAVORITE")?></a>
-                </td>
+                    <?}?>                                                                                                                                           
+                </td>    
             </tr>
         </tbody></table>
 
