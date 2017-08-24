@@ -47,7 +47,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"USE_PERMISSIONS" => "N",
 		"DISPLAY_TOP_PAGER" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"PAGER_TITLE" => "Ñòğàíèöà",
+		"PAGER_TITLE" => "Ã‘Ã²Ã°Ã Ã­Ã¨Ã¶Ã ",
 		"PAGER_TEMPLATE" => "",
 		"PAGER_SHOW_ALL" => "Y",
 		"DISPLAY_DATE" => "Y",
@@ -67,6 +67,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"STRICT_SECTION_CHECK" => "N",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "Y",
+		"MESSAGE_404" => "",
 		"FILE_404" => ""
 	),
 	false
