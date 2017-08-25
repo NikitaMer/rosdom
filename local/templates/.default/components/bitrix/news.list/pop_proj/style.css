@@ -6,11 +6,10 @@
 .popular_projects .block {
 	display:inline-block;
 	text-align:left;	
-	width:30%;
-	margin-left:25px;
+	margin-left:88px;
 }
 .popular_projects .block:first-of-type {
-	margin-left:0px;
+	margin-left:35px;
 }
 .popular_projects .title {
 	font-weight:bold;
