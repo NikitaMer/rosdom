@@ -195,7 +195,6 @@ $APPLICATION->SetTitle("Росдом");
 
 <!--li><a id="bxid_396859" href="#" >Товары</a></li-->
 
-        <li><a href="#" >Компании</a></li>
        </ul>
      </nav> </div>
 
@@ -260,56 +259,78 @@ Array(
      </div>
 
     <div class="description"> <?$APPLICATION->IncludeComponent(
-    "bitrix:news.list",
-    "faq_index1",
-    Array(
-        "IBLOCK_TYPE" => "faq",
-        "IBLOCK_ID" => "14",
-        "NEWS_COUNT" => "5",
-        "SORT_BY1" => "TIMESTAMP_X",
-        "SORT_ORDER1" => "DESC",
-        "SORT_BY2" => "SORT",
-        "SORT_ORDER2" => "ASC",
-        "FILTER_NAME" => "",
-        "FIELD_CODE" => array(0=>"",1=>"",),
-        "PROPERTY_CODE" => array(0=>"",1=>"AUTHOR",2=>"EMAIL",3=>"REFERENCE",4=>"72",5=>"73",6=>"74",7=>"",),
-        "CHECK_DATES" => "Y",
-        "DETAIL_URL" => "/faq/detail.php?ELEMENT_ID=#ID#",
-        "AJAX_MODE" => "N",
-        "AJAX_OPTION_JUMP" => "N",
-        "AJAX_OPTION_STYLE" => "Y",
-        "AJAX_OPTION_HISTORY" => "N",
-        "CACHE_TYPE" => "A",
-        "CACHE_TIME" => "36000000",
-        "CACHE_FILTER" => "N",
-        "CACHE_GROUPS" => "N",
-        "PREVIEW_TRUNCATE_LEN" => "",
-        "ACTIVE_DATE_FORMAT" => "d.m.Y",
-        "SET_TITLE" => "N",
-        "SET_STATUS_404" => "N",
-        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-        "ADD_SECTIONS_CHAIN" => "N",
-        "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-        "PARENT_SECTION" => "",
-        "PARENT_SECTION_CODE" => "",
-        "DISPLAY_TOP_PAGER" => "N",
-        "DISPLAY_BOTTOM_PAGER" => "N",
-        "PAGER_TITLE" => "ЧаВО",
-        "PAGER_SHOW_ALWAYS" => "N",
-        "PAGER_TEMPLATE" => "",
-        "PAGER_DESC_NUMBERING" => "N",
-        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-        "PAGER_SHOW_ALL" => "N",
-        "DISPLAY_DATE" => "N",
-        "DISPLAY_NAME" => "N",
-        "DISPLAY_PICTURE" => "N",
-        "DISPLAY_PREVIEW_TEXT" => "Y",
-        "AJAX_OPTION_ADDITIONAL" => ""
-    ),
-false,
-Array(
-    'ACTIVE_COMPONENT' => 'Y'
-)
+	"bitrix:news.list", 
+	"faq_index1", 
+	array(
+		"IBLOCK_TYPE" => "faq",
+		"IBLOCK_ID" => "14",
+		"NEWS_COUNT" => "5",
+		"SORT_BY1" => "ID",
+		"SORT_ORDER1" => "ASC",
+		"SORT_BY2" => "",
+		"SORT_ORDER2" => "",
+		"FILTER_NAME" => "",
+		"FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "AUTHOR",
+			2 => "EMAIL",
+			3 => "REFERENCE",
+			4 => "72",
+			5 => "73",
+			6 => "74",
+			7 => "",
+		),
+		"CHECK_DATES" => "Y",
+		"DETAIL_URL" => "/faq/detail.php?ELEMENT_ID=#ID#",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000000",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "N",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"SET_TITLE" => "N",
+		"SET_STATUS_404" => "N",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+		"PARENT_SECTION" => "",
+		"PARENT_SECTION_CODE" => "",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"PAGER_TITLE" => "ЧаВО",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => "",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"DISPLAY_DATE" => "N",
+		"DISPLAY_NAME" => "N",
+		"DISPLAY_PICTURE" => "N",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"COMPONENT_TEMPLATE" => "faq_index1",
+		"SET_BROWSER_TITLE" => "Y",
+		"SET_META_KEYWORDS" => "Y",
+		"SET_META_DESCRIPTION" => "Y",
+		"SET_LAST_MODIFIED" => "N",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"STRICT_SECTION_CHECK" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => ""
+	),
+	false,
+	array(
+		"ACTIVE_COMPONENT" => "Y"
+	)
 );?>
       <div class="b-photogalery"> <a href="/faq/" >Все вопросы</a> &gt; </div>
      </div>
@@ -395,76 +416,6 @@ Array(
 
 <!--div class="description"> 6 </div-->
 
-    <div class="description"> <?
-    if ((isset($_COOKIE['selected-city'])) and ($_COOKIE['selected-city'] != 0)){
-        global $companiesFilter;
-        $companiesFilter = Array("PROPERTY_CITY"=>$_COOKIE['selected-city']);
-        //$companiesFilter = array("PROPERTIES" => array("CITY" => Array("ID"=>$_COOKIE['selected-city'])));
-
-    };
-    ?>                 <?$APPLICATION->IncludeComponent(
-    "bitrix:catalog.section",
-    "companies_tab",
-    Array(
-        "IBLOCK_TYPE" => "firms",
-        "IBLOCK_ID" => "10",
-        "SECTION_ID" => $_REQUEST["SECTION_ID"],
-        "SECTION_CODE" => "",
-        "SECTION_USER_FIELDS" => array(0=>"",1=>"",),
-        "ELEMENT_SORT_FIELD" => "timestamp_x",
-        "ELEMENT_SORT_ORDER" => "desc",
-        "FILTER_NAME" => "companiesFilter",
-        "INCLUDE_SUBSECTIONS" => "Y",
-        "SHOW_ALL_WO_SECTION" => "Y",
-        "PAGE_ELEMENT_COUNT" => "15",
-        "LINE_ELEMENT_COUNT" => "3",
-        "PROPERTY_CODE" => array(0=>"PHONE",1=>"",),
-        "SECTION_URL" => "",
-        "DETAIL_URL" => "/firms/firm#ID#/",
-        "BASKET_URL" => "/personal/basket.php",
-        "ACTION_VARIABLE" => "action",
-        "PRODUCT_ID_VARIABLE" => "id",
-        "PRODUCT_QUANTITY_VARIABLE" => "quantity",
-        "PRODUCT_PROPS_VARIABLE" => "prop",
-        "SECTION_ID_VARIABLE" => "SECTION_ID",
-        "AJAX_MODE" => "N",
-        "AJAX_OPTION_JUMP" => "N",
-        "AJAX_OPTION_STYLE" => "Y",
-        "AJAX_OPTION_HISTORY" => "N",
-        "CACHE_TYPE" => "A",
-        "CACHE_TIME" => "36000000",
-        "CACHE_GROUPS" => "N",
-        "META_KEYWORDS" => "-",
-        "META_DESCRIPTION" => "-",
-        "BROWSER_TITLE" => "-",
-        "ADD_SECTIONS_CHAIN" => "N",
-        "DISPLAY_COMPARE" => "N",
-        "SET_TITLE" => "N",
-        "SET_STATUS_404" => "N",
-        "CACHE_FILTER" => "N",
-        "PRICE_CODE" => array(),
-        "USE_PRICE_COUNT" => "N",
-        "SHOW_PRICE_COUNT" => "1",
-        "PRICE_VAT_INCLUDE" => "Y",
-        "PRODUCT_PROPERTIES" => array(),
-        "USE_PRODUCT_QUANTITY" => "N",
-        "DISPLAY_TOP_PAGER" => "N",
-        "DISPLAY_BOTTOM_PAGER" => "N",
-        "PAGER_TITLE" => "Компании",
-        "PAGER_SHOW_ALWAYS" => "N",
-        "PAGER_TEMPLATE" => "",
-        "PAGER_DESC_NUMBERING" => "N",
-        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-        "PAGER_SHOW_ALL" => "N",
-        "AJAX_OPTION_ADDITIONAL" => ""
-    ),
-false,
-Array(
-    'ACTIVE_COMPONENT' => 'Y'
-)
-);?>
-      <div class="b-photogalery"> <a href="/firms/" >Все компании</a> &gt; </div>
-     </div>
    </div>
  </section>
 <br />

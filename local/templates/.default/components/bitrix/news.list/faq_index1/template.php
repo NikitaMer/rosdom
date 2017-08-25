@@ -48,7 +48,7 @@
 			if ($i>0) echo ' » ';
 		}
 		?></div>
-		<a href="/faq/faq<?=$arItem['ID']?>/" class="h3"><?echo $arItem['PREVIEW_TEXT']?></a>
+		<a href="/faq/faq<?=$arItem['CODE']?>/" class="h3"><?echo $arItem['PREVIEW_TEXT']?></a>
 
    </dt>
    <dd>

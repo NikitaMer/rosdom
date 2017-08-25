@@ -2121,7 +2121,7 @@ table {
 .bx_item_detail .bx_item_description .bx_specifications_table tr td:first-child{font-weight: bold;}
 /* catalog.section */
 .bx_catalog_item_img{
-    width: 100%;   
+    width: 88%;   
 }
 .bx_catalog_list_home .bx_catalog_item {
     position: relative;
