@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Проекты домов");
+$APPLICATION->SetPageProperty("description", "");
+$APPLICATION->SetPageProperty("keywords", "");
 ?>
 
 <?$APPLICATION->IncludeComponent(
