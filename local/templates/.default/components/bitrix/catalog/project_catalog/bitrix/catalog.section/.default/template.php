@@ -180,8 +180,9 @@
                 $minPrice = false;
                 $minPrice = $arItem['MIN_PRICE'];                   
                 
-               $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->Fetch();
-               $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->Fetch(); 
+               $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->GetNext();
+               $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->GetNext(); 
+               
             ?><div class="bx_catalog_item" id="<? echo $strMainID; ?>" > 
                 <div class="bx_catalog_item_container min" > 
                     <a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>"><img src="<? echo $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<? echo strip_tags(html_entity_decode($productTitle)) ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>" class="bx_catalog_item_img"></a>
@@ -190,7 +191,7 @@
                     <p class="info">
                         <noindex><?=GetMessage("TOTAL_AREA")?><b><?=$arItem['PROPERTIES']['OB_PL']['VALUE']?> ì<sup>2</sup></b><br>
                         <?=GetMessage("DIMENSIONS")?><b><?=$arItem['PROPERTIES']['V_GAB']['VALUE']?> x <?=$arItem['PROPERTIES']['H_GAB']['VALUE']?></b><br>
-                        <?=GetMessage("MATERIAL")?></noindex><b><a href="/projects/<?=$section["CODE"]?>/"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b>
+                        <?=GetMessage("MATERIAL")?></noindex><b><a href="<?=$section["SECTION_PAGE_URL"]?>"><?=$arItem['PROPERTIES']['MATERIAL']['VALUE'][0]?></a></b>
                         <br><?=GetMessage("PRICE")?><b style="color:red" id="<? echo $arItemIDs['PRICE']; ?>"><? echo $minPrice['PRINT_VALUE']; ?></b>
                         <noindex>
                         <a href="/order/?nproj=<?=$arItem['CODE']?>" style="padding:3px 5px; text-decoration:none; background:#aaa; color:white;"><?=GetMessage("BUY")?></a>

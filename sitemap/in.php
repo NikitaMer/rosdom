@@ -215,6 +215,7 @@ $data = '<?xml version="1.0" encoding="UTF-8"?>
 foreach ($linkz as $link) {
     $priority = explode('/', $link);
     if(count($priority) <= 3){
+        $t_l = $root_url.preg_replace("#/$#", "", $link);
      $data .=
         '<url>
             <loc>'.$root_url.preg_replace("#/$#", "", $link).'/</loc>
@@ -222,6 +223,7 @@ foreach ($linkz as $link) {
         </url>';
         $ar_xml += 1;
     } else if($priority[1] == ''){
+        $t_l = $root_url.$link;
         $data .=
         '<url>
             <loc>'.$root_url.$link.'</loc>
@@ -233,12 +235,14 @@ foreach ($linkz as $link) {
         $mass = array_pop($priority);
         if(!in_array($mass, $ar_items)){
             if(mb_strlen($mass) > 9){
+                $t_l = $root_url.$link;
                 $data .=
                 '<url>
                     <loc>'.$root_url.$link.'</loc>
                     <priority>0.9</priority>
                 </url>';
             } else {
+                $t_l = $root_url.'/'.$priority[1].'/'.$mass.'/';
                 $data .=
                 '<url>
                     <loc>'.$root_url.'/'.$priority[1].'/'.$mass.'/'.'</loc>
@@ -250,6 +254,7 @@ foreach ($linkz as $link) {
 
         $ar_items[] = $mass;
     } else {
+        $t_l = $root_url.$link;
         $data .=
         '<url>
             <loc>'.$root_url.$link.'</loc>
@@ -257,6 +262,9 @@ foreach ($linkz as $link) {
         </url>';
         $ar_xml += 1;
     }
+    $check_url = get_headers($t_l);
+    if (strpos($check_url[0],'200')) {}
+    else echo $t_l." - "."false";
     
 }
 $data .= '</urlset>';

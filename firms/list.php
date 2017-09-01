@@ -73,7 +73,7 @@ $APPLICATION->SetTitle("");
         while ($ar_result = $db_list->GetNext())  {
             if($ar_result["ID"]>0) $photoFilter[$i++] = ($ar_result["ID"]);
         }
-        //	echo "<pre>";	print_r($photoFilter);	echo "</pre>";
+        //    echo "<pre>";    print_r($photoFilter);    echo "</pre>";
 
         // РћРїРёСЃС‹РІР°РµРј С„РёР»СЊС‚СЂ РґР»СЏ Р’РёРґРµРѕ
         $videoFilter['ID'] = array();
@@ -121,9 +121,9 @@ $APPLICATION->SetTitle("");
             </div>
 
             <div class="secdes description"> 
-                <!--	<form action="#" class="form-choise-city"> 
+                <!--    <form action="#" class="form-choise-city"> 
                 <a class="add-company" href="/add/" >Добавить компанию</a> </form> 
-                -->	
+                -->    
 
                 <?
                     $APPLICATION->IncludeComponent("bitrix:news.list", "rosdom_firm_list", array(
@@ -593,7 +593,7 @@ $APPLICATION->SetTitle("");
                 $db_list = CIBlockSection::GetList(Array("SORT"=>"ASC", "NAME"=>"ASC"), Array("IBLOCK_ID"=>"25", "SECTION_ID"=>$arSection["ID"]), false, Array("UF_DESCSHORT"));
                 while($ar_result = $db_list->GetNext())
                 {
-                    //		echo $ar_result['ID'].' '.$ar_result['NAME'].': '.$ar_result['CODE'].'<br>';
+                    //        echo $ar_result['ID'].' '.$ar_result['NAME'].': '.$ar_result['CODE'].'<br>';
                 ?>
                 <div class="b-subsection">
 
@@ -623,9 +623,9 @@ $APPLICATION->SetTitle("");
                 /*
 
                 global $menutree_parent;
-                //				echo '<pre>';
-                //				print_r($menutree_parent);
-                //				echo '</pre>';
+                //                echo '<pre>';
+                //                print_r($menutree_parent);
+                //                echo '</pre>';
                 $cpu_link = '/';
                 for ($i = 1; $i <= count($menutree_parent); $i++) {if ($i < 4) $cpu_link .= $menutree_parent[$i]['CODE'].'/';}
                 //echo $cpu_link;

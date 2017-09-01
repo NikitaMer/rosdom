@@ -9,12 +9,12 @@ foreach($arResult["SECTIONS"] as $arSection):
 ?>
 <div class="b-subsection">
 	   <h2><a href="<?=$arSection["CODE"]?>/"><?if($arSection["UF_MENUTITLE"]) echo $arSection["UF_MENUTITLE"]; else echo $arSection["NAME"];?></a></h2>
-	   <figure>
+	   <!--figure>
 	   	   <figcaption>
 			<?=$arSection["DESCRIPTION"]?><br />
 			 <p class="more"><a href="<?=$arSection[SECTION_PAGE_URL]?>">Перейти к разделу</a></p>
 		  </figcaption>   
-	   </figure>
+	   </figure-->
 </div>
 <?endforeach?>
 <?endif;?>
