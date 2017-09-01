@@ -26,7 +26,7 @@ while($ar_result = $db_list->GetNext())
    
       <figcaption>
         <?echo $ar_result['DESCRIPTION'];?>
-         <p class="more"><a href="<?echo $ar_result["SECTION_PAGE_URL"]?>">Перейти к разделу</a></p>
+         <!--p class="more"><a href="<?echo $ar_result["SECTION_PAGE_URL"]?>">Перейти к разделу</a></p-->
 
       </figcaption>   
    </figure>

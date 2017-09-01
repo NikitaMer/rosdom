@@ -2,7 +2,7 @@
 $sSectionName = "Главная";
 $arDirProperties = array(
    "robots" => "index, follow",
-   "description" => "",
-   "keywords" => "",
+   "description" => "Каталог проектов на Rosdom.ru",
+   "keywords" => "rosdom",
 );
 ?>

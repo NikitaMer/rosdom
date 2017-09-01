@@ -182,7 +182,7 @@
                 
                $subsection = CIBlockSection::GetByID($arItem["~IBLOCK_SECTION_ID"])->GetNext();
                $section = CIBlockSection::GetByID($subsection["IBLOCK_SECTION_ID"])->GetNext(); 
-               //arshow($section);
+               
             ?><div class="bx_catalog_item" id="<? echo $strMainID; ?>" > 
                 <div class="bx_catalog_item_container min" > 
                     <a href="<? echo $arItem['DETAIL_PAGE_URL']; ?>"><img src="<? echo $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<? echo strip_tags(html_entity_decode($productTitle)) ?>" title="<? echo strip_tags(html_entity_decode($productTitle)) ?>" class="bx_catalog_item_img"></a>

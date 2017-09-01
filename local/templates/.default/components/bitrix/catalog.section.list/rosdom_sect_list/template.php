@@ -30,11 +30,11 @@ elseif (empty($_REQUEST["MAIN_SECTION_CODE"])) {
          if($arSection["DEPTH_LEVEL"] == 2):?>
        <div class="b-subsection">
        <h2><a href="<?=$arSection["CODE"]."/"?>"><?if($arSection["UF_MENUTITLE"]) echo $arSection["UF_MENUTITLE"]; else echo $arSection["NAME"];?></a></h2>
-    	    <figure>
+    	    <!--figure>
     	        <figcaption>	
     				 <p class="more"><a href="<?=$arSection["CODE"]."/"?>">Перейти к разделу</a></p>
-    		</figcaption>   
-    	    </figure>
+    		    </figcaption>   
+    	    </figure-->
 	</div>
        <?
        endif;
