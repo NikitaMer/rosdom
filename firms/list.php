@@ -521,7 +521,7 @@ $APPLICATION->SetTitle("");
             </div>
 
 
-            <div class="secdes description"> 
+            <!--div class="secdes description"> 
                 <?$APPLICATION->IncludeComponent("bitrix:news.list", "video_index", array(
                         "IBLOCK_TYPE" => "video",
                         "IBLOCK_ID" => "13",
@@ -577,7 +577,7 @@ $APPLICATION->SetTitle("");
                             "ACTIVE_COMPONENT" => "Y"
                         )
                     );?>
-            </div>
+            </div-->
 
         </div>
     </section>
