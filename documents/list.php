@@ -10,7 +10,7 @@ $APPLICATION->SetTitle("");
 		"SECTION_ID" => $_REQUEST["SECTION_ID"],
 		"SECTION_CODE" => $_REQUEST["SECTION_CODE"],
 		"COUNT_ELEMENTS" => "Y",
-		"TOP_DEPTH" => "2",
+		"TOP_DEPTH" => "1",
 		"SECTION_FIELDS" => array(
 			0 => "",
 			1 => "",
