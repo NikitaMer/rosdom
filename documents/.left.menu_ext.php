@@ -9,7 +9,7 @@ $aMenuLinksExt=$APPLICATION->IncludeComponent("rosdom:menu.sections", "", array(
 	"DETAIL_PAGE_URL" => "#CODE#/#ELEMENT_CODE#/",
 	"IBLOCK_TYPE" => "articles",
 	"IBLOCK_ID" => "15",
-	"DEPTH_LEVEL" => "3",
+	"DEPTH_LEVEL" => "2",
 	"CACHE_TYPE" => "A",
 	"CACHE_TIME" => "36000000"
 	),
