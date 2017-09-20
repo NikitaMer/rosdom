@@ -212,10 +212,12 @@ getArticlesSections(9, '/articles', 0);
 $ar_xml = 0;
 $data = '<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-foreach ($linkz as $link) {
+foreach ($linkz as $link) {    
     $priority = explode('/', $link);
     if(count($priority) <= 3){
         $t_l = $root_url.preg_replace("#/$#", "", $link);
+        $check_url = get_headers($t_l);
+        if (strpos($check_url[0],'404')) { continue; }
      $data .=
         '<url>
             <loc>'.$root_url.preg_replace("#/$#", "", $link).'/</loc>
@@ -224,6 +226,8 @@ foreach ($linkz as $link) {
         $ar_xml += 1;
     } else if($priority[1] == ''){
         $t_l = $root_url.$link;
+        $check_url = get_headers($t_l);
+        if (strpos($check_url[0],'404')) { continue; }
         $data .=
         '<url>
             <loc>'.$root_url.$link.'</loc>
@@ -236,6 +240,8 @@ foreach ($linkz as $link) {
         if(!in_array($mass, $ar_items)){
             if(mb_strlen($mass) > 9){
                 $t_l = $root_url.$link;
+                $check_url = get_headers($t_l);
+                if (strpos($check_url[0],'404')) { continue; }
                 $data .=
                 '<url>
                     <loc>'.$root_url.$link.'</loc>
@@ -243,6 +249,8 @@ foreach ($linkz as $link) {
                 </url>';
             } else {
                 $t_l = $root_url.'/'.$priority[1].'/'.$mass.'/';
+                $check_url = get_headers($t_l);
+                if (strpos($check_url[0],'404')) { continue; }
                 $data .=
                 '<url>
                     <loc>'.$root_url.'/'.$priority[1].'/'.$mass.'/'.'</loc>
@@ -255,17 +263,15 @@ foreach ($linkz as $link) {
         $ar_items[] = $mass;
     } else {
         $t_l = $root_url.$link;
+        $check_url = get_headers($t_l);
+        if (strpos($check_url[0],'404')) { continue; }
         $data .=
         '<url>
             <loc>'.$root_url.$link.'</loc>
             <priority>0.5</priority>
         </url>';
         $ar_xml += 1;
-    }
-    $check_url = get_headers($t_l);
-    if (strpos($check_url[0],'200')) {}
-    else echo $t_l." - "."false";
-    
+    }   
 }
 $data .= '</urlset>';
 echo '<br>total links: '.$ar_xml.'<br>';
