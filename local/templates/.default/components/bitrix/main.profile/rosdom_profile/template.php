@@ -175,10 +175,7 @@ document.getElementById('bx_auth_secure').style.display = 'inline-block';
 	</tr>
 <?endif?>
 	</tbody>
-</table>
-
-
-
+</table>   
 
 	<?// ********************* User properties ***************************************************?>
 	<?if($arResult["USER_PROPERTIES"]["SHOW"] == "Y"):?>

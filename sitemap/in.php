@@ -202,12 +202,12 @@ $linkz[] = '/articles';
 getArticlesSections(9, '/articles', 0);
 
 //faq
-//$linkz[] = '/faq';
-//getFaqSections(14, '/faq', 0);
+$linkz[] = '/faq';
+getFaqSections(14, '/faq', 0);
 
 //Проекты
-//$linkz[] = '/projects';
-//getCPUSections(IBLOCK_ID_PROJECT, '/projects', 0);
+$linkz[] = '/projects';
+getCPUSections(IBLOCK_ID_PROJECT, '/projects', 0);
 
 $ar_xml = 0;
 $data = '<?xml version="1.0" encoding="UTF-8"?>

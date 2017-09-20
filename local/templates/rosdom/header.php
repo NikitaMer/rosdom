@@ -64,14 +64,18 @@
     </div>
 
     <div class="authorization" style="z-index: 11">
-        <?$APPLICATION->IncludeComponent("bitrix:system.auth.form", "auth", array(
-                "REGISTER_URL" => "/personal/registration/",
-                "FORGOT_PASSWORD_URL" => "/personal/registration/forgot_pass.php",
-                "PROFILE_URL" => "/personal/profile/",
-                "SHOW_ERRORS" => "N"
-                ),
-                false
-            );?>
+        <?$APPLICATION->IncludeComponent(
+	"bitrix:system.auth.form", 
+	"auth", 
+	array(
+		"REGISTER_URL" => "/personal/registration/",
+		"FORGOT_PASSWORD_URL" => "/personal/registration/forgot_pass.php",
+		"PROFILE_URL" => "/personal/profile/",
+		"SHOW_ERRORS" => "N",
+		"COMPONENT_TEMPLATE" => "auth"
+	),
+	false
+);?>
 
     </div>
 

@@ -280,7 +280,7 @@
                                                   
     AddEventHandler("iblock", "OnBeforeIBlockElementAdd", Array("MyClass", "OnBeforeIBlockElementAddHandler"));
     AddEventHandler("main", "OnEpilog", "fixCatalogDuplication");
-    //AddEventHandler("main", "OnProlog", "LowerCase");
+    AddEventHandler("main", "OnProlog", "LowerCase");
     class MyClass                                
     {
         function OnBeforeIBlockElementAddHandler(&$arFields)
@@ -512,13 +512,4 @@
             "items_id"    => "menu",
             "items"       => array()
         );
-    }
-    
-    AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateTage");
-    function UpdateTage(&$arFields)
-    {
-        if($arFields["IBLOCK_ID"] == 37)
-        {
-
-        }
     }  
