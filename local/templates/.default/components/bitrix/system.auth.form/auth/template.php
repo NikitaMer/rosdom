@@ -7,16 +7,16 @@
         ?>
 <div class="usermenu" style="position:absolute; top:0px; right:0px; float_:right; border:1px dotted; padding:10px; width:240px; text-align:right;">
 
-Р’С‹ РІРѕС€Р»Рё РєР°Рє <a href="<?=$arResult["PROFILE_URL"]?>" title="<?=GetMessage("AUTH_PROFILE")?>"><?=$arResult["USER_NAME"]?></a><br /><br />
- <a href ="/personal/my/" >РњРѕРё РјР°С‚РµСЂРёР°Р»С‹</a><br />
-<div id="login_link"><span style="text-decoration:underline;" onclick="window.location='/?logout=yes'">Р’С‹С…РѕРґ</span></div>
+Вы вошли как <a href="<?=$arResult["PROFILE_URL"]?>" title="<?=GetMessage("AUTH_PROFILE")?>"><?=$arResult["USER_NAME"]?></a><br /><br />
+ <a href ="/personal/my/" >Мои материалы</a><br />
+<div id="login_link"><span style="text-decoration:underline;" onclick="window.location='/?logout=yes'">Выход</span></div>
 
 
 </div>
         <?
         else:
         ?>
-        <div id="login_link"><span style="text-decoration:underline;"  onclick="gray(); document.getElementById('login_form').style.display='block';">Р’РѕР№С‚Рё</span>&nbsp;</div>
+        <div id="login_link"><span style="text-decoration:underline;"  onclick="gray(); document.getElementById('login_form').style.display='block';">Войти</span>&nbsp;</div>
         <?global $loginError?>
         <?//if ($loginError == "Y"):?>
         <?if (strlen($arResult['ERROR']) >0 && $arResult['POST']['TYPE'] == 'AUTH'):?>
@@ -119,7 +119,7 @@ function SAFChangeAuthForm(v)
                 ?>
                     <tr>
                         <td style="valign:top"><input type="checkbox" id="USER_REMEMBER_frm" name="USER_REMEMBER" value="Y" /></td>
-                        <td style="width:100%"><label for="USER_REMEMBER_frm">&nbsp;<?='Р—Р°РїРѕРјРЅРёС‚СЊ РјРµРЅСЏ'?></label></td>
+                        <td style="width:100%"><label for="USER_REMEMBER_frm">&nbsp;<?='Запомнить меня'?></label></td>
                         <td style="align:right"><input type="submit" name="Login" value="<?=GetMessage("AUTH_LOGIN_BUTTON")?>" /></td>
                     </tr>
                 <?
@@ -141,7 +141,7 @@ function SAFChangeAuthForm(v)
                 }
                 ?>
                 <tr>
-                    <td><div>Р’РѕР№С‚Рё С‡РµСЂРµР·:</div></td>
+                    <td><div>Войти через:</div></td>
                     <td>                        
                         <?
                         $APPLICATION->IncludeComponent("bitrix:socserv.auth.form", "icons", 
@@ -166,18 +166,18 @@ function SAFChangeAuthForm(v)
                             <p>
                                 <?if (!$arResult["ERROR"]):?>
                                     <!--[if lt IE 8]><br/><![endif]--> 
-                <!--                    Р•СЃР»Рё Р’С‹ РЅРµ СЏРІР»СЏРµС‚РµСЃСЊ РЅР°С€РёРј 
-                                    РєР»РёРµРЅС‚РѕРј, РЅР°Р¶РјРёС‚Рµ 
-                                    РєРЅРѕРїРєСѓ <strong>"Р РµРіРёСЃС‚СЂР°С†РёСЏ"</strong>. <br/>
+                <!--                    Если Вы не являетесь нашим 
+                                    клиентом, нажмите 
+                                    кнопку <strong>"Регистрация"</strong>. <br/>
                                     <br/>
-                                    Р•СЃР»Рё Р’С‹ СѓР¶Рµ РїСЂРѕС…РѕРґРёР»Рё РїСЂРѕС†РµРґСѓСЂСѓ
-                                    СЂРµРіРёСЃС‚СЂР°С†РёРё РЅР° РЅР°С€РµРј СЃР°Р№С‚Рµ, 
-                                    РІРІРµРґРёС‚Рµ Р»РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ РІ Р±Р»РѕРєРµ 
-                                    СЃР»РµРІР°  Рё РЅР°Р¶РјРёС‚Рµ РєРЅРѕРїРєСѓ <strong>"Р’РѕР№С‚Рё"</strong>    -->
+                                    Если Вы уже проходили процедуру
+                                    регистрации на нашем сайте, 
+                                    введите логин и пароль в блоке 
+                                    слева  и нажмите кнопку <strong>"Войти"</strong>    -->
                                 <?else:?>
                                     <?global $loginError?>
                                     <?$loginError = "Y"?>
-                                    <?ShowError("Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, Р’С‹ РЅРµРІРµСЂРЅРѕ РІРІРµР»Рё Р»РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·.<br />РџСЂРѕРІРµСЂСЊС‚Рµ СЏР·С‹Рє РІРІРѕРґР°, Р° С‚Р°РєР¶Рµ С‡С‚Рѕ РєРЅРѕРїРєР° Caps-Lock РЅРµ РЅР°Р¶Р°С‚Р°.")?>
+                                    <?ShowError("К сожалению, Вы неверно ввели логин и пароль. Попробуйте еще раз.<br />Проверьте язык ввода, а также что кнопка Caps-Lock не нажата.")?>
                                 <?endif?>
                             </p>
                 <!--        </td>
