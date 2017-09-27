@@ -25,3 +25,15 @@ a:hover.Authlink
 color:red;
 font-weight:bold;
 }
+.form{
+    padding: 30px;
+}
+.form div {
+    padding-bottom: 1px;
+}
+.form_remember{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}

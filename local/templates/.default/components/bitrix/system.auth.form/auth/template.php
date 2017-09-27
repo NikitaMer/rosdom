@@ -77,7 +77,7 @@ function SAFChangeAuthForm(v)
 <div id="at_frm_bitrix" style="z-index:13;">
 <div style="width:272px; height:211px; background:url(/i/auth_form_bg.gif) no-repeat; position:relative; z-index:14;">
     <a style="position:absolute; top:2px; right:4px; cursor:pointer; color:#222 z-index:15;" onclick="javascript:document.getElementById('login_form').style.display='none';gray_hide();">[x]</a>
-    <div style="width:240px; float:left; height:181px; text-align:center; padding:40px 0 0 25px; z-index:15;">
+    <div style="height:181px; z-index:15;">
         <form method="post" target="_top" action="/personal/my/" <?//=$arResult["AUTH_URL"]?>>
             <?
             if (strlen($arResult["BACKURL"]) > 0)
@@ -98,30 +98,34 @@ function SAFChangeAuthForm(v)
             ?>
             <input type="hidden" name="AUTH_FORM" value="Y" />
             <input type="hidden" name="TYPE" value="AUTH" />
-            <table style="width:95%; text-align:left; padding-top:5px;">
-                    <tr>
-                        <td colspan="3">
-                        <?=GetMessage("AUTH_LOGIN")?>:<br />
-                        <input type="text" name="USER_LOGIN" maxlength="50" value="<?=$arResult["USER_LOGIN"]?>" size="17" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                        <?=GetMessage("AUTH_PASSWORD")?>:<br />
-                        <input type="password" name="USER_PASSWORD" maxlength="50" size="17" /></td>
-                    </tr>
-                    <tr>
-                   <!--     <td colspan="3" style="text-align:right;"><a class="Authlink" href="/personal/registration/forgot_pass.php"<?//=$arResult["AUTH_FORGOT_PASSWORD_URL"]?> rel="nofollow" ><?//=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a><br/><br/></td>  -->
-                    </tr>
+            <div class="form">
+                    <div>
+                        <div>
+                            <?=GetMessage("AUTH_LOGIN")?>:
+                        </div>
+                        <div>
+                            <input type="text" name="USER_LOGIN" maxlength="50" value="<?=$arResult["USER_LOGIN"]?>" size="17" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <?=GetMessage("AUTH_PASSWORD")?>:
+                        </div>
+                        <div>
+                            <input type="password" name="USER_PASSWORD" maxlength="50" size="17" />
+                        </div>
+                    </div>
+                    
                     
                 <?
                 if ($arResult["STORE_PASSWORD"] == "Y")
                 {
                 ?>
-                    <tr>
-                        <td style="valign:top"><input type="checkbox" id="USER_REMEMBER_frm" name="USER_REMEMBER" value="Y" /></td>
-                        <td style="width:100%"><label for="USER_REMEMBER_frm">&nbsp;<?='Запомнить меня'?></label></td>
-                        <td style="align:right"><input type="submit" name="Login" value="<?=GetMessage("AUTH_LOGIN_BUTTON")?>" /></td>
-                    </tr>
+                    <div class="form_remember">
+                        <div><input type="checkbox" id="USER_REMEMBER_frm" name="USER_REMEMBER" value="Y" /></div>
+                        <div><label for="USER_REMEMBER_frm">&nbsp;<?='Запомнить меня'?></label></div>
+                        <div><input type="submit" name="Login" value="<?=GetMessage("AUTH_LOGIN_BUTTON")?>" /></div>
+                    </div>
                 <?
                 }
                 ?>
@@ -129,20 +133,20 @@ function SAFChangeAuthForm(v)
                 if ($arResult["CAPTCHA_CODE"])
                 {
                 ?>
-                    <tr>
-                        <td colspan="3">
+                    <div>
+                        <div>
                             <?echo GetMessage("AUTH_CAPTCHA_PROMT")?>:<br />
                             <input type="hidden" name="captcha_sid" value="<?echo $arResult["CAPTCHA_CODE"]?>" />
                             <img src="/bitrix/tools/captcha.php?captcha_sid=<?echo $arResult["CAPTCHA_CODE"]?>" width="180" height="40" alt="CAPTCHA"><br /><br />
                             <input type="text" name="captcha_word" maxlength="50" value="" />
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 <?
                 }
                 ?>
-                <tr>
-                    <td><div>Войти через:</div></td>
-                    <td>                        
+                <div>
+                    <div><div>Войти через:</div></div>
+                    <div>                        
                         <?
                         $APPLICATION->IncludeComponent("bitrix:socserv.auth.form", "icons", 
                             array(
@@ -153,9 +157,9 @@ function SAFChangeAuthForm(v)
                             array("HIDE_ICONS"=>"Y")
                         );
                         ?>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
    <div style="width:240px; float:right; height:181px; display:none; text-align:center; padding:24px 14px 0 0; z-index:1500;">

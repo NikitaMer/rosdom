@@ -73,16 +73,16 @@ document.getElementById('bx_auth_secure<?=$arResult["RND"]?>').style.display = '
 		<tr>
 			<td colspan="2">
 				<div class="bx-auth-lbl"><?=GetMessage("socserv_as_user_form")?></div>
-<?
-$APPLICATION->IncludeComponent("bitrix:socserv.auth.form", "icons", 
-	array(
-		"AUTH_SERVICES"=>$arResult["AUTH_SERVICES"],
-		"SUFFIX"=>"form",
-	), 
-	$component, 
-	array("HIDE_ICONS"=>"Y")
-);
-?>
+                <?
+                $APPLICATION->IncludeComponent("bitrix:socserv.auth.form", "icons", 
+	                array(
+		                "AUTH_SERVICES"=>$arResult["AUTH_SERVICES"],
+		                "SUFFIX"=>"form",
+	                ), 
+	                $component, 
+	                array("HIDE_ICONS"=>"Y")
+                );
+                ?>
 			</td>
 		</tr>
 <?endif?>

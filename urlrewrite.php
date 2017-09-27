@@ -88,14 +88,14 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
 		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
 		"ID" => "",
-		"PATH" => "/articles/list.php",
+		"PATH" => "",
 		"SORT" => "100",
 	),
 	array(
 		"CONDITION" => "#^/firms/([a-zA-Z_\\-]+)/\\?{0,1}(.*)\$#",
 		"RULE" => "/firms/detail.php?ELEMENT_CODE=\\1&\\2",
 		"ID" => "",
-		"PATH" => "",
+		"PATH" => "/articles/list.php",
 		"SORT" => "100",
 	),
 	array(
